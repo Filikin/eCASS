@@ -1,0 +1,19 @@
+<apex:page standardController="Contact" extensions="EnrolmentListController" recordSetVar="students" tabStyle="Enrolment__c">
+	<apex:form >
+		<apex:pageBlock >
+	 		<apex:pageMessages />
+	 		<apex:pageBlockButtons >
+	 			<apex:outputLabel value="Service" style="font-weight:Bold;padding-right:10px;" for="selectService"/>
+	            <apex:selectList id="selectService" value="{!serviceRequired}" size="1">
+    				<apex:selectOptions value="{!services}"/> 
+  				</apex:selectList>
+	 			<apex:commandButton value="Enroll in Service" action="{!save}"/>		
+	 			<apex:commandButton value="Cancel" action="{!cancel}"/>
+	 		</apex:pageBlockButtons>
+	 		<apex:pageBlockTable value="{!Rows}" var="oneRow">
+	 			<apex:column value="{!oneRow.Young_Person__c}" />
+	 			<apex:column value="{!oneRow.Comment__c}"/>
+	 		</apex:pageBlockTable>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

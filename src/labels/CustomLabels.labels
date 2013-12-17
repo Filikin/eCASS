@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Care_Plan_Administration_title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Care Plan Administration title</shortDescription>
+        <value>Care Plan Administration</value>
+    </labels>
+    <labels>
+        <fullName>Care_Plan_Objective</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Care Plan Objective</shortDescription>
+        <value>Care Plan Objective</value>
+    </labels>
+    <labels>
+        <fullName>Care_plan</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Care plan</shortDescription>
+        <value>Care plan</value>
+    </labels>
+    <labels>
+        <fullName>Care_plan_objectives</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Care plan objectives</shortDescription>
+        <value>Care plan objectives</value>
+    </labels>
+    <labels>
+        <fullName>Care_plan_steps</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Care plan steps</shortDescription>
+        <value>Care plan steps</value>
+    </labels>
+    <labels>
+        <fullName>Client</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Client</shortDescription>
+        <value>client</value>
+    </labels>
+    <labels>
+        <fullName>Comment</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Comment</shortDescription>
+        <value>Comment: Reasons achieved or not!</value>
+    </labels>
+    <labels>
+        <fullName>Date</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Date</shortDescription>
+        <value>Date</value>
+    </labels>
+    <labels>
+        <fullName>Date_completed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Date completed</shortDescription>
+        <value>Date completed</value>
+    </labels>
+    <labels>
+        <fullName>Date_objective_set</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Date objective set</shortDescription>
+        <value>Date objective set</value>
+    </labels>
+    <labels>
+        <fullName>Description</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>Drug_and_Alcohol_Use_title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Drug and Alcohol Use title</shortDescription>
+        <value>Drug and Alcohol Use</value>
+    </labels>
+    <labels>
+        <fullName>Goal</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Goal</shortDescription>
+        <value>Goal</value>
+    </labels>
+    <labels>
+        <fullName>How_will_progress_be_measured</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>How will progress be measured</shortDescription>
+        <value>How will progress be measured</value>
+    </labels>
+    <labels>
+        <fullName>Lead_agency</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Lead agency</shortDescription>
+        <value>Lead agency</value>
+    </labels>
+    <labels>
+        <fullName>Lead_key_worker</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Lead key worker</shortDescription>
+        <value>Lead key worker</value>
+    </labels>
+    <labels>
+        <fullName>Legal_Problems_title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Legal Problems title</shortDescription>
+        <value>Legal Problems</value>
+    </labels>
+    <labels>
+        <fullName>Next_review_date</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Next review date</shortDescription>
+        <value>Next review date</value>
+    </labels>
+    <labels>
+        <fullName>Objective_Status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Objective Status</shortDescription>
+        <value>Objective Status</value>
+    </labels>
+    <labels>
+        <fullName>Objective_and_timescale</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Objective and timescale</shortDescription>
+        <value>Objective and timescale</value>
+    </labels>
+    <labels>
+        <fullName>Organisation_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Organisation Name</shortDescription>
+        <value>eCASS</value>
+    </labels>
+    <labels>
+        <fullName>Outcome</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Outcome</shortDescription>
+        <value>Outcome</value>
+    </labels>
+    <labels>
+        <fullName>Person_Responsible_for_Action</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Person_Responsible_for_Action</shortDescription>
+        <value>Person Responsible for Action</value>
+    </labels>
+    <labels>
+        <fullName>Physical_and_Psychological_Problems_title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Physical and Psychological Problems title</shortDescription>
+        <value>Physical and Psychological Problems</value>
+    </labels>
+    <labels>
+        <fullName>Print</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Print</shortDescription>
+        <value>Print</value>
+    </labels>
+    <labels>
+        <fullName>Related_Organisation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Related_Organisation</shortDescription>
+        <value>Related Organisation</value>
+    </labels>
+    <labels>
+        <fullName>Risk_Assessment_title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Risk Assessment title</shortDescription>
+        <value>Risk Assessment</value>
+    </labels>
+    <labels>
+        <fullName>RulesOn</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RulesOn</shortDescription>
+        <value>1</value>
+    </labels>
+    <labels>
+        <fullName>Social_Functioning_title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Social Functioning title</shortDescription>
+        <value>Social Functioning</value>
+    </labels>
+    <labels>
+        <fullName>Step_Status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Step_Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>Step_Status_Comment</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Step_Status_Comment</shortDescription>
+        <value>Status Comment</value>
+    </labels>
+    <labels>
+        <fullName>Step_name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Step name</shortDescription>
+        <value>Step name</value>
+    </labels>
+    <labels>
+        <fullName>Support_Agencies</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Support Agencies</shortDescription>
+        <value>Support Agencies</value>
+    </labels>
+    <labels>
+        <fullName>Support_Agencies_working_with</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Support Agencies working with</shortDescription>
+        <value>Support Agencies working with</value>
+    </labels>
+    <labels>
+        <fullName>Time_frame</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Time frame</shortDescription>
+        <value>Time frame</value>
+    </labels>
+    <labels>
+        <fullName>Work_to_be_done_to_achieve_objective</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Work to be done to achieve objective</shortDescription>
+        <value>Work to be done to achieve objective</value>
+    </labels>
+</CustomLabels>

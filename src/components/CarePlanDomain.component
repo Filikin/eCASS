@@ -1,0 +1,58 @@
+<apex:component controller="CarePlanDomainController">
+	<apex:attribute name="oneCarePlanGoal" description="One goal for this domain" type="ecass01__Care_Plan_Objective__c" assignTo="{!carePlanGoal}"/>
+	<apex:attribute name="admin" description="Hide some fields if admin is true" type="Boolean" default="false" assignTo="{!adminFlag}"/>
+                <table class="detailList">
+                	<tr>
+                        <th style="width:94px" class="headerRow"></th>
+                        <th style="width:170px" class="headerRow"></th>
+                        <th style="width:94px" class="headerRow"></th>
+                        <th style="width:170px" class="headerRow"></th>
+                        <th style="width:94px" class="headerRow"></th>
+                        <th style="width:170px" class="headerRow"></th>
+                    </tr>
+					<tr>
+						<td class="labelCol">{!$ObjectType.Care_Plan_Objective__c.Fields.Name.Label}</td><td class="dataCol" style="width:170px"><apex:OutputField value="{!oneCarePlanGoal.name}" style="width:170px"/></td>
+						<td class="labelCol">{!$ObjectType.Care_Plan_Objective__c.Fields.Objective_and_Timescale__c.Label}</td><td class="dataCol" style="width:170px"><apex:OutputField value="{!oneCarePlanGoal.Objective_and_Timescale__c}" style="width:170px"/></td>
+						<td class="labelCol">{!$ObjectType.Care_Plan_Objective__c.Fields.Objective_Status__c.Label}</td><td class="dataCol" style="width:170px"><apex:OutputField value="{!oneCarePlanGoal.Objective_Status__c}" style="width:170px"/></td>
+					</tr>
+					<tr>
+						<td class="labelCol">{!$ObjectType.Care_Plan_Objective__c.Fields.Date_objective_set__c.Label}</td><td class="dataCol" style="width:170px"><apex:OutputField value="{!oneCarePlanGoal.Date_objective_set__c}" style="width:170px"/></td>
+						<td class="labelCol">{!$ObjectType.Care_Plan_Objective__c.Fields.Next_Review_Date__c.Label}</td><td class="dataCol" style="width:170px"><apex:OutputField value="{!oneCarePlanGoal.Next_Review_Date__c}" style="width:170px"/></td>
+						<td class="labelCol">{!$ObjectType.Care_Plan_Objective__c.Fields.Date_completed__c.Label}</td><td class="dataCol" style="width:170px"><apex:OutputField value="{!oneCarePlanGoal.Date_completed__c}" style="width:170px"/></td>
+					</tr>
+					<apex:outputPanel layout="none" rendered="{!adminFlag = false}">	
+					<tr>
+						<td class="labelCol">{!$ObjectType.Care_Plan_Objective__c.Fields.How_will_progress_be_measured__c.Label}</td><td class="dataCol" style="width:170px"><apex:OutputField value="{!oneCarePlanGoal.How_will_progress_be_measured__c}" style="width:170px"/></td>
+						<td class="labelCol">{!$ObjectType.Care_Plan_Objective__c.Fields.Tools_used__c.Label}</td><td class="dataCol" style="width:170px"><apex:OutputField value="{!oneCarePlanGoal.Tools_used__c}" style="width:170px"/></td>
+						<td class="labelCol">{!$ObjectType.Care_Plan_Objective__c.Fields.Latest_Outcome__c.Label}</td><td class="dataCol" style="width:170px"><apex:OutputField value="{!oneCarePlanGoal.Latest_Outcome__c}" style="width:170px"/></td>
+					</tr>
+					<tr>
+						<td class="labelCol">{!$ObjectType.Care_Plan_Objective__c.Fields.Lead_Agency_name__c.Label}</td><td class="dataCol" style="width:170px"><apex:OutputField value="{!oneCarePlanGoal.Lead_Agency_name__c}" style="width:170px"/></td>
+					</tr>
+					</apex:outputPanel>
+				</table>
+				<apex:dataTable value="{!oneCarePlanGoal.ecass01__Care_plan_steps__r}" var="oneCarePlanStep" cellpadding="3px">
+					<apex:column width="110px"></apex:column>
+		      		<apex:column >
+				        <apex:facet name="header"><div style="text-align: left" class="labelCol">{!$ObjectType.Care_plan_step__c.Fields.Description__c.Label}</div></apex:facet>
+						<apex:outputField value="{!oneCarePlanStep.Description__c}"/>
+					</apex:column>
+		      		<apex:column >
+				        <apex:facet name="header"><div style="text-align: left" class="labelCol headerCol">{!$ObjectType.Care_plan_step__c.Fields.Date__c.Label}</div></apex:facet>
+				        <apex:outputField value="{!oneCarePlanStep.Date__c}"/>
+					</apex:column>
+		      		<apex:column >
+				        <apex:facet name="header"><div style="text-align: left" class="labelCol headerCol">{!$ObjectType.Care_plan_step__c.Fields.Person_Responsible_for_Action__c.Label}</div></apex:facet>
+				        <apex:outputField value="{!oneCarePlanStep.Person_Responsible_for_Action__c}"/>
+					</apex:column>
+		      		<apex:column >
+				        <apex:facet name="header"><div style="text-align: left" class="labelCol headerCol">{!$ObjectType.Care_plan_step__c.Fields.Status__c.Label}</div></apex:facet>
+				        <apex:outputField value="{!oneCarePlanStep.Status__c}"/>
+					</apex:column>
+		      		<apex:column >
+				        <apex:facet name="header"><div style="text-align: left" class="labelCol headerCol">{!$ObjectType.Care_plan_step__c.Fields.Status_Comment__c.Label}</div></apex:facet>
+				        <apex:outputField value="{!oneCarePlanStep.Status_Comment__c}"/>
+					</apex:column>
+				</apex:dataTable>
+				<hr/>
+</apex:component>

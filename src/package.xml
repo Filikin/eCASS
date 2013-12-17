@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>*</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexComponent</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>Contact.Age__c</members>
+        <members>Contact.AreaRes__c</members>
+        <members>Contact.Area__c</members>
+        <members>Contact.Area_of_Residence_and_Reg_Code__c</members>
+        <members>Contact.CCA__c</members>
+        <members>Contact.Case_Worker_Phone__c</members>
+        <members>Contact.Case_Worker__c</members>
+        <members>Contact.CentreNO__c</members>
+        <members>Contact.Client_ID__c</members>
+        <members>Contact.Client_Number__c</members>
+        <members>Contact.Consent_to_share_with_other_agencies__c</members>
+        <members>Contact.Contact_Type__c</members>
+        <members>Contact.Counsellor__c</members>
+        <members>Contact.Date_of_Contact__c</members>
+        <members>Contact.EDLEVEL__c</members>
+        <members>Contact.EDUCAGE__c</members>
+        <members>Contact.EDUCATION__c</members>
+        <members>Contact.EMPLOYMENT__c</members>
+        <members>Contact.Education_Level__c</members>
+        <members>Contact.EmployCode__c</members>
+        <members>Contact.Ethnic__c</members>
+        <members>Contact.Full_name__c</members>
+        <members>Contact.GP_Phone__c</members>
+        <members>Contact.GP__c</members>
+        <members>Contact.GP_name_from_other_agency__c</members>
+        <members>Contact.Gender_Code__c</members>
+        <members>Contact.Gender__c</members>
+        <members>Contact.HSE_area__c</members>
+        <members>Contact.Is_NOK_aware_of_issue__c</members>
+        <members>Contact.Key_Worker_Phone__c</members>
+        <members>Contact.Key_Worker__c</members>
+        <members>Contact.LHO__c</members>
+        <members>Contact.LIVING__c</members>
+        <members>Contact.LIVWHERE__c</members>
+        <members>Contact.Languages__c</members>
+        <members>Contact.Level__c</members>
+        <members>Contact.Member_of_staff__c</members>
+        <members>Contact.NOK_from_other_agency__c</members>
+        <members>Contact.NUMBER__c</members>
+        <members>Contact.Nationality__c</members>
+        <members>Contact.Next_of_Kin__c</members>
+        <members>Contact.Next_of_Kin_mobile_phone__c</members>
+        <members>Contact.Number_of_completed_Treatment__c</members>
+        <members>Contact.OTHEMPLOY__c</members>
+        <members>Contact.PPS__c</members>
+        <members>Contact.Presenting_Issues__c</members>
+        <members>Contact.Probation_Officer_Phone__c</members>
+        <members>Contact.Probation_Officer__c</members>
+        <members>Contact.Purpose_of_Contact_Drug_Alcohol_Related__c</members>
+        <members>Contact.Record_Valid__c</members>
+        <members>Contact.Referred_By_Note__c</members>
+        <members>Contact.Referred_By_Other_Service__c</members>
+        <members>Contact.Referred_By__c</members>
+        <members>Contact.RegCode__c</members>
+        <members>Contact.Social_worker_Phone__c</members>
+        <members>Contact.Social_worker__c</members>
+        <members>Contact.Staff_Member__c</members>
+        <members>Contact.TFA__c</members>
+        <members>Contact.X10a_Nationality_Other__c</members>
+        <members>Contact.X10a_Nationality__c</members>
+        <members>Contact.X10b_Ethnic_Background__c</members>
+        <members>Contact.X11_Employement_Status__c</members>
+        <members>Contact.X11_Employement_Status_other__c</members>
+        <members>Contact.X12a_Age_left_primary_school__c</members>
+        <members>Contact.X12b_Education_highest_level__c</members>
+        <members>Contact.X4_Gender__c</members>
+        <members>Contact.X7a_Living_with_whom__c</members>
+        <members>Contact.X7b_Livin_Where__c</members>
+        <members>Contact.X8a_Area_of_Residence__c</members>
+        <members>Contact.X8b_Community_Care_Area__c</members>
+        <members>Contact.X9_City_County__c</members>
+        <members>Contact.nation__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomLabels</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>Logo</members>
+        <members>Logo/ENCLUDE_Technologies_for_nonprofit_excellence_logo.jpg</members>
+        <name>Document</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>HomePageComponent</name>
+    </types>
+    <types>
+        <members>eCASS Layout</members>
+        <name>HomePageLayout</name>
+    </types>
+    <types>
+        <members>Area_of_Residence_Old__c-Area of Residence Layout</members>
+        <members>Assessment_NF__c-Assessment %28National Framework%29 Layout</members>
+        <members>Attendance__c-Attendance Layout</members>
+        <members>CRA_Goal__c-CRA Goal Layout</members>
+        <members>CRA__c-CRA Layout</members>
+        <members>Care_Plan_Objective__c-Care Plan Objective Layout</members>
+        <members>Care_plan_step__c-Care plan step Layout</members>
+        <members>Contact-HRB Contact Layout</members>
+        <members>Drop_in_Attendance__c-Drop-in Attendance Layout</members>
+        <members>Drop_in__c-Drop-in Layout</members>
+        <members>Drug_HRB__c-Drug Layout</members>
+        <members>Enrolment__c-Participant Layout</members>
+        <members>Event-Event Layout</members>
+        <members>HRB_Report__c-HRB Report Layout</members>
+        <members>Nations__c-Nation Layout</members>
+        <members>Needle_Exchange__c-NSP Intervention Layout</members>
+        <members>Needle_Syringe_Stock__c-Needle %26 Syringe Stock Layout</members>
+        <members>Open_Access_attendance__c-Open Access attendance Layout</members>
+        <members>Program_Service__c-Program Service Layout</members>
+        <members>Program_Session__c-Program Session Layout</members>
+        <members>Support_agency_working_with_client__c-Support agency working with client Layout</members>
+        <members>Treatment_Centre__c-Treatment Centre Layout</members>
+        <members>Treatment__c-Treatment Layout 2012</members>
+        <members>Use_Pattern_Chart__c-Use Pattern Chart Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Contact.Client</members>
+        <name>RecordType</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>StaticResource</name>
+    </types>
+    <types>
+        <members>Contact.Client_Homeless</members>
+        <members>Contact.Employment_status_other_specified</members>
+        <members>Contact.Nationality_Other_Specified</members>
+        <name>ValidationRule</name>
+    </types>
+    <types>
+        <members>Contact.Care_Plan_Overview</members>
+        <members>Contact.Enroll_in_course</members>
+        <members>Contact.View_care_plan</members>
+        <name>WebLink</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Workflow</name>
+    </types>
+    <version>29.0</version>
+</Package>

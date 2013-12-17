@@ -1,0 +1,1803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Age__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK( Birthdate ), 99, FLOOR((TODAY()-Birthdate)/365.2425))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>If not known, Code 99</inlineHelpText>
+        <label>AGE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AreaRes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Area_of_Residence_and_Reg_Code__r.Area_Code__c</formula>
+        <label>AreaRes</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Area__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>LEFT(TEXT(HSE_area__c), 2)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Area</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Area_of_Residence_and_Reg_Code__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Area of Residence and Reg Code</label>
+        <referenceTo>Area_of_Residence_Old__c</referenceTo>
+        <relationshipLabel>Contacts</relationshipLabel>
+        <relationshipName>Contacts</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CCA__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Area_of_Residence_and_Reg_Code__r.CCA__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CCA</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Worker_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case_Worker__r.MobilePhone</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Worker Phone</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Worker__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Case Worker</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Contacts (Case Worker)</relationshipLabel>
+        <relationshipName>Contacts1</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CentreNO__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>&quot;13687&quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CentreNo</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Client ID</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <description>207125{yy}{00000}</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Format: YY00000
+Last number: click Custom Link (left bar) Last Client Numbers</inlineHelpText>
+        <label>Client Number: 207125</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Consent_to_share_with_other_agencies__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Consent to share with other agencies</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Contact Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Key Worker</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Case Worker</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Counsellor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Probation Officer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social worker</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Counsellor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Counsellor</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Contacts2</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Date_of_Contact__c</fullName>
+        <externalId>false</externalId>
+        <label>Date of Contact</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EDLEVEL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Case(X12b_Education_highest_level__c,
+&quot;0. Primary Level incomplete&quot;,&quot;0&quot;,
+&quot;1. Primary level&quot;,&quot;1&quot;,
+&quot;2. Junior cert&quot;,&quot;2&quot;,
+&quot;3. Leaving Cert&quot;,&quot;3&quot;,
+&quot;4. Third Level&quot;,&quot;4&quot;,
+&quot;5. Never went to school&quot;,&quot;5&quot;,
+&quot;6. Special needs education&quot;,&quot;6&quot;,
+&quot;8. Still in education&quot;,&quot;8&quot;,
+&quot;9&quot;)</formula>
+        <label>EDLEVEL</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EDUCAGE__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>X12a_Age_left_primary_school__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EDUCAGE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EDUCATION__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Case(X12b_Education_highest_level__c,
+&quot;0. Primary Level incomplete&quot;,&quot;0&quot;,
+&quot;1. Primary level&quot;,&quot;1&quot;,
+&quot;2. Junior cert&quot;,&quot;2&quot;,
+&quot;3. Leaving Cert&quot;,&quot;3&quot;, 
+&quot;4. Third Level&quot;,&quot;4&quot;, 
+&quot;5. Never went to school&quot;,&quot;5&quot;, 
+&quot;6. Special needs education&quot;,&quot;6&quot;, 
+&quot;8. Still in education&quot;,&quot;8&quot;, 
+&quot;9&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EDUCATION</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EMPLOYMENT__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Case( X11_Employement_Status__c, 
+&quot;1. In paid employment&quot;,&quot;1&quot;,
+&quot;2. Unemployed&quot;,&quot;2&quot;, 
+&quot;3. Fas/training course&quot;,&quot;3&quot;, 
+&quot;4. Student&quot;,&quot;4&quot;,
+&quot;5. Housewife/husband&quot;,&quot;5&quot;, 
+&quot;6. Retired/unable to work&quot;,&quot;6&quot;,
+&quot;8. Other (specify)&quot;,&quot;8&quot;,
+&quot;9&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EMPLOYMENT</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Education_Level__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Education Level</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1.	None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2.	Primary School</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3.	Intermediate/Junior Certificate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4.	Leaving Certificate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5.	Technical/Vocational Training - Level 5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6.	Completed Apprenticeship/Higher Certificate - Level 6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7.	Certificate/Diploma - Level 7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.	Honours Degree - Level 8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9.	Masters</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10.	Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>EmployCode__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Case( X11_Employement_Status__c,
+&quot;1. In paid employment&quot;,&quot;1&quot;,
+&quot;2. Unemployed&quot;,&quot;2&quot;,
+&quot;3 Fas/training course&quot;,&quot;3&quot;,
+&quot;4. Student&quot;,&quot;4&quot;,
+&quot;5. Housewife/husband&quot;,&quot;5&quot;,
+&quot;6. Retired/unable to work&quot;,&quot;6&quot;,
+&quot;8. Other (specify)&quot;,&quot;8&quot;,
+&quot;9&quot;)</formula>
+        <label>EmployCode</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ethnic__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Case(X10b_Ethnic_Background__c, 
+&quot;1. White Irish&quot;, &quot;1&quot;,
+&quot;2. White Irish Traveller&quot;,&quot;2&quot;, 
+&quot;3. Any other white background&quot;,&quot;3&quot;,
+&quot;4. Black African background&quot;,&quot;4&quot;,
+&quot;5. Any other black background&quot;,&quot;5&quot;,
+&quot;6. Chinese background&quot;,&quot;6&quot;,
+&quot;7. Any other Asian background&quot;,&quot;7&quot;, 
+&quot;8. Other&quot;,&quot;8&quot;,
+&quot;9&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Ethnic</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Full_name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>FirstName &amp; &quot; &quot; &amp; LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Full name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GP_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>GP__r.MobilePhone</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GP Phone</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GP__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>GP</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Contacts (GP)</relationshipLabel>
+        <relationshipName>ContactsGP</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GP_name_from_other_agency__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>GP name from other agency</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gender_Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Case( X4_Gender__c,
+&quot;Male&quot;, &quot;1&quot;, 
+&quot;Female&quot;, &quot;2&quot;,
+&quot;9&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gender</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gender__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Gender Obsolete</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Male</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Female</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Male child</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Female child</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HSE_area__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>HSE area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>03 HSE Southern Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>04 HSE North Western Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>05 HSE Midland Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>06 HSE Western Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>07 HSE Mid Western Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>08 HSE North Eastern Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>09 HSE South Eastern Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>11 HSE East Coast Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>12 HSE South Western Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>13 HSE Northern Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Is_NOK_aware_of_issue__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Is the Next of Kin aware of drug use or contact with this service?</inlineHelpText>
+        <label>Is NOK aware of issue</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Key_Worker_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Key_Worker__r.MobilePhone</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Key Worker Phone</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Key_Worker__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Key Worker</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Contacts (Key Worker)</relationshipLabel>
+        <relationshipName>Contacts</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LHO__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Area_of_Residence_and_Reg_Code__r.LHO__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LHO</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LIVING__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Case(  X7a_Living_with_whom__c ,
+
+&quot;1. Alone&quot;, &quot;1&quot;,
+&quot;2. Parents/family&quot;, &quot;2&quot;,
+&quot;3. Friends&quot;, &quot;3&quot;,
+&quot;4. Partner (alone)&quot;, &quot;4&quot;,
+&quot;5. Partner &amp; Child(ren)&quot;, &quot;5&quot;,
+&quot;6. Alone with child(ren)&quot;, &quot;6&quot;,
+&quot;7. Other&quot;, &quot;7&quot;,
+&quot;8. Foster Care&quot;, &quot;8&quot;,
+&quot;9&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LIVING</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LIVWHERE__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Case(  X7b_Livin_Where__c ,
+&quot;1. Stable Accommodation&quot; , &quot;1&quot;,
+&quot;2. Institution(prison/residential care/halfway house)&quot; , &quot;2&quot;,
+&quot;3. Homeless&quot; , &quot;3&quot;,
+&quot;4. Other unstable accommodation&quot; , &quot;4&quot;,
+&quot;9&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LIVWHERE</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Languages__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Languages</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Level__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Level</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Secondary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tertiary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Primary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Member_of_staff__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Member of staff</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>NOK_from_other_agency__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>NOK from other agency</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NUMBER__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>$Setup.eCASS_settings__c.Organisation_Name__c &amp; Client_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NUMBER</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nationality__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>CASE(   X10a_Nationality__c  , 
+&quot;1. Irish&quot;, &quot;1&quot;,
+&quot;2. Other&quot;,&quot;2&quot;,
+&quot;3. Irish traveller&quot;,&quot;3&quot;,
+&quot;9&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nationality</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Next_of_Kin__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Next of Kin</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Contacts (Next of Kin)</relationshipLabel>
+        <relationshipName>ContactsNOK</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Next_of_Kin_mobile_phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Next_of_Kin__r.MobilePhone</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Next of Kin mobile phone</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_completed_Treatment__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Number of completed Treatment</label>
+        <summaryFilterItems>
+            <field>Treatment__c.Treatment_Type_Number__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Treatment__c.X37_Date_of_Final_Discharge__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>1/1/2013</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Treatment__c.Contact__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>OTHEMPLOY__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>X11_Employement_Status_other__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>OTHEMPLOY</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PPS__c</fullName>
+        <externalId>false</externalId>
+        <label>PPS</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Presenting_Issues__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What this person says is their issue</inlineHelpText>
+        <label>Presenting Issues</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Drug</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alcohol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Drug and Alcohol</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Concerned Person</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Probation_Officer_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Probation_Officer__r.MobilePhone</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Probation Officer Phone</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Probation_Officer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Probation Officer</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Contacts (Probation Officer)</relationshipLabel>
+        <relationshipName>Contacts2</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Purpose_of_Contact_Drug_Alcohol_Related__c</fullName>
+        <externalId>false</externalId>
+        <label>Purpose of Contact: Drug/Alcohol Related</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Record_Valid__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if (isnull( Birthdate ),&quot;No birth date&quot;, 
+if(Age__c &lt; 13 || Age__c &gt; 85, &quot;Age invalid&quot;,  
+if(ispickval(X4_Gender__c,&quot;&quot;),&quot;No gender&quot;,
+if(ispickval(X7a_Living_with_whom__c ,&quot;&quot;) ,&quot;7a invalid&quot;,
+if(ispickval(X7b_Livin_Where__c ,&quot;&quot;) , &quot;7b invalid&quot;,
+if(isblank(Area_of_Residence_and_Reg_Code__c),&quot;Area of res invalid&quot;,
+if(ispickval(X10a_Nationality__c,&quot;&quot; ),&quot;10a invalid&quot;, 
+if(ispickval(X10b_Ethnic_Background__c,&quot;&quot; ),&quot;10b invalid&quot;,
+if(ispickval(X11_Employement_Status__c,&quot;&quot; ),&quot;11 invalid&quot;, 
+if(AND(TEXT(X11_Employement_Status__c) &lt;&gt; &quot;8. Other (specify)&quot;, NOT(ISBLANK(X11_Employement_Status_other__c))),&quot;11 Employment status other, only required when Q11 = 8. Other (specify)&quot;,
+if(X12a_Age_left_primary_school__c &lt;= 0,&quot;12a invalid&quot;, 
+if(ispickval(X12b_Education_highest_level__c,&quot;&quot; ),&quot;12b invalid&quot;,
+&quot;HRB OK&quot;))))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Record Valid</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Referred_By_Note__c</fullName>
+        <externalId>false</externalId>
+        <label>Referred By Note</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Referred_By_Other_Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Referred By Other Service</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Contacts</relationshipLabel>
+        <relationshipName>Contacts</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Referred_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Referred By</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mother</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Father</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brother</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sister</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Friend</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Family</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other Service</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RegCode__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Area_of_Residence_and_Reg_Code__r.RegCode__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RegCode</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Social_worker_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Social_worker__r.MobilePhone</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Social worker Phone</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Social_worker__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Social worker</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Contacts (Social worker)</relationshipLabel>
+        <relationshipName>Contacts3</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Staff_Member__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>The staff person who was first contact with this client</inlineHelpText>
+        <label>Staff Member</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Contacts</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TFA__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Area_of_Residence_and_Reg_Code__r.TFA__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>TFA</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X10a_Nationality_Other__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>10a. Nationality Other</label>
+        <referenceTo>Nations__c</referenceTo>
+        <relationshipLabel>Contacts (10a. Nationality Other)</relationshipLabel>
+        <relationshipName>Contacts1</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>X10a_Nationality__c</fullName>
+        <deprecated>false</deprecated>
+        <description>1. Irish     3. Irish traveller   2. Other   9. Not known</description>
+        <externalId>false</externalId>
+        <inlineHelpText>1. Irish     3. Irish traveller   2. Other   9. Not known</inlineHelpText>
+        <label>10a. Nationality</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1. Irish</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3. Irish traveller</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2. Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9. Not known</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>X10b_Ethnic_Background__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>10b. Ethnic Background</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1. White Irish</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2. White Irish Traveller</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3. Any other white background</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4. Black African background</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5. Any other black background</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6. Chinese background</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7. Any other Asian background</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8. Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9. Do not wish to answer this question</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>X11_Employement_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>11. Employement Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1. In paid employment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2. Unemployed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3. Fas/training course</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4. Student</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5. Housewife/husband</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6. Retired/unable to work</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8. Other (specify)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9. Not Known</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>X11_Employement_Status_other__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If 8. Other above please specify</inlineHelpText>
+        <label>11. Employement Status other</label>
+        <length>90</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X12a_Age_left_primary_school__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Year left school (not third level)
+01. Never went to school
+88. Still at school
+99. Not known</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Year left school (not third level)
+01. Never went to school
+88. Still at school
+99. Not known</inlineHelpText>
+        <label>12a. Age left primary/secondary school</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X12b_Education_highest_level__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>12b. Education highest level</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0. Primary Level incomplete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1. Primary level</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2. Junior cert</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3. Leaving Cert</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4. Third Level</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5. Never went to school</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6. Special needs education</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8. Still in education</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9. Not known</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>X4_Gender__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>1. Male
+2. Female</inlineHelpText>
+        <label>4. Gender</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Male</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Female</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Male child</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Female child</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>X7a_Living_with_whom__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>7a. Living with whom?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1. Alone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2. Parents/family</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3. Friends</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4. Partner (alone)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5. Partner &amp; Child(ren)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6. Alone with child(ren)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7. Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8. Foster Care</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9. Not known</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>X7b_Livin_Where__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>7b. Living Where?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1. Stable Accommodation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2. Institution(prison/residential care/halfway house)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3. Homeless</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4. Other unstable accommodation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9. Not Known</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>X8a_Area_of_Residence__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Area_of_Residence_and_Reg_Code__r.Area_Code__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>8a. Area of Residence</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X8b_Community_Care_Area__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Area_of_Residence_and_Reg_Code__r.CCA__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>8b. Community Care Area</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X9_City_County__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Area_of_Residence_and_Reg_Code__r.RegCode__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>9. City/County</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>nation__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF( OR( TEXT(X10a_Nationality__c) = &quot;1. Irish&quot; ,
+
+TEXT( X10a_Nationality__c ) = &quot;3. Irish traveller&quot;),
+
+&quot;IRL&quot;,
+
+IF(TEXT( X10a_Nationality__c ) = &quot;9. Not known&quot;, &quot;ZZZ&quot;,
+
+
+X10a_Nationality_Other__r.NationCode__c))</formula>
+        <label>nation</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <recordTypes>
+        <fullName>Client</fullName>
+        <active>true</active>
+        <description>Clients</description>
+        <label>Client</label>
+        <picklistValues>
+            <picklist>Contact_Type__c</picklist>
+            <values>
+                <fullName>Case Worker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Counsellor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Key Worker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Probation Officer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social worker</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Education_Level__c</picklist>
+            <values>
+                <fullName>1%2E%09None</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>10%2E%09Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2%2E%09Primary School</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3%2E%09Intermediate%2FJunior Certificate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4%2E%09Leaving Certificate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5%2E%09Technical%2FVocational Training - Level 5</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6%2E%09Completed Apprenticeship%2FHigher Certificate - Level 6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>7%2E%09Certificate%2FDiploma - Level 7</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>8%2E%09Honours Degree - Level 8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>9%2E%09Masters</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Gender__c</picklist>
+            <values>
+                <fullName>Female</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Female child</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Male</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Male child</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>HSE_area__c</picklist>
+            <values>
+                <fullName>03 HSE Southern Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>04 HSE North Western Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>05 HSE Midland Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>06 HSE Western Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>07 HSE Mid Western Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>08 HSE North Eastern Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>09 HSE South Eastern Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>11 HSE East Coast Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>12 HSE South Western Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>13 HSE Northern Area</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LeadSource</picklist>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partner Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone Inquiry</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchased List</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Level__c</picklist>
+            <values>
+                <fullName>Primary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Secondary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tertiary</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Name</picklist>
+            <values>
+                <fullName>Dr%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mr%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mrs%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ms%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Prof%2E</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Presenting_Issues__c</picklist>
+            <values>
+                <fullName>Alcohol</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Concerned Person</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drug</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drug and Alcohol</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Person</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Referred_By__c</picklist>
+            <values>
+                <fullName>Brother</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Father</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Friend</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mother</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Family</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sister</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X10a_Nationality__c</picklist>
+            <values>
+                <fullName>1%2E Irish</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2%2E Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3%2E Irish traveller</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>9%2E Not known</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X10b_Ethnic_Background__c</picklist>
+            <values>
+                <fullName>1%2E White Irish</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2%2E White Irish Traveller</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3%2E Any other white background</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4%2E Black African background</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5%2E Any other black background</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6%2E Chinese background</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>7%2E Any other Asian background</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>8%2E Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>9%2E Do not wish to answer this question</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X11_Employement_Status__c</picklist>
+            <values>
+                <fullName>1%2E In paid employment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2%2E Unemployed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3%2E Fas%2Ftraining course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4%2E Student</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5%2E Housewife%2Fhusband</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6%2E Retired%2Funable to work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>8%2E Other %28specify%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>9%2E Not Known</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X12b_Education_highest_level__c</picklist>
+            <values>
+                <fullName>0%2E Primary Level incomplete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>1%2E Primary level</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2%2E Junior cert</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3%2E Leaving Cert</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4%2E Third Level</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5%2E Never went to school</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6%2E Special needs education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>8%2E Still in education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>9%2E Not known</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X4_Gender__c</picklist>
+            <values>
+                <fullName>Female</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Male</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X7a_Living_with_whom__c</picklist>
+            <values>
+                <fullName>1%2E Alone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2%2E Parents%2Ffamily</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3%2E Friends</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4%2E Partner %28alone%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5%2E Partner %26 Child%28ren%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6%2E Alone with child%28ren%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>7%2E Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>8%2E Foster Care</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>9%2E Not known</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X7b_Livin_Where__c</picklist>
+            <values>
+                <fullName>1%2E Stable Accommodation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2%2E Institution%28prison%2Fresidential care%2Fhalfway house%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3%2E Homeless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4%2E Other unstable accommodation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>9%2E Not Known</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <validationRules>
+        <fullName>Client_Homeless</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(TEXT(X7b_Livin_Where__c) = &quot;3. Homeless&quot;,
+TEXT(X7a_Living_with_whom__c) &lt;&gt; &quot;7. Other&quot;)</errorConditionFormula>
+        <errorMessage>If the client is homeless or in an institution, please, select Q7a = &quot;7. Other&quot;.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Employment_status_other_specified</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( TEXT( X11_Employement_Status__c ) = &quot;8. Other (specify)&quot; , ISBLANK( X11_Employement_Status_other__c ))</errorConditionFormula>
+        <errorDisplayField>X11_Employement_Status_other__c</errorDisplayField>
+        <errorMessage>If Employment status = 8. Other (specify), please complete Q11 Employment Status other</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Nationality_Other_Specified</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(TEXT( X10a_Nationality__c ) = &quot;2. Other&quot;,  ISBLANK( X10a_Nationality_Other__c ))</errorConditionFormula>
+        <errorDisplayField>X10a_Nationality_Other__c</errorDisplayField>
+        <errorMessage>If 2, please complete 10a Nationality Other</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Care_Plan_Overview</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Care Plan Overview</masterLabel>
+        <openType>replace</openType>
+        <page>CarePlanOverview</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Enroll_in_course</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Enroll in course</masterLabel>
+        <openType>sidebar</openType>
+        <page>EnrolmentListPage</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>View_care_plan</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>View care plan</masterLabel>
+        <openType>replace</openType>
+        <page>CarePlanPage</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

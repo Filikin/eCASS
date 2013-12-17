@@ -1,0 +1,49 @@
+<apex:page standardController="Contact" extensions="ViewCarePlanExtension" >
+	<apex:form >
+    <apex:pageBlock id="thePageBlock" title="{!$Label.Care_plan} for {!Contact.Name}">
+	   	<apex:pageBlockButtons >
+    		<apex:commandButton value="{!$Label.Print}" action="{!printCarePlan}"/>
+    	</apex:pageBlockButtons>
+        <apex:pageblock id="Supportagencies" title="{!$Label.Support_Agencies_working_with} {!Contact.Name}"  >
+            <apex:pageBlockTable value="{!Contact.ecass01__Support_agencies_working_with_client__r}" var="sa" rendered="{!NOT(ISNULL(Contact.ecass01__Support_agencies_working_with_client__r))}">
+                <apex:column value="{!sa.Name}"/>
+                <apex:column value="{!sa.Support_agency__c}"/>
+                <apex:column value="{!sa.Contact_name__c}"/>
+                <apex:column value="{!sa.Contact_type__c}"/>
+                <apex:column value="{!sa.Telephone_number__c}"/>
+                <apex:column value="{!sa.Email__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageblock>       
+    	<apex:pageBlock title="{!$Label.Care_Plan_Administration_title}">
+	  		<apex:repeat value="{!CarePlanGoalsAdmin}" var="oneCarePlanGoal">
+	    		<c:CarePlanDomain oneCarePlanGoal="{!oneCarePlanGoal}" admin="true"/>
+	 		</apex:repeat>
+ 		</apex:pageBlock>
+    	<apex:pageBlock title="{!$Label.Drug_and_Alcohol_Use_title}">
+	  		<apex:repeat value="{!CarePlanGoalsDrugAlcoholUse}" var="oneCarePlanGoal">
+	    		<c:CarePlanDomain oneCarePlanGoal="{!oneCarePlanGoal}"/>
+	 		</apex:repeat>
+ 		</apex:pageBlock>
+  		<apex:pageBlock title="{!$Label.Physical_and_Psychological_Problems_title}">
+	  		<apex:repeat value="{!carePlanGoalsPhysical}" var="oneCarePlanGoal">
+	    		<c:CarePlanDomain oneCarePlanGoal="{!oneCarePlanGoal}"/>
+	 		</apex:repeat>
+	 	</apex:pageBlock>
+ 		<apex:pageBlock title="{!$Label.Legal_Problems_title}">
+	  		<apex:repeat value="{!carePlanGoalsLegal}" var="oneCarePlanGoal">
+	    		<c:CarePlanDomain oneCarePlanGoal="{!oneCarePlanGoal}"/>
+	 		</apex:repeat>
+	 	</apex:pageBlock>
+ 		<apex:pageBlock title="{!$Label.Social_Functioning_title}">
+	  		<apex:repeat value="{!carePlanGoalsSocial}" var="oneCarePlanGoal">
+	    		<c:CarePlanDomain oneCarePlanGoal="{!oneCarePlanGoal}"/>
+	 		</apex:repeat>
+	 	</apex:pageBlock>
+ 		<apex:pageBlock title="{!$Label.Risk_Assessment_title}">
+	  		<apex:repeat value="{!carePlanGoalsRisk}" var="oneCarePlanGoal">
+	    		<c:CarePlanDomain oneCarePlanGoal="{!oneCarePlanGoal}"/>
+	 		</apex:repeat>
+	 	</apex:pageBlock>
+	</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,79 @@
+<apex:page standardController="Contact" extensions="ViewCarePlan">
+    <apex:form >
+    <apex:pageBlock id="thePageBlock" title="{!$Label.Care_plan} for {!Contact.Name}">
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Print" action="{!printCarePlan}"/>
+        </apex:pageBlockButtons>
+        <apex:pageblock id="Supportagencies" title="{!$Label.Support_Agencies} working with {!$Label.Client}"  >
+            <apex:pageBlockTable value="{!Contact.Support_agencies_working_with_client__r}" var="sa" rendered="{!NOT(ISNULL(Contact.Support_agencies_working_with_client__r))}">
+                <apex:column value="{!sa.Name}"/>
+                <apex:column value="{!sa.Support_agency__c}"/>
+                <apex:column value="{!sa.Contact_name__c}"/>
+                <apex:column value="{!sa.Contact_type__c}"/>
+                <apex:column value="{!sa.Telephone_number__c}"/>
+                <apex:column value="{!sa.Email__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageblock>       
+        <apex:pageBlock title="{!$Label.Care_plan_objectives}" >
+            <apex:repeat value="{!CarePlanObjectives}" var="oneCarePlanObjective">
+                <apex:pageBlock title="{!$Label.Care_Plan_Objective}: {!oneCarePlanObjective.Name}">
+                    <table>
+                    <col width="22%"/>
+                    <col width="33%"/>
+                    <col width="11%"/>
+                    <col width="11%"/>
+                    <col width="11%"/>
+                    <col width="11%"/>
+                    <tr>
+                    <td><strong>{!$Label.Date_objective_set}:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Date_objective_set__c}   " /></td>
+                    <td><strong>{!$Label.Next_review_date}:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Next_Review_Date__c}   " /></td>
+                    <td><strong>{!$Label.Date_completed}:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Date_completed__c}" /></td>
+                    </tr>
+                    <tr>
+                    <td><strong>{!$Label.Lead_agency}:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Lead_Agency_name__c}   " /></td>
+                    <td><strong>{!$Label.Lead_key_worker}:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Lead_Key_Worker_name__c}" /></td>
+                    </tr>
+                    <tr><td><strong>{!$Label.Objective_Status}:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Objective_Status__c}"/></td></tr>
+                    <tr><td><strong>{!$Label.Objective_and_timescale}:</strong> </td><td><apex:outputText value=" {!oneCarePlanObjective.Objective_and_Timescale__c}"/></td></tr>
+                    <tr><td><strong>{!$Label.Time_frame}:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Time_Frame_short__c}"/></td></tr>
+                    <tr><td><strong>{!$Label.How_will_progress_be_measured}:</strong> </td><td><apex:outputText value=" {!oneCarePlanObjective.How_will_progress_be_measured__c}"/></td></tr>
+                    <tr><td><strong>{!$Label.Work_to_be_done_to_achieve_objective}:</strong> </td><td><apex:outputText value=" {!oneCarePlanObjective.Work_to_be_done_to_achieve_objective__c}"/></td></tr>   
+                    <tr><td><strong>{!$Label.Outcome}:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Outcome__c}"/></td></tr>
+                    <tr><td><strong>{!$Label.Comment}</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Comment_Reasons_achieved_or_not__c}"/></td></tr>
+                    </table>
+                    <apex:outputPanel layout="none" rendered="{!oneCarePlanObjective.Care_plan_steps__r.size != 0}">
+                        <apex:pageBlockSection title="{!$Label.Care_plan_steps}" columns="1">
+                            <apex:repeat value="{!oneCarePlanObjective.Care_plan_steps__r}" var="oneCarePlanStep">
+                                <apex:outputPanel layout="none">
+                                	<table>
+					                    <col width="20%"/>
+					                    <col width="30%"/>
+					                    <col width="10%"/>
+					                    <col width="40%"/>
+                                		<tr>
+											<td><strong>{!$Label.Step_name}:</strong></td><td><apex:outputField value=" {!oneCarePlanStep.Name}"/></td>
+		                                    <td><strong>{!$Label.Date}:</strong></td><td><apex:outputText value=" {!oneCarePlanStep.Date__c}"/></td>
+		                                </tr>
+		                                <tr>
+		                                	<td><strong>{!$Label.Person_Responsible_for_Action}:</strong></td><td><apex:outputText value=" {!oneCarePlanStep.Person_Responsible_for_Action__c}"/></td>
+		                                    <td><strong>{!$Label.Step_Status}:</strong></td><td><apex:outputText value=" {!oneCarePlanStep.Status__c}"/></td>
+		                                </tr>
+		                                <tr>
+		                                	<td><strong>{!$Label.Related_Organisation}:</strong></td><td><apex:outputText value=" {!oneCarePlanStep.Related_Organisation__c}"/></td>
+                                     		<td><strong>{!$Label.Step_Status_Comment}:</strong></td><td><apex:outputText value=" {!oneCarePlanStep.Status_Comment__c}"/></td>
+                                     	</tr>
+                                     	<tr>
+											<td><strong>{!$Label.Description}:</strong></td><td colspan="3"><apex:outputText value=" {!oneCarePlanStep.Description__c}"/></td>
+                                     	</tr>
+                                     </table>
+	                            </apex:outputPanel>
+								<hr/>
+                            </apex:repeat>
+                        </apex:pageBlockSection>
+                    </apex:outputPanel>
+                </apex:pageBlock>
+            </apex:repeat>
+        </apex:pageBlock>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>
