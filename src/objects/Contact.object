@@ -1750,8 +1750,9 @@ X10a_Nationality_Other__r.NationCode__c))</formula>
     <validationRules>
         <fullName>Client_Homeless</fullName>
         <active>true</active>
-        <errorConditionFormula>AND(TEXT(X7b_Livin_Where__c) = &quot;3. Homeless&quot;,
+        <errorConditionFormula>AND( OR(TEXT(X7b_Livin_Where__c) = &quot;3. Homeless&quot;,TEXT(X7b_Livin_Where__c) = &quot;2. Institution(prison/residential care/halfway house)&quot;),
 TEXT(X7a_Living_with_whom__c) &lt;&gt; &quot;7. Other&quot;)</errorConditionFormula>
+        <errorDisplayField>X7a_Living_with_whom__c</errorDisplayField>
         <errorMessage>If the client is homeless or in an institution, please, select Q7a = &quot;7. Other&quot;.</errorMessage>
     </validationRules>
     <validationRules>

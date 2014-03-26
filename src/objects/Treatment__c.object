@@ -3608,16 +3608,6 @@ CASE(  X18b_Reason_removed_from_waiting_list__c  ,
                 <controllingFieldValues>6. Acute hospital service excluding A&amp;E</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
-            <picklistValues>
-                <fullName>8. Other</fullName>
-                <controllingFieldValues>13. Prison</controllingFieldValues>
-                <controllingFieldValues>15. Mental health liaison nurse at A&amp;E</controllingFieldValues>
-                <controllingFieldValues>17. Mental health facility (including psychiatrist)</controllingFieldValues>
-                <controllingFieldValues>4. Other drug treatment centre</controllingFieldValues>
-                <controllingFieldValues>5. General practitioner</controllingFieldValues>
-                <controllingFieldValues>6. Acute hospital service excluding A&amp;E</controllingFieldValues>
-                <default>false</default>
-            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>false</trackHistory>
@@ -3908,7 +3898,6 @@ If 2, Stop, Ensure Q14 is complete, send form to HRB</inlineHelpText>
             </picklistValues>
             <picklistValues>
                 <fullName>8. Not applicable</fullName>
-                <controllingFieldValues>1. Alcohol</controllingFieldValues>
                 <controllingFieldValues>2. Illicit drug</controllingFieldValues>
                 <controllingFieldValues>3. Licit drug</controllingFieldValues>
                 <controllingFieldValues>4. Other problem</controllingFieldValues>
@@ -6126,10 +6115,12 @@ ISBLANK( TEXT(X15b_If_client_referred__c )))</errorConditionFormula>
         <fullName>Q15b_other_specify</fullName>
         <active>true</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c,  X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
-TEXT( X15b_If_client_referred__c ) = &quot;8. Other&quot;,  
-ISBLANK( X15b8_Other_specify__c )  )</errorConditionFormula>
+OR(AND( TEXT( X15b_If_client_referred__c ) &lt;&gt; &quot;8. Other (specify)&quot;,  
+NOT (ISBLANK(  X15b8_Other_specify__c  ))),  
+AND( TEXT( X15b_If_client_referred__c ) = &quot;8. Other (specify)&quot;,  
+ISBLANK(  X15b8_Other_specify__c  ))))</errorConditionFormula>
         <errorDisplayField>X15b8_Other_specify__c</errorDisplayField>
-        <errorMessage>If 8, please complete Q15b Other specify</errorMessage>
+        <errorMessage>If Q15b is equal to &quot;8. other specify&quot;, Q15b8 is required, else it must be BLACK</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Q16_Q17_Dates_in_sequential_order</fullName>
@@ -6144,10 +6135,11 @@ X16_Date_of_Assessment__c &gt;  X17c_Date_assessment_criteria_fulfilled__c)</err
         <fullName>Q17_Assessment_Outcome_required</fullName>
         <active>true</active>
         <description>Not Concerned Person</description>
-        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, NOT(ISBLANK( TEXT(X14_Main_Reason_for_referral__c ) ) ),X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
-NOT(ISBLANK( TEXT(X15_Source_of_referral__c ) ) ),
-NOT(ISBLANK( X16_Date_of_Assessment__c ) ),
-ISBLANK( TEXT(X17a_Assessment_outcome__c ) ) )</errorConditionFormula>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, NOT(ISBLANK( TEXT(X14_Main_Reason_for_referral__c ) ) ),
+X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
+NOT(ISBLANK( TEXT(X15_Source_of_referral__c ))),
+AND (NOT(ISBLANK( X16_Date_of_Assessment__c ) ),
+ISBLANK( TEXT(X17a_Assessment_outcome__c ))))</errorConditionFormula>
         <errorDisplayField>X17a_Assessment_outcome__c</errorDisplayField>
         <errorMessage>Q17 must be completed for all clients who reach this question.</errorMessage>
     </validationRules>

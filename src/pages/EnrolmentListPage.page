@@ -7,7 +7,7 @@
 	            <apex:selectList id="selectService" value="{!serviceRequired}" size="1">
     				<apex:selectOptions value="{!services}"/> 
   				</apex:selectList>
-	 			<apex:commandButton value="Enroll in Service" action="{!save}"/>		
+	 			<apex:commandButton value="Enroll in Service" action="{!save}" disabled="{!not(canCreateEnrolments)}"/>		
 	 			<apex:commandButton value="Cancel" action="{!cancel}"/>
 	 		</apex:pageBlockButtons>
 	 		<apex:pageBlockTable value="{!Rows}" var="oneRow">

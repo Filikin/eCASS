@@ -1,7 +1,7 @@
 /*
 	Author: Eamon Kelly, Enclude
 	Purpose: Standalone page to allow multiple students to be added to courses
-	Called from: EnrolmentListPage
+	Called from: EnrolmentListPage - which is called from a list view on the contact
 */
 global with sharing class EnrolmentListController 
 {
@@ -9,7 +9,8 @@ global with sharing class EnrolmentListController
 	private List<Enrolment__c> enrolments;
 	private List<Program_Service__c> services;
 	public string serviceRequired {get;set;}
-	
+	public Boolean canCreateEnrolments {get;set;}
+		
 	public EnrolmentListController(ApexPages.StandardSetController stdSetController) 
 	{
     	studentList = (List<Contact>)stdSetController.getSelected();
@@ -24,7 +25,8 @@ global with sharing class EnrolmentListController
 
 	public void Initialise ()
 	{
-		services = [select ID, Name from Program_Service__c limit 1000];
+		canCreateEnrolments = Schema.sObjectType.Enrolment__c.isCreateable();
+		services = [select ID, Name from Program_Service__c where Status_of_Course__c != 'Completed' order by Name limit 1000];
     	studentList = [select ID, Name from Contact where id in :studentList order by Name];
     	CreateRows ();
 	}	

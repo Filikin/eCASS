@@ -5,14 +5,19 @@
 */
 trigger CreateAttendencesOnNewSession on Program_Session__c (after insert) 
 {
-    private Program_Session__c[] newSessions =Trigger.new;
     private Attendance__c[] attendances = new Attendance__c[0];
-	if (trigger.new.size() < 10) // not required for mass import
+    
+    set <Id> servicesSet = new set <Id>();
+    for (Program_Session__c sNew: Trigger.new)
+    {
+    	servicesSet.add (sNew.Program_Service__c);
+    }
+    map <Id, Program_Service__c> servicesMap = new map <Id, Program_Service__c>([select Id, (select Id, Young_Person__c from Participants__r where Status_on_Programme__c = 'Active') from Program_Service__c where Id in :servicesSet]);
+	if (trigger.new.size() < 50) // not required for mass import
 	{
-	    For (Program_Session__c sNew: newSessions)
+	    for (Program_Session__c sNew: Trigger.new)
 	    {
-	        Enrolment__c [] youngPeople = [select Young_Person__c from Enrolment__c where Program_Service__c = :sNew.Program_Service__c and Status_on_Programme__c = 'Active'];
-	        for (Enrolment__c onePersonEnrolment: youngPeople)
+	        for (Enrolment__c onePersonEnrolment: servicesMap.get(sNew.Program_Service__c).Participants__r)
 	        {
 	            Attendance__c oneAttended = new Attendance__c (Young_Person__c=onePersonEnrolment.Young_Person__c, Program_Session__c=sNew.id, Enrolment__c=onePersonEnrolment.id);
 	            attendances.add (oneAttended);
