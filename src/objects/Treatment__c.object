@@ -30,7 +30,9 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
+        <content>NewHRBFormPage</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>SaveEdit</actionName>
@@ -1300,6 +1302,16 @@ Case(X22_Ever_previously_treated_re_drug__c,
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date_latest_intervention_commenced__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This will be populated by a trigger and will be the max of the date commenced fields</inlineHelpText>
+        <label>Date latest intervention commenced</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
     </fields>
     <fields>
         <fullName>Drug_Valid_Table_2012__c</fullName>
@@ -3380,6 +3392,18 @@ CASE(  X18b_Reason_removed_from_waiting_list__c  ,
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>X14_Main_Drug_Problem_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>X14_Main_Reason_for_Referral_Drug__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>14 Main Drug Problem Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>X14_Main_Reason_for_Referral_Drug__c</fullName>
@@ -6092,14 +6116,14 @@ OR( ISBLANK(X28e_Preferred_types_of_alcohol_consumed__c  ),
     </validationRules>
     <validationRules>
         <fullName>Q13_Q16_Dates_in_sequential_order</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, X13_Date_of_Referral__c  &gt;  X16_Date_of_Assessment__c)</errorConditionFormula>
         <errorDisplayField>X16_Date_of_Assessment__c</errorDisplayField>
         <errorMessage>Please check dates in sequential order, Q13 &lt;=Q16</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Q15b_must_be_completed</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 OR( TEXT( X15_Source_of_referral__c ) = &quot;4. Other drug treatment centre&quot;,
 TEXT( X15_Source_of_referral__c ) = &quot;5. General practitioner&quot;,
@@ -6113,7 +6137,7 @@ ISBLANK( TEXT(X15b_If_client_referred__c )))</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>Q15b_other_specify</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c,  X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 OR(AND( TEXT( X15b_If_client_referred__c ) &lt;&gt; &quot;8. Other (specify)&quot;,  
 NOT (ISBLANK(  X15b8_Other_specify__c  ))),  
@@ -6124,7 +6148,7 @@ ISBLANK(  X15b8_Other_specify__c  ))))</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>Q16_Q17_Dates_in_sequential_order</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
 TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 X16_Date_of_Assessment__c &gt;  X17c_Date_assessment_criteria_fulfilled__c)</errorConditionFormula>
@@ -6133,7 +6157,7 @@ X16_Date_of_Assessment__c &gt;  X17c_Date_assessment_criteria_fulfilled__c)</err
     </validationRules>
     <validationRules>
         <fullName>Q17_Assessment_Outcome_required</fullName>
-        <active>true</active>
+        <active>false</active>
         <description>Not Concerned Person</description>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, NOT(ISBLANK( TEXT(X14_Main_Reason_for_referral__c ) ) ),
 X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
@@ -6145,7 +6169,7 @@ ISBLANK( TEXT(X17a_Assessment_outcome__c ))))</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>Q17b_Assessment_criterion_fulfilled</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c,  X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 NOT(ISBLANK( X16_Date_of_Assessment__c )),
 TEXT(X17a_Assessment_outcome__c ) = &quot;1. Suitable for treatment&quot;, 
@@ -6155,7 +6179,7 @@ ISBLANK( TEXT (  X17b_Assessment_criterion_fulfilled__c ) ) )</errorConditionFor
     </validationRules>
     <validationRules>
         <fullName>Q17c_Date_assessment_criterion_fulfilled</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 NOT(ISBLANK( X16_Date_of_Assessment__c )),
 TEXT( X17a_Assessment_outcome__c ) = &quot;1. Suitable for treatment&quot;, 
@@ -6182,7 +6206,7 @@ X16_Date_of_Assessment__c  &gt;   X21b_Date_substitution_started__c)</errorCondi
     </validationRules>
     <validationRules>
         <fullName>Q18a_3_Transferred_to_another_site</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 NOT(ISBLANK( X16_Date_of_Assessment__c )),
 TEXT( X17a_Assessment_outcome__c )  &lt;&gt; &quot;2. Unsuitable for treatment&quot;,
@@ -6193,7 +6217,7 @@ ISBLANK( X18a3_Specify_Transferred__c )  )</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>Q18a_Clients_treatment_status_fullfilled</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;, 
 NOT(ISBLANK( X16_Date_of_Assessment__c )),
 TEXT( X17a_Assessment_outcome__c ) = &quot;1. Suitable for treatment&quot; ,
@@ -6204,7 +6228,7 @@ ISBLANK( TEXT( X18a_Clients_treatment_status__c ) ) )</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>Q18b4_Specify_client_transferred</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 TEXT( X18b_Reason_removed_from_waiting_list__c ) = &quot;4. Client transferred/commenced treatment with another centre&quot;,
 ISBLANK(   X18b4_Client_transferred_specify_centre__c  ) )</errorConditionFormula>
@@ -6213,7 +6237,7 @@ ISBLANK(   X18b4_Client_transferred_specify_centre__c  ) )</errorConditionFormul
     </validationRules>
     <validationRules>
         <fullName>Q18b9_Other_specify</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 TEXT( X18b_Reason_removed_from_waiting_list__c ) = &quot;9. Other (specify)&quot;,
 ISBLANK( X18b9_Other_specify__c ) )</errorConditionFormula>
@@ -6222,7 +6246,7 @@ ISBLANK( X18b9_Other_specify__c ) )</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>Q18b_Reason_removed_from_waiting_list</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 OR(
 TEXT( X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;,
@@ -6233,7 +6257,7 @@ TEXT( X18a_Clients_treatment_status__c ) =  &quot;6. Placed on other drug treatm
     </validationRules>
     <validationRules>
         <fullName>Q19_Accepted_place</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 NOT(ISBLANK( X16_Date_of_Assessment__c )),
 TEXT( X17a_Assessment_outcome__c) = &quot;1. Suitable for treatment&quot;,

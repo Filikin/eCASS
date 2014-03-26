@@ -365,6 +365,7 @@ public with sharing class HRBReportController
         insert testDrug;
         
         Treatment__c testTreatment = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2010-01-04'), X37_Date_of_Final_Discharge__c =date.valueOf('2011-07-03'));
+ 		testTreatment.X21a_Date_This_treatment_started__c = date.valueOf('2011-01-01');
         testTreatment.X34_outcome_for_main_treatment__c = '1. Treatment completed';
         testTreatment.X36_Client_s_Condition_on_discharge__c = '1. stable';
         testTreatment.X33b1_Date_Commenced__c = date.valueOf('2011-01-01');
@@ -412,6 +413,7 @@ public with sharing class HRBReportController
         insert testTreatment;
         
         Treatment__c testTreatment2 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-01-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2011-07-04'));
+ 		testTreatment2.X21a_Date_This_treatment_started__c = date.valueOf('2011-01-01');
        testTreatment2.X14_Main_Reason_for_Referral_Drug__c = testDrug.id;
        testTreatment2.X34_outcome_for_main_treatment__c = '1. Treatment completed';
         testTreatment2.X36_Client_s_Condition_on_discharge__c = '1. stable';
@@ -460,6 +462,7 @@ public with sharing class HRBReportController
         insert testTreatment2;
 
         Treatment__c testTreatment3 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-5-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-12-04'));
+ 		testTreatment3.X21a_Date_This_treatment_started__c = date.valueOf('2011-05-06');
         testTreatment3.X34_outcome_for_main_treatment__c = '1. Treatment completed';
         testTreatment3.X36_Client_s_Condition_on_discharge__c = '1. stable';
         testTreatment3.X33b1_Date_Commenced__c = date.valueOf('2011-05-06');
@@ -507,6 +510,7 @@ public with sharing class HRBReportController
         insert testTreatment3;
 
         Treatment__c testTreatment4 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2010-1-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-09-04'));
+ 		testTreatment4.X21a_Date_This_treatment_started__c = date.valueOf('2011-01-06');
          testTreatment4.X14_Main_Reason_for_Referral_Drug__c = testDrug.id;
          testTreatment4.X34_outcome_for_main_treatment__c = '1. Treatment completed';
         testTreatment4.X33b1_Date_Commenced__c = date.valueOf('2011-01-06');

@@ -25,5 +25,12 @@ public class TriggerDispatcher
 			activeFunction.MainEntry (TriggerObject, isBefore, isDelete, isAfter, isInsert, isUpdate, isExecuting, newList, newMap, oldList, oldMap);
 			InTrigger = false;
 		}
+		else if (TriggerObject == 'Treatment')
+		{
+			InTrigger = true;
+			activeFunction = new TreatmentFormsTriggerClass();
+			activeFunction.MainEntry (TriggerObject, isBefore, isDelete, isAfter, isInsert, isUpdate, isExecuting, newList, newMap, oldList, oldMap);
+			InTrigger = false;
+		}
 	}
 }

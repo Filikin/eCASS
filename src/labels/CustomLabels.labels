@@ -92,6 +92,13 @@
         <value>Goal</value>
     </labels>
     <labels>
+        <fullName>HRB_Form_Open_Msg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HRB Form Open Msg</shortDescription>
+        <value>You cannot open a new HRB Form until all the other HRB Forms on this client are closed</value>
+    </labels>
+    <labels>
         <fullName>How_will_progress_be_measured</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -139,6 +146,13 @@
         <protected>true</protected>
         <shortDescription>Objective and timescale</shortDescription>
         <value>Objective and timescale</value>
+    </labels>
+    <labels>
+        <fullName>OpenHRBFormsTitle</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OpenHRBFormsTitle</shortDescription>
+        <value>Open Forms, click one to go to it</value>
     </labels>
     <labels>
         <fullName>Organisation_Name</fullName>

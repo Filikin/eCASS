@@ -1,0 +1,8 @@
+<apex:page standardController="Treatment__c" extensions="CheckForOpenHRBFormsController"	action="{!countOpenHRBForms}">
+	<apex:pageMessages />
+	<apex:pageBlock title="{!$Label.OpenHRBFormsTitle}">
+	    <apex:pageBlockTable value="{!openForms}" var="form">
+	        <apex:column ><apex:outputLink value="/{!form.id}">{!form.name}</apex:outputLink></apex:column> 
+        </apex:pageBlockTable> 
+    </apex:pageBlock>
+</apex:page>

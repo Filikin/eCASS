@@ -37,7 +37,7 @@
             <name>Remove_Pause</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Treatment__c.Pause__c</field>
             <operation>equals</operation>
