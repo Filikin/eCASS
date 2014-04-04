@@ -270,12 +270,17 @@
         <filterItems>
             <field>Drug_HRB__c.Tableyear2012__c</field>
             <operation>equals</operation>
-            <value>true</value>
+            <value>True</value>
         </filterItems>
         <filterItems>
             <field>Drug_HRB__c.drugtype__c</field>
             <operation>notEqual</operation>
             <value>1</value>
+        </filterItems>
+        <filterItems>
+            <field>Drug_HRB__c.drugtype__c</field>
+            <operation>notEqual</operation>
+            <value>4</value>
         </filterItems>
         <isOptional>false</isOptional>
         <name>Treatment_24b Specify first drug used</name>

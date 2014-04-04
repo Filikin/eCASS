@@ -1314,6 +1314,20 @@ Case(X22_Ever_previously_treated_re_drug__c,
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>Drug_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( X14_Main_Reason_for_Referral_Drug__r.drugtype__c = &quot;2&quot;, &quot;2. ILICIT DRUG&quot;, 
+IF( X14_Main_Reason_for_Referral_Drug__r.drugtype__c = &quot;3&quot;, &quot;3. LICIT DRUG&quot;,
+IF( X14_Main_Reason_for_Referral_Drug__r.drugtype__c = &quot;1&quot;, &quot;1. ALCOHOL&quot;, &quot;4. Other problem&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Drug Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Drug_Valid_Table_2012__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
@@ -3909,27 +3923,20 @@ If 2, Stop, Ensure Q14 is complete, send form to HRB</inlineHelpText>
         <inlineHelpText>1. Never treated  2. Previously treated.  8. Not applicable  9. Not known</inlineHelpText>
         <label>22 Ever previously treated re alcohol</label>
         <picklist>
-            <controllingField>X14_Main_Reason_for_referral__c</controllingField>
             <picklistValues>
                 <fullName>1. Never treated</fullName>
-                <controllingFieldValues>1. Alcohol</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>2. Previously treated</fullName>
-                <controllingFieldValues>1. Alcohol</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>8. Not applicable</fullName>
-                <controllingFieldValues>2. Illicit drug</controllingFieldValues>
-                <controllingFieldValues>3. Licit drug</controllingFieldValues>
-                <controllingFieldValues>4. Other problem</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>9. Not known</fullName>
-                <controllingFieldValues>1. Alcohol</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -3946,29 +3953,20 @@ If 2, Stop, Ensure Q14 is complete, send form to HRB</inlineHelpText>
         <inlineHelpText>1. Never treated  2. Previously treated.  8. Not applicable  9. Not known</inlineHelpText>
         <label>22 Ever previously treated re drug</label>
         <picklist>
-            <controllingField>X14_Main_Reason_for_referral__c</controllingField>
             <picklistValues>
                 <fullName>1. Never treated</fullName>
-                <controllingFieldValues>2. Illicit drug</controllingFieldValues>
-                <controllingFieldValues>3. Licit drug</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>2. Previously treated</fullName>
-                <controllingFieldValues>2. Illicit drug</controllingFieldValues>
-                <controllingFieldValues>3. Licit drug</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>8. Not applicable</fullName>
-                <controllingFieldValues>1. Alcohol</controllingFieldValues>
-                <controllingFieldValues>4. Other problem</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>9. Not known</fullName>
-                <controllingFieldValues>2. Illicit drug</controllingFieldValues>
-                <controllingFieldValues>3. Licit drug</controllingFieldValues>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -4002,6 +4000,18 @@ If 2, Stop, Ensure Q14 is complete, send form to HRB</inlineHelpText>
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>X24_Main_Drug_Problem_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>X24b_Specify_first_drug_used__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>24 Main Drug Problem Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>X24a_Age_first_use_any_drug__c</fullName>
         <deprecated>false</deprecated>
         <description>Excluding alcohol and tobacco
@@ -4032,6 +4042,33 @@ If not applicable code 88</inlineHelpText>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>X25_Drug_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( X25a_Main_substance__r.drugtype__c = &quot;2&quot;, &quot;Drug&quot;,
+IF( X25a_Main_substance__r.drugtype__c = &quot;3&quot;, &quot;Drug&quot;, 
+IF( X25a_Main_substance__r.drugtype__c = &quot;1&quot;, &quot;Alcohol&quot;,
+ &quot;Other Problem&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>25 Drug Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X25_Main_Drug_Problem_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>X25a_Main_substance__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>25 Main Drug Problem Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>X25a_Main_substance__c</fullName>
@@ -4136,6 +4173,33 @@ If not applicable code 88</inlineHelpText>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X26_Drug_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( X26a_Substance_2__r.drugtype__c  = &quot;2&quot;, &quot;Drug&quot;,
+IF( X26a_Substance_2__r.drugtype__c  = &quot;3&quot;, &quot;Drug&quot;, 
+IF( X26a_Substance_2__r.drugtype__c  = &quot;1&quot;, &quot;Alcohol&quot;,
+&quot;Other Problem&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>26 Drug Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X26_Main_Drug_Problem_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>X26a_Substance_2__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>26 Main Drug Problem Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -4245,6 +4309,33 @@ If not applicable code 88</inlineHelpText>
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>X27_Drug_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( X27a_Substance_3__r.drugtype__c  = &quot;2&quot;, &quot;Drug&quot;,
+IF( X27a_Substance_3__r.drugtype__c  = &quot;3&quot;, &quot;Drug&quot;, 
+IF( X27a_Substance_3__r.drugtype__c  = &quot;1&quot;, &quot;Alcohol&quot;,
+&quot;Other Problem&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>27 Drug Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X27_Main_Drug_Problem_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>X27a_Substance_3__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>27 Main Drug Problem Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>X27a_Substance_3__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <deprecated>false</deprecated>
@@ -4348,6 +4439,33 @@ If not applicable code 88</inlineHelpText>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X28_Drug_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( X28a_Substance_4__r.drugtype__c  = &quot;2&quot;, &quot;Drug&quot;,
+IF( X28a_Substance_4__r.drugtype__c  = &quot;3&quot;, &quot;Drug&quot;,
+IF( X28a_Substance_4__r.drugtype__c  = &quot;1&quot;, &quot;Alcohol&quot;,
+ &quot;Other Problem&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>28 Drug Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X28_Main_Drug_Problem_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>X28a_Substance_4__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>28 Main Drug Problem Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -6190,7 +6308,7 @@ TEXT( X17b_Assessment_criterion_fulfilled__c ) = &quot;1.Yes&quot;,
     </validationRules>
     <validationRules>
         <fullName>Q17c_Q21a_Dates_in_sequential_order</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
  X16_Date_of_Assessment__c  &gt;  X21a_Date_This_treatment_started__c)</errorConditionFormula>
         <errorDisplayField>X21a_Date_This_treatment_started__c</errorDisplayField>
@@ -6438,7 +6556,7 @@ if not applicable code 88</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Q24b_Specify_first_drug_used</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
 X20_Number_times_started_this_year__c   &gt;=  1,
 NOT(ISBLANK(X21a_Date_This_treatment_started__c )),
