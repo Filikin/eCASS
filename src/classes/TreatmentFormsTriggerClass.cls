@@ -304,22 +304,24 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 	
 	public void Q14_Main_Reason_for_referral_AND_Q22_Ever_previously_treated_re_alcohol (Treatment__c currentForm)
 	{
-		if (currentForm.X14_Main_Reason_for_referral__c != null && currentForm.X14_Main_Reason_for_referral__c.startsWith('1.'))
-		 {
-		 	if (currentForm.X22_Ever_previously_treated_alc_drug__c == null)
-		 	{
-				currentForm.X22_Ever_previously_treated_alc_drug__c.addError ('If Q14 = 1. Alcohol, Please complete Q22 re Alcohol');
-			}
-		if (currentForm.X22_Ever_previously_treated_alc_drug__c != null && currentForm.X22_Ever_previously_treated_alc_drug__c.startsWith('8.'))
+		if (currentForm.X14_Main_Reason_for_referral__c.startsWith('1.'))
+		{
+			if(currentForm.X22_Ever_previously_treated_alc_drug__c == null )
 			{
-				currentForm.X22_Ever_previously_treated_alc_drug__c.addError ('If Q14 = 1. Alcohol, Q22 Alcohol can not be code 8');
+				currentForm.X22_Ever_previously_treated_alc_drug__c.addError ('If Q14 = 1. Alcohol, Q22 Re Alcohol must be completed');
 			}
-		if (currentForm.X22_Ever_previously_treated_re_drug__c != null && !currentForm.X22_Ever_previously_treated_re_drug__c.startsWith('8.'))
+			if(currentForm.X22_Ever_previously_treated_alc_drug__c != null && currentForm.X22_Ever_previously_treated_alc_drug__c.startsWith('8.'))
 			{
-				currentForm.X22_Ever_previously_treated_re_drug__c.addError ('If Q14 = 1. Alcohol, Q22 Drug must be code 8');
+				currentForm.X22_Ever_previously_treated_alc_drug__c.addError ('If Q14 = 1. Alcohol, Q22 Re Alcohol can not be code 8');
+			}
+			if(currentForm.X22_Ever_previously_treated_re_drug__c != null && !currentForm.X22_Ever_previously_treated_re_drug__c.startsWith('8.'))
+			{
+				currentForm.X22_Ever_previously_treated_re_drug__c.addError ('If Q14 = 1. Alcohol, Q22 Re Drug must be code 8');
 			}
 		}
+		 
 	}
+
 	
 	public void Q14_Main_Reason_for_referral_2Ilicit_drug_AND_Q22_Ever_previously_treated_re_drug (Treatment__c currentForm)
 	{
@@ -700,35 +702,65 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 	
 	public void Ensure_That_Q33c_and_Q33d_Are_Blank (Treatment__c currentForm)
 	{
-		if (currentForm.X33b1_Date_Commenced__c != null)
+		if (currentForm.X33b1_Date_Commenced__c != null|| currentForm.X33b1_Date_Commenced__c == null)
 		{
 			currentForm.X33c1_Date_Completed__c = null;
 			currentForm.X33d1_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b12_Date_Commenced__c != null)
+		if (currentForm.X33b12_Date_Commenced__c != null|| currentForm.X33b12_Date_Commenced__c == null)
 		{
 			currentForm.X33c12_Date_Completed__c = null;
 			currentForm.X33d12_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b13_Date_Commenced__c != null)
+		if (currentForm.X33b13_Date_Commenced__c != null|| currentForm.X33b13_Date_Commenced__c == null)
 		{
 			currentForm.X33c13_Date_Completed__c = null;
 			currentForm.X33d13_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b14_Date_Commenced__c != null)
+		if (currentForm.X33b14_Date_Commenced__c != null|| currentForm.X33b14_Date_Commenced__c == null)
 		{
 			currentForm.X33c14_Date_Completed__c = null;
 			currentForm.X33d14_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b15_Date_Commenced__c != null)
+		if (currentForm.X33b15_Date_Commenced__c != null|| currentForm.X33b15_Date_Commenced__c == null)
 		{
 			currentForm.X33c15_Date_Completed__c = null;
 			currentForm.X33d15_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b16_Date_Commenced__c != null)
+		if (currentForm.X33b16_Date_Commenced__c != null|| currentForm.X33b16_Date_Commenced__c == null)
 		{
 			currentForm.X33c16_Date_Completed__c = null;
 			currentForm.X33d16_Number_of_Sessions__c = 0;
+		}
+		if (currentForm.X33b17_Date_Commenced__c != null || currentForm.X33b17_Date_Commenced__c == null)
+		{
+			currentForm.X33c17_Date_Completed__c = null;
+			currentForm.X33d17_Number_of_Sesions__c = 0;
+		}
+		if (currentForm.X33b18_Date_Commenced__c != null|| currentForm.X33b18_Date_Commenced__c == null)
+		{
+			currentForm.X33c18_Date_Completed__c = null;
+			currentForm.X33d18_Number_of_Sessions__c = 0;
+		}
+		if (currentForm.X33b19_Date_Commenced__c != null|| currentForm.X33b19_Date_Commenced__c == null)
+		{
+			currentForm.X33c19_Date_Completed__c = null;
+			currentForm.X33d19_Number_of_Sessions__c = 0;
+		}
+		if (currentForm.X33b20_Date_Commenced__c != null|| currentForm.X33b20_Date_Commenced__c == null)
+		{
+			currentForm.X33c20_Date_Completed__c = null;
+			currentForm.X33d20_Number_of_Sessions__c = 0;
+		}
+		if (currentForm.X33b21_Date_Commenced__c != null|| currentForm.X33b21_Date_Commenced__c == null)
+		{
+			currentForm.X33c21_Date_Completed__c = null;
+			currentForm.X33d21_Number_of_Sessions__c = 0;
+		}
+		if (currentForm.X33b23_Date_Commenced__c != null|| currentForm.X33b23_Date_Commenced__c == null)
+		{
+			currentForm.X33c23_Date_Completed__c = null;
+			currentForm.X33d23_Number_of_Sessions__c = 0;
 		}
 	}
 }
