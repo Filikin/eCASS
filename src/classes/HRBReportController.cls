@@ -62,7 +62,9 @@ public with sharing class HRBReportController
               'X33d1_Number_of_Sessions__c,Inter12__c,X33b12_Date_Commenced__c,X33c12_Date_Completed__c,X33d12_Number_of_Sessions__c,Inter13__c,X33b13_Date_Commenced__c,X33c13_Date_Completed__c,X33d13_Number_of_Sessions__c,Inter14__c,X33b14_Date_Commenced__c,X33c14_Date_Completed__c,X33d14_Number_of_Sessions__c,Inter15__c,X33b15_Date_Commenced__c,' +
               'X33c15_Date_Completed__c,X33d15_Number_of_Sessions__c,Inter16__c,X33b16_Date_Commenced__c,X33c16_Date_Completed__c,X33d16_Number_of_Sessions__c,Inter17__c,X33b17_Date_Commenced__c,X33c17_Date_Completed__c,' +
               'X33d17_Number_of_Sesions__c,Inter18__c,X33b18_Date_Commenced__c,X33c18_Date_Completed__c,X33d18_Number_of_Sessions__c,Inter19__c,X33b19_Date_Commenced__c,X33c19_Date_Completed__c,X33d19_Number_of_Sessions__c,' +
-              'Inter20__c,X33b20_Date_Commenced__c,X33c20_Date_Completed__c,X33d20_Number_of_Sessions__c,Inter21__c,X33b21_Date_Commenced__c,X33c21_Date_Completed__c,X33d21_Number_of_Sessions__c,Inter23__c,X33b23_Date_Commenced__c,X33c23_Date_Completed__c,X33d23_Number_of_Sessions__c,Inter24__c,X33b25_Date_key_worker_was_appointed__c,X33b26_Date_case_manager_was_appointed__c,X33b27_Date_care_plan_was_put_in_place__c,InterOutcome__c,X34_Outcome_Other__c,NonCompliance__c,ExitCondition__c,' +
+              'Inter20__c,X33b20_Date_Commenced__c,X33c20_Date_Completed__c,X33d20_Number_of_Sessions__c,Inter21__c,X33b21_Date_Commenced__c,X33c21_Date_Completed__c,X33d21_Number_of_Sessions__c,Inter23__c,X33b23_Date_Commenced__c,X33c23_Date_Completed__c,X33d23_Number_of_Sessions__c,Inter24__c,X33b25_Date_key_worker_was_appointed__c,X33b26_Date_case_manager_was_appointed__c,X33b27_Date_care_plan_was_put_in_place__c,'+ 
+              'Inter28__c,X33b28_Date_Commenced__c,X33c28_Date_Completed__c,X33d28_Number_of_Sessions__c,'+
+              'InterOutcome__c,X34_Outcome_Other__c,NonCompliance__c,ExitCondition__c,' +
               'X36_Clients_condition_Other__c,X37_Date_of_Final_Discharge__c,ExitAfter__c,ExitCentre__c,X38b_Other_site_for_treatment__c,X39_Number_of_others_involved__c,Vaccine1__c,Vaccine2__c,Vaccine3__c,VaccineB4__c,' +
               'VaccineB5__c,Titre__c,BBV1__c,BBV2__c,BBV3__c,Screen__c,ScreenBy__c,CleanDate__c,Added__c,Updated_Date__c,Name,X14_Main_Reason_for_Referral_Drug__r.DrugCode__c ' + 
               'from Treatment__c where ';
@@ -287,6 +289,7 @@ public with sharing class HRBReportController
 				oneTreatment.X33b20_Date_Commenced__c = null;
 				oneTreatment.X33b21_Date_Commenced__c = null;
 				oneTreatment.X33b23_Date_Commenced__c = null;
+				oneTreatment.X33b28_Date_Commenced__c = null;
 				oneTreatment.X33b25_Date_key_worker_was_appointed__c = null;
 				oneTreatment.X33b26_Date_case_manager_was_appointed__c = null;
 				oneTreatment.X33b26_Specify_centre__c =  '';
@@ -303,6 +306,7 @@ public with sharing class HRBReportController
 				oneTreatment.X33c20_Date_Completed__c = null;
 				oneTreatment.X33c21_Date_Completed__c = null;
 				oneTreatment.X33c23_Date_Completed__c = null;
+				oneTreatment.X33c28_Date_Completed__c = null;
 				oneTreatment.X33d1_Number_of_Sessions__c = 0;
 				oneTreatment.X33d12_Number_of_Sessions__c = 0;
 				oneTreatment.X33d13_Number_of_Sessions__c = 0;
@@ -315,6 +319,7 @@ public with sharing class HRBReportController
 				oneTreatment.X33d20_Number_of_Sessions__c = 0;
 				oneTreatment.X33d21_Number_of_Sessions__c = 0;
 				oneTreatment.X33d23_Number_of_Sessions__c = 0;
+				oneTreatment.X33d28_Number_of_Sessions__c = 0;
 				oneTreatment.X34_Outcome_for_MAIN_treatment__c =  '';
 				oneTreatment.X34_Outcome_Other__c =  '';
 				oneTreatment.X35_Reason_for_exit_6_above__c =  '';
@@ -364,7 +369,8 @@ public with sharing class HRBReportController
         testDrug.Tableyear2012__c = true;
         insert testDrug;
         
-        Treatment__c testTreatment = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2010-01-04'), X37_Date_of_Final_Discharge__c =date.valueOf('2011-07-03'));
+        Treatment__c testTreatment = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-01-01'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-12-04'));
+ 		
  		testTreatment.X21a_Date_This_treatment_started__c = date.valueOf('2011-01-01');
         testTreatment.X34_outcome_for_main_treatment__c = '1. Treatment completed';
         testTreatment.X36_Client_s_Condition_on_discharge__c = '1. stable';
@@ -380,6 +386,7 @@ public with sharing class HRBReportController
         testTreatment.X33b20_Date_Commenced__c = date.valueOf('2011-01-01');
         testTreatment.X33b21_Date_Commenced__c = date.valueOf('2011-01-01');
         testTreatment.X33b23_Date_Commenced__c = date.valueOf('2011-01-01');
+        testTreatment.X33b28_Date_Commenced__c = date.valueOf('2011-01-02');
         testTreatment.X33c1_Date_Completed__c = date.valueOf('2011-01-02');
         testTreatment.X33c12_Date_Completed__c = date.valueOf('2011-01-02');
         testTreatment.X33c13_Date_Completed__c = date.valueOf('2011-01-02');
@@ -392,6 +399,7 @@ public with sharing class HRBReportController
         testTreatment.X33c20_Date_Completed__c = date.valueOf('2011-01-02');
         testTreatment.X33c21_Date_Completed__c = date.valueOf('2011-01-02');
         testTreatment.X33c23_Date_Completed__c = date.valueOf('2011-01-02');
+        testTreatment.X33c28_Date_Completed__c = date.valueOf('2011-01-02');
         testTreatment.X33d1_Number_of_Sessions__c = 1;
         testTreatment.X33d12_Number_of_Sessions__c = 1;
         testTreatment.X33d13_Number_of_Sessions__c = 1;
@@ -404,43 +412,61 @@ public with sharing class HRBReportController
         testTreatment.X33d20_Number_of_Sessions__c = 1;
         testTreatment.X33d21_Number_of_Sessions__c = 1;
         testTreatment.X33d23_Number_of_Sessions__c = 1;
+        testTreatment.X33d28_Number_of_Sessions__c = 1;
         testTreatment.X33a_Main_Intervention__c = '1. Brief intervention';
         testTreatment.X29a_Injected_in_past_month__c = '1. Yes';
         testTreatment.X29b_Ever_injected__c = '1. Yes';
         testTreatment.X29c_Age_first_injected__c = 10;
         testTreatment.X30_Ever_shared_any_injecting_equipment__c = '1. Yes';
-        testTreatment.X13_Date_of_Referral__c = date.valueOf('2010-01-03');
+        testTreatment.X13_Date_of_Referral__c = date.valueOf('2011-01-01');
+        testTreatment.X14_Main_Reason_for_referral__c = '4. something';
+        testTreatment.X14_Main_Reason_for_Referral_Drug__c = testDrug.id;
+        testTreatment.X15_Source_of_referral__c = '1.something';
+        testTreatment.X17a_Assessment_outcome__c = '1. something';
+        testTreatment.X17b_Assessment_criterion_fulfilled__c = '1. something';
+        testTreatment.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2011-01-03');
+        testTreatment.X18a_Clients_treatment_status__c = '1. something';
+        testTreatment.X19_Accepted_place_at_this_centre__c = '1. something';
+        testTreatment.X22_Ever_previously_treated_alc_drug__c = '8. something';
+        testTreatment.X22_Ever_previously_treated_re_drug__c = '8. something';
+        testTreatment.X23_Type_of_contact_with_this_centre__c = '1. something';
+        testTreatment.X24a_Age_first_use_any_drug__c = 88;
+        testTreatment.X25a_Main_substance__c = testDrug.id;
+        testTreatment.X25b_Route_of_Admin_Main_sub__c = '2. something';
+        testTreatment.X25c_Frequency_of_use_in_last_mth__c = '2. something';
+        testTreatment.X25d_Age_at_1st_use__c = 10;
         insert testTreatment;
-        
-        Treatment__c testTreatment2 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-01-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2011-07-04'));
- 		testTreatment2.X21a_Date_This_treatment_started__c = date.valueOf('2011-01-01');
-       testTreatment2.X14_Main_Reason_for_Referral_Drug__c = testDrug.id;
-       testTreatment2.X34_outcome_for_main_treatment__c = '1. Treatment completed';
+       
+        Treatment__c testTreatment2 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-04-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2011-07-04'));
+ 		testTreatment2.X21a_Date_This_treatment_started__c = date.valueOf('2011-04-06');
+        testTreatment2.X34_outcome_for_main_treatment__c = '1. Treatment completed';
         testTreatment2.X36_Client_s_Condition_on_discharge__c = '1. stable';
-        testTreatment2.X33b1_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b12_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b13_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b14_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b15_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b16_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b17_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b18_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b19_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b20_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b21_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33b23_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment2.X33c1_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c12_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c13_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c14_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c15_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c16_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c17_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c18_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c19_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c20_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c21_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment2.X33c23_Date_Completed__c = date.valueOf('2011-01-07');
+        testTreatment2.X33b1_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b12_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b13_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b14_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b15_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b16_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b17_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b18_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b19_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b20_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b21_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b23_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33b28_Date_Commenced__c = date.valueOf('2011-04-06');
+        testTreatment2.X33c1_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c12_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c13_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c14_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c15_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c16_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c17_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c18_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c19_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c20_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c21_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c23_Date_Completed__c = date.valueOf('2011-07-04');
+        testTreatment2.X33c28_Date_Completed__c = date.valueOf('2011-07-04');
         testTreatment2.X33d1_Number_of_Sessions__c = 1;
         testTreatment2.X33d12_Number_of_Sessions__c = 1;
         testTreatment2.X33d13_Number_of_Sessions__c = 1;
@@ -453,14 +479,31 @@ public with sharing class HRBReportController
         testTreatment2.X33d20_Number_of_Sessions__c = 1;
         testTreatment2.X33d21_Number_of_Sessions__c = 1;
         testTreatment2.X33d23_Number_of_Sessions__c = 1;
+        testTreatment2.X33d28_Number_of_Sessions__c = 1;
         testTreatment2.X33a_Main_Intervention__c = '1. Brief intervention';
         testTreatment2.X29a_Injected_in_past_month__c = '1. Yes';
         testTreatment2.X29b_Ever_injected__c = '1. Yes';
         testTreatment2.X29c_Age_first_injected__c = 10;
         testTreatment2.X30_Ever_shared_any_injecting_equipment__c = '1. Yes';
-        testTreatment2.X13_Date_of_Referral__c = date.valueOf('2011-01-03');
+        testTreatment2.X13_Date_of_Referral__c = date.valueOf('2011-04-05');
+        testTreatment2.X14_Main_Reason_for_referral__c = '4. something';
+        testTreatment2.X14_Main_Reason_for_Referral_Drug__c = testDrug.id;
+        testTreatment2.X15_Source_of_referral__c = '1.something';
+        testTreatment2.X17a_Assessment_outcome__c = '1. something';
+        testTreatment2.X17b_Assessment_criterion_fulfilled__c = '1. something';
+        testTreatment2.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2011-04-05');
+        testTreatment2.X18a_Clients_treatment_status__c = '1. something';
+        testTreatment2.X19_Accepted_place_at_this_centre__c = '1. something';
+        testTreatment2.X22_Ever_previously_treated_alc_drug__c = '8. something';
+        testTreatment2.X22_Ever_previously_treated_re_drug__c = '8. something';
+        testTreatment2.X23_Type_of_contact_with_this_centre__c = '1. something';
+        testTreatment2.X24a_Age_first_use_any_drug__c = 88;
+        testTreatment2.X25a_Main_substance__c = testDrug.id;
+        testTreatment2.X25b_Route_of_Admin_Main_sub__c = '2. something';
+        testTreatment2.X25c_Frequency_of_use_in_last_mth__c = '2. something';
+        testTreatment2.X25d_Age_at_1st_use__c = 10;
         insert testTreatment2;
-
+ 		
         Treatment__c testTreatment3 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-5-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-12-04'));
  		testTreatment3.X21a_Date_This_treatment_started__c = date.valueOf('2011-05-06');
         testTreatment3.X34_outcome_for_main_treatment__c = '1. Treatment completed';
@@ -477,6 +520,7 @@ public with sharing class HRBReportController
         testTreatment3.X33b20_Date_Commenced__c = date.valueOf('2011-05-06');
         testTreatment3.X33b21_Date_Commenced__c = date.valueOf('2011-05-06');
         testTreatment3.X33b23_Date_Commenced__c = date.valueOf('2011-05-06');
+        testTreatment3.X33b28_Date_Commenced__c = date.valueOf('2011-05-06');
         testTreatment3.X33c1_Date_Completed__c = date.valueOf('2011-05-07');
         testTreatment3.X33c12_Date_Completed__c = date.valueOf('2011-05-07');
         testTreatment3.X33c13_Date_Completed__c = date.valueOf('2011-05-07');
@@ -489,6 +533,7 @@ public with sharing class HRBReportController
         testTreatment3.X33c20_Date_Completed__c = date.valueOf('2011-05-07');
         testTreatment3.X33c21_Date_Completed__c = date.valueOf('2011-05-07');
         testTreatment3.X33c23_Date_Completed__c = date.valueOf('2011-05-07');
+        testTreatment3.X33c28_Date_Completed__c = date.valueOf('2011-05-07');
         testTreatment3.X33d1_Number_of_Sessions__c = 1;
         testTreatment3.X33d12_Number_of_Sessions__c = 1;
         testTreatment3.X33d13_Number_of_Sessions__c = 1;
@@ -501,42 +546,60 @@ public with sharing class HRBReportController
         testTreatment3.X33d20_Number_of_Sessions__c = 1;
         testTreatment3.X33d21_Number_of_Sessions__c = 1;
         testTreatment3.X33d23_Number_of_Sessions__c = 1;
+        testTreatment3.X33d28_Number_of_Sessions__c = 1;
         testTreatment3.X33a_Main_Intervention__c = '1. Brief intervention';
         testTreatment3.X29a_Injected_in_past_month__c = '1. Yes';
         testTreatment3.X29b_Ever_injected__c = '1. Yes';
         testTreatment3.X29c_Age_first_injected__c = 10;
         testTreatment3.X30_Ever_shared_any_injecting_equipment__c = '1. Yes';
         testTreatment3.X13_Date_of_Referral__c = date.valueOf('2011-05-03');
+        testTreatment3.X14_Main_Reason_for_referral__c = '4. something';
+        testTreatment3.X14_Main_Reason_for_Referral_Drug__c = testDrug.id;
+        testTreatment3.X15_Source_of_referral__c = '1.something';
+        testTreatment3.X17a_Assessment_outcome__c = '1. something';
+        testTreatment3.X17b_Assessment_criterion_fulfilled__c = '1. something';
+        testTreatment3.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2011-05-06');
+        testTreatment3.X18a_Clients_treatment_status__c = '1. something';
+        testTreatment3.X19_Accepted_place_at_this_centre__c = '1. something';
+        testTreatment3.X22_Ever_previously_treated_alc_drug__c = '8. something';
+        testTreatment3.X22_Ever_previously_treated_re_drug__c = '8. something';
+        testTreatment3.X23_Type_of_contact_with_this_centre__c = '1. something';
+        testTreatment3.X24a_Age_first_use_any_drug__c = 88;
+        testTreatment3.X25a_Main_substance__c = testDrug.id;
+        testTreatment3.X25b_Route_of_Admin_Main_sub__c = '2. something';
+        testTreatment3.X25c_Frequency_of_use_in_last_mth__c = '2. something';
+        testTreatment3.X25d_Age_at_1st_use__c = 10;
         insert testTreatment3;
-
-        Treatment__c testTreatment4 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2010-1-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-09-04'));
- 		testTreatment4.X21a_Date_This_treatment_started__c = date.valueOf('2011-01-06');
-         testTreatment4.X14_Main_Reason_for_Referral_Drug__c = testDrug.id;
-         testTreatment4.X34_outcome_for_main_treatment__c = '1. Treatment completed';
-        testTreatment4.X33b1_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b12_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b13_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b14_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b15_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b16_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b17_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b18_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b19_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b20_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b21_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33b23_Date_Commenced__c = date.valueOf('2011-01-06');
-        testTreatment4.X33c1_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c12_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c13_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c14_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c15_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c16_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c17_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c18_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c19_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c20_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c21_Date_Completed__c = date.valueOf('2011-01-07');
-        testTreatment4.X33c23_Date_Completed__c = date.valueOf('2011-01-07');
+		
+        Treatment__c testTreatment4 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-10-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-01-09'));
+ 		testTreatment4.X21a_Date_This_treatment_started__c = date.valueOf('2011-10-06');
+        testTreatment4.X34_outcome_for_main_treatment__c = '1. Treatment completed';
+        testTreatment4.X33b1_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b12_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b13_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b14_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b15_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b16_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b17_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b18_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b19_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b20_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b21_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b23_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33b28_Date_Commenced__c = date.valueOf('2011-10-06');
+        testTreatment4.X33c1_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c12_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c13_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c14_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c15_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c16_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c17_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c18_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c19_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c20_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c21_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c23_Date_Completed__c = date.valueOf('2011-12-06');
+        testTreatment4.X33c28_Date_Completed__c = date.valueOf('2011-12-06');
         testTreatment4.X33d1_Number_of_Sessions__c = 1;
         testTreatment4.X33d12_Number_of_Sessions__c = 1;
         testTreatment4.X33d13_Number_of_Sessions__c = 1;
@@ -549,15 +612,32 @@ public with sharing class HRBReportController
         testTreatment4.X33d20_Number_of_Sessions__c = 1;
         testTreatment4.X33d21_Number_of_Sessions__c = 1;
         testTreatment4.X33d23_Number_of_Sessions__c = 1;
+        testTreatment4.X33d28_Number_of_Sessions__c = 1;
         testTreatment4.X33a_Main_Intervention__c = '1. Brief intervention';
         testTreatment4.X29a_Injected_in_past_month__c = '1. Yes';
         testTreatment4.X29b_Ever_injected__c = '1. Yes';
         testTreatment4.X29c_Age_first_injected__c = 10;
         testTreatment4.X30_Ever_shared_any_injecting_equipment__c = '1. Yes';
         testTreatment4.X36_Client_s_Condition_on_discharge__c = '1. Stable';
-        testTreatment4.X13_Date_of_Referral__c = date.valueOf('2010-01-03');
-         insert testTreatment4;
-
+        testTreatment4.X13_Date_of_Referral__c = date.valueOf('2011-10-05');
+        testTreatment4.X14_Main_Reason_for_referral__c = '4. something';
+        testTreatment4.X14_Main_Reason_for_Referral_Drug__c = testDrug.id;
+        testTreatment4.X15_Source_of_referral__c = '1.something';
+        testTreatment4.X17a_Assessment_outcome__c = '1. something';
+        testTreatment4.X17b_Assessment_criterion_fulfilled__c = '1. something';
+        testTreatment4.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2011-10-05');
+        testTreatment4.X18a_Clients_treatment_status__c = '1. something';
+        testTreatment4.X19_Accepted_place_at_this_centre__c = '1. something';
+        testTreatment4.X22_Ever_previously_treated_alc_drug__c = '8. something';
+        testTreatment4.X22_Ever_previously_treated_re_drug__c = '8. something';
+        testTreatment4.X23_Type_of_contact_with_this_centre__c = '1. something';
+        testTreatment4.X24a_Age_first_use_any_drug__c = 88;
+        testTreatment4.X25a_Main_substance__c = testDrug.id;
+        testTreatment4.X25b_Route_of_Admin_Main_sub__c = '2. something';
+        testTreatment4.X25c_Frequency_of_use_in_last_mth__c = '2. something';
+        testTreatment4.X25d_Age_at_1st_use__c = 10;
+        insert testTreatment4;
+        
         HRB_Report__c params = new HRB_Report__c (Period__c = 'Quarter 1', Year__c = 2011, Type_of_report__c = 'Clients who entered during the report period');
         insert params;
                 
@@ -589,13 +669,5 @@ public with sharing class HRBReportController
 
         treatments = hrb.getTreatmentsWithClients();
         System.assert(treatments.size() >= 0);
-
-        HRB_Report__c params5 = new HRB_Report__c (Period__c = 'Quarter 3', Year__c = 2011, Type_of_report__c = 'Only clients who entered before the reporting period and exited during the report period');
-        insert params5;
-                
-        hrb = new HRBReportController(params5);
-
-        treatments = hrb.getTreatmentsWithClients();
-  		System.assert(treatments.size() > 0);
     } 
 }

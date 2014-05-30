@@ -176,41 +176,40 @@ public class TestHRBFormRules2
 //    	Treatment__c testTreatment = TestHRBFormRule.testTreatmentQ14MainreasonDrugOPD1();
 	  Treatment__c testTreatment = TestHRBFormRule.testTreatmentCreation1 ();
 
-      testTreatment.X14_Main_Reason_for_referral__c = '4. something';
-      testTreatment.X14_Main_Reason_for_Referral_Drug__c = TestHRBFormRule.testDrugOtherProblem.id;
-      testTreatment.X15_Source_of_referral__c = '4. something';
-      testTreatment.X15b_If_client_referred__c = '8. something';
-      testTreatment.X15b8_Other_specify__c = 'test';
-      testTreatment.X17a_Assessment_outcome__c = '1. something';
-      testTreatment.X17b_Assessment_criterion_fulfilled__c = '1. something';
-      testTreatment.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2014-01-05');
-      testTreatment.X18b_Reason_removed_from_waiting_list__c = '1. something';
-      testTreatment.X19_Accepted_place_at_this_centre__c = '1. something';
-      testTreatment.X21a_Date_This_treatment_started__c = date.valueOf('2014-01-05');
-
-       	testTreatment.X28a_Substance_4__c = TestHRBFormRule.testDrugIllegal.id;
-    	testTreatment.X27a_Substance_3__c = TestHRBFormRule.testDrugCocaine.id;
-    	testTreatment.X26a_Substance_2__c = TestHRBFormRule.testDrugLegal.id;
-    	testTreatment.X25a_Main_substance__c = TestHRBFormRule.testDrugOtherProblem.id;
-    	testTreatment.X24a_Age_first_use_any_drug__c = 19;
+      	testTreatment.X14_Main_Reason_for_referral__c = '4. something';
+      	testTreatment.X14_Main_Reason_for_Referral_Drug__c = TestHRBFormRule.testDrugOtherProblem.id;
+      	testTreatment.X15_Source_of_referral__c = '4. something';
+      	testTreatment.X15b_If_client_referred__c = '8. something';
+      	testTreatment.X15b8_Other_specify__c = 'test';
+      	testTreatment.X17a_Assessment_outcome__c = '1. something';
+      	testTreatment.X17b_Assessment_criterion_fulfilled__c = '1. something';
+      	testTreatment.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2014-01-05');
+      	testTreatment.X18a_Clients_treatment_status__c = '2. something';
+      	testTreatment.X18b_Reason_removed_from_waiting_list__c = '1. something';
+      	testTreatment.X19_Accepted_place_at_this_centre__c = '1. something';
+      	testTreatment.X21a_Date_This_treatment_started__c = date.valueOf('2014-01-05');
+      	testTreatment.X22_Ever_previously_treated_alc_drug__c = '8. something';
+ 	  	testTreatment.X22_Ever_previously_treated_re_drug__c = '8. something';
+ 	  	testTreatment.X23_Type_of_contact_with_this_centre__c = '1. something';
+ 	  	testTreatment.X24a_Age_first_use_any_drug__c = 19;
+ 	  	testTreatment.X24b_Specify_first_drug_used__c = TestHRBFormRule.testDrugIllegal.id;
+		testTreatment.X25a_Main_substance__c = TestHRBFormRule.testDrugOtherProblem.id;
+		testTreatment.X25b_Route_of_Admin_Main_sub__c = '9. something';
+		testTreatment.X25c_Frequency_of_use_in_last_mth__c = '9. something';
 		testTreatment.X25d_Age_at_1st_use__c = 19;
-    	testTreatment.X26d_Age_of_1st_use__c = 19;
-    	testTreatment.X27d_Age_of_1st_use__c = 19;
- 		testTreatment.X28d_Age_of_1st_use__c = 19;
- 		
- 		testTreatment.X25b_Route_of_Admin_Main_sub__c = '1. something';
-    	testTreatment.X25c_Frequency_of_use_in_last_mth__c = '1. something';
- 		testTreatment.X26b_Route_of_Admin_Sub2__c = '1. something';
+    	testTreatment.X26a_Substance_2__c = TestHRBFormRule.testDrugLegal.id;
+    	testTreatment.X26b_Route_of_Admin_Sub2__c = '1. something';
     	testTreatment.X26c_Frequency_of_use_in_last_mth__c = '1. something';
- 		testTreatment.X27b_Route_of_Admin_Sub3__c = '1. something';
+    	testTreatment.X26d_Age_of_1st_use__c = 19;
+    	testTreatment.X27a_Substance_3__c = TestHRBFormRule.testDrugAlcohol.id;
+    	testTreatment.X27b_Route_of_Admin_Sub3__c = '1. something';
     	testTreatment.X27c_Frequency_of_use_in_last_mth__c = '1. something';
+    	testTreatment.X27d_Age_of_1st_use__c = 19;
+    	testTreatment.X28a_Substance_4__c = TestHRBFormRule.testDrugIllegal.id;
  		testTreatment.X28b_Route_of_Admin_Sub4__c = '1. something';
     	testTreatment.X28c_Frequency_of_use_in_last_mth__c = '1. something';
+    	testTreatment.X28d_Age_of_1st_use__c = 19;
  		
-		testTreatment.X22_Ever_previously_treated_alc_drug__c = '8. something';
- 		testTreatment.X22_Ever_previously_treated_re_drug__c = '8. something';
- 		
- 		testTreatment.X18a_Clients_treatment_status__c = '2. something';
     	update testTreatment;
     	return testTreatment;
     }

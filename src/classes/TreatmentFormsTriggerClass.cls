@@ -67,6 +67,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
         	if (oneForm.X33b20_Date_Commenced__c > oneForm.Date_latest_intervention_commenced__c) oneForm.Date_latest_intervention_commenced__c = oneForm.X33b20_Date_Commenced__c;
         	if (oneForm.X33b21_Date_Commenced__c > oneForm.Date_latest_intervention_commenced__c) oneForm.Date_latest_intervention_commenced__c = oneForm.X33b21_Date_Commenced__c;
         	if (oneForm.X33b23_Date_Commenced__c > oneForm.Date_latest_intervention_commenced__c) oneForm.Date_latest_intervention_commenced__c = oneForm.X33b23_Date_Commenced__c;
+        	if (oneForm.X33b28_Date_Commenced__c > oneForm.Date_latest_intervention_commenced__c) oneForm.Date_latest_intervention_commenced__c = oneForm.X33b28_Date_Commenced__c;
         }
 	}
 	
@@ -80,62 +81,66 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
     		System.Debug('Processing each form..');
     		if (oneForm.Pause__c == false)
     		{
-    			System.Debug('Starting validation rules');
+    			System.Debug('Starting validation rules.');
     			Q13_Q16_Dates_in_sequential_order (oneForm);
     			If_Q14_then_Q14_Drug_Must_Be_Filled (oneForm);
     			Q14_type_crosschecks (oneForm);
     			
     			if (oneForm.X14_Main_Drug_Problem_Name__c != 'Concerned Person')
     			{
-    				
+    				system.debug ('Not a concerned person');
     				Q15a_must_be_completed (oneForm);		  
     				Q15b_must_be_completed (oneForm);
     				Q17_Assessment_Outcome_required (oneForm);
     				
 	    			if (oneForm.X17a_Assessment_outcome__c != null && !oneForm.X17a_Assessment_outcome__c.startsWith ('2.'))
 	    			{
+	    				system.debug ('In Q17a');
 	    				Q17b_Assessment_criterion_fulfilled (oneForm);
 	    				Q17c_Date_assessment_criterion_fulfilled (oneForm);
 	    				
 	    				if (oneForm.X17b_Assessment_criterion_fulfilled__c != null && !oneForm.X17b_Assessment_criterion_fulfilled__c.startsWith ('2.'))
 	    				{
+	    				system.debug ('In Q17b');
 	    					Q18a_Clients_treatment_status_fullfilled_AND_Q18a_3_Transferred_to_another_site (oneForm);
 	    					
 	    					if (oneForm.X18a_Clients_treatment_status__c != null && !oneForm.X18a_Clients_treatment_status__c.startsWith ('3.') && !oneForm.X18a_Clients_treatment_status__c.startsWith('4.'))
 	    					{
+	    				system.debug ('In Q18a');
 			    				if (oneForm.X18a_Clients_treatment_status__c.startsWith ('2.') || oneForm.X18a_Clients_treatment_status__c.startsWith('6.'))
-			    				{
+			    				{ // will get here if Q18 is 2 or 6 
 			    					// go to 18b
 			    					Q18b_must_be_completed (oneForm);
 			    					Q18b4_Specify_client_transferred_AND_Q18b9_Other_specify (oneForm);
-			    					
-			    					if (oneForm.X18a_Clients_treatment_status__c.startsWith ('1.') || (oneForm.X18b_Reason_removed_from_waiting_list__c != null && oneForm.X18b_Reason_removed_from_waiting_list__c.startsWith('1.')))
-			    					{	
-			    						Q19_Accepted_place (oneForm);
-			    						
-			    						if (oneForm.X19_Accepted_place_at_this_centre__c != null && oneForm.X19_Accepted_place_at_this_centre__c.startsWith ('1.'))
-			    						{
-				    						// continue with form - Q20 onwards
-				    						Q21a_Date_treatment_started_AND_Q16_Q21a_Secential_order (oneForm);
-				    						Q14_Main_Reason_for_referral_AND_Q22_Ever_previously_treated_re_alcohol (oneForm);
-				    						Q14_Main_Reason_for_referral_2Ilicit_drug_AND_Q22_Ever_previously_treated_re_drug (oneForm);
-				    						Q14_Main_Reason_for_referral_3Licit_drug_AND_Q22_Ever_previously_treated_re_drug (oneForm);
-				    						Q14_Main_Reason_for_referral_4Other_problem_AND_Q22_Ever_previously_treated_re_drug (oneForm);
-				    						Q23_Type_of_contact_with_this_centre (oneForm);
-				    						Q24_Substance_use_Excluding_Alcohol (oneForm);
-				    						Q25_Substance_use_Including_Alcohol (oneForm);
-				    						Q26_Substance_use_Including_Alcohol (oneForm);
-											Q27_Substance_use_Including_Alcohol (oneForm);
-											Q28_Substance_use_Including_Alcohol (oneForm);
-				    						Q25_to_Q28_all_different (oneForm);
-				    						Q28e_to_Q28h_are_blank_if_no_alcohol (oneForm);
-				    						Q28e_to_Q28h_are_not_blank_if_alcohol (oneForm);
-			    							Q29b_Check_If_Ever_Injected (oneForm);
-			    							if (oneForm.X37_Date_of_Final_Discharge__c == null)
-			    							{
-			    								Ensure_That_Q33c_and_Q33d_Are_Blank (oneForm);
-			    							}
-			    						}
+			    				}
+			    				if (oneForm.X18a_Clients_treatment_status__c.startsWith ('1.') || oneForm.X18a_Clients_treatment_status__c.startsWith ('2.') || oneForm.X18a_Clients_treatment_status__c.startsWith('6.')
+			    					|| (oneForm.X18b_Reason_removed_from_waiting_list__c != null && oneForm.X18b_Reason_removed_from_waiting_list__c.startsWith('1.')))
+			    				{ // will get here is Q18 is 1, 2 or 6 or Q18b is 1
+			    					system.debug ('In Q18 part 2');
+		    						Q19_Accepted_place (oneForm);
+		    						
+		    						if (oneForm.X19_Accepted_place_at_this_centre__c != null && oneForm.X19_Accepted_place_at_this_centre__c.startsWith ('1.'))
+		    						{
+			    						// continue with form - Q20 onwards
+			    						Q21a_Date_treatment_started_AND_Q16_Q21a_Secential_order (oneForm);
+			    						Q14_Main_Reason_for_referral_AND_Q22_Ever_previously_treated_re_alcohol (oneForm);
+			    						Q14_Main_Reason_for_referral_2Ilicit_drug_AND_Q22_Ever_previously_treated_re_drug (oneForm);
+			    						Q14_Main_Reason_for_referral_3Licit_drug_AND_Q22_Ever_previously_treated_re_drug (oneForm);
+			    						Q14_Main_Reason_for_referral_4Other_problem_AND_Q22_Ever_previously_treated_re_drug (oneForm);
+			    						Q23_Type_of_contact_with_this_centre (oneForm);
+			    						Q24_Substance_use_Excluding_Alcohol (oneForm);
+			    						Q25_Substance_use_Including_Alcohol (oneForm);
+			    						Q26_Substance_use_Including_Alcohol (oneForm);
+										Q27_Substance_use_Including_Alcohol (oneForm);
+										Q28_Substance_use_Including_Alcohol (oneForm);
+			    						Q25_to_Q28_all_different (oneForm);
+			    						Q28e_to_Q28h_are_blank_if_no_alcohol (oneForm);
+			    						Q28e_to_Q28h_are_not_blank_if_alcohol (oneForm);
+		    							Q29b_Check_If_Ever_Injected (oneForm);
+		    							if (oneForm.X37_Date_of_Final_Discharge__c == null)
+		    							{
+		    								Ensure_That_Q33c_and_Q33d_Are_Blank (oneForm);
+		    							}
 			    					}
 	    						}
 	    					}
@@ -304,6 +309,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 	
 	public void Q14_Main_Reason_for_referral_AND_Q22_Ever_previously_treated_re_alcohol (Treatment__c currentForm)
 	{
+		system.debug ('In Q14_Main_Reason_for_referral_AND_Q22_Ever_previously_treated_re_alcohol');
 		if (currentForm.X14_Main_Reason_for_referral__c.startsWith('1.'))
 		{
 			if(currentForm.X22_Ever_previously_treated_alc_drug__c == null )
@@ -694,7 +700,10 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 	
 	public void Q29b_Check_If_Ever_Injected (Treatment__c currentForm)
 	{
-		if (currentForm.X25b_Route_of_Admin_Main_sub__c.startsWith ('1.') || currentForm.X26b_Route_of_Admin_Sub2__c.startsWith ('1.') || currentForm.X27b_Route_of_Admin_Sub3__c.startsWith ('1.') || currentForm.X28b_Route_of_Admin_Sub4__c.startsWith ('1.'))
+		if ((currentForm.X25b_Route_of_Admin_Main_sub__c != null && currentForm.X25b_Route_of_Admin_Main_sub__c.startsWith ('1.'))
+			 || (currentForm.X26b_Route_of_Admin_Sub2__c != null && currentForm.X26b_Route_of_Admin_Sub2__c.startsWith ('1.'))
+			 || (currentForm.X27b_Route_of_Admin_Sub3__c != null && currentForm.X27b_Route_of_Admin_Sub3__c.startsWith ('1.'))
+			 || (currentForm.X28b_Route_of_Admin_Sub4__c != null && currentForm.X28b_Route_of_Admin_Sub4__c.startsWith ('1.')))
 		{
 			currentForm.X29b_Ever_injected__c = '1. Yes';
 		}		
@@ -702,65 +711,57 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 	
 	public void Ensure_That_Q33c_and_Q33d_Are_Blank (Treatment__c currentForm)
 	{
-		if (currentForm.X33b1_Date_Commenced__c != null|| currentForm.X33b1_Date_Commenced__c == null)
+		if (currentForm.X33c1_Date_Completed__c == null)
 		{
-			currentForm.X33c1_Date_Completed__c = null;
 			currentForm.X33d1_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b12_Date_Commenced__c != null|| currentForm.X33b12_Date_Commenced__c == null)
+		if (currentForm.X33c12_Date_Completed__c == null)
 		{
-			currentForm.X33c12_Date_Completed__c = null;
 			currentForm.X33d12_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b13_Date_Commenced__c != null|| currentForm.X33b13_Date_Commenced__c == null)
+		if (currentForm.X33c13_Date_Completed__c == null)
 		{
-			currentForm.X33c13_Date_Completed__c = null;
 			currentForm.X33d13_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b14_Date_Commenced__c != null|| currentForm.X33b14_Date_Commenced__c == null)
+		if (currentForm.X33c14_Date_Completed__c == null)
 		{
-			currentForm.X33c14_Date_Completed__c = null;
 			currentForm.X33d14_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b15_Date_Commenced__c != null|| currentForm.X33b15_Date_Commenced__c == null)
+		if (currentForm.X33c15_Date_Completed__c == null)
 		{
-			currentForm.X33c15_Date_Completed__c = null;
 			currentForm.X33d15_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b16_Date_Commenced__c != null|| currentForm.X33b16_Date_Commenced__c == null)
+		if (currentForm.X33c16_Date_Completed__c == null)
 		{
-			currentForm.X33c16_Date_Completed__c = null;
 			currentForm.X33d16_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b17_Date_Commenced__c != null || currentForm.X33b17_Date_Commenced__c == null)
+		if (currentForm.X33c17_Date_Completed__c == null)
 		{
-			currentForm.X33c17_Date_Completed__c = null;
 			currentForm.X33d17_Number_of_Sesions__c = 0;
 		}
-		if (currentForm.X33b18_Date_Commenced__c != null|| currentForm.X33b18_Date_Commenced__c == null)
+		if (currentForm.X33c18_Date_Completed__c == null)
 		{
-			currentForm.X33c18_Date_Completed__c = null;
 			currentForm.X33d18_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b19_Date_Commenced__c != null|| currentForm.X33b19_Date_Commenced__c == null)
+		if (currentForm.X33c19_Date_Completed__c == null)
 		{
-			currentForm.X33c19_Date_Completed__c = null;
 			currentForm.X33d19_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b20_Date_Commenced__c != null|| currentForm.X33b20_Date_Commenced__c == null)
+		if (currentForm.X33c20_Date_Completed__c == null)
 		{
-			currentForm.X33c20_Date_Completed__c = null;
 			currentForm.X33d20_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b21_Date_Commenced__c != null|| currentForm.X33b21_Date_Commenced__c == null)
+		if (currentForm.X33c21_Date_Completed__c == null)
 		{
-			currentForm.X33c21_Date_Completed__c = null;
 			currentForm.X33d21_Number_of_Sessions__c = 0;
 		}
-		if (currentForm.X33b23_Date_Commenced__c != null|| currentForm.X33b23_Date_Commenced__c == null)
+		if (currentForm.X33c23_Date_Completed__c == null)
 		{
-			currentForm.X33c23_Date_Completed__c = null;
 			currentForm.X33d23_Number_of_Sessions__c = 0;
+		}
+		if (currentForm.X33c28_Date_Completed__c == null)
+		{
+			currentForm.X33d28_Number_of_Sessions__c = 0;
 		}
 	}
 }

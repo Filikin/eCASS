@@ -90,57 +90,10 @@ public class TestHRBFormRule
         testTreatment.X15_Source_of_referral__c = '4. something';
         testTreatment.X15b_If_client_referred__c = '8. something';
         testTreatment.X15b8_Other_specify__c = 'test';
-        testTreatment.X17a_Assessment_outcome__c = '1. something';
         testTreatment.X16_Date_of_Assessment__c = date.valueOf('2014-01-04');
+        testTreatment.X17a_Assessment_outcome__c = '1. something';
         testTreatment.X17b_Assessment_criterion_fulfilled__c = '1. yes';
         testTreatment.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2014-01-04');  
-        /*
-        
-        testTreatment.X36_Client_s_Condition_on_discharge__c = '1. stable';
-        testTreatment.X33b1_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b12_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b13_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b14_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b15_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b16_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b17_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b18_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b19_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b20_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b21_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33b23_Date_Commenced__c = date.valueOf('2011-01-01');
-        testTreatment.X33c1_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c12_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c13_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c14_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c15_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c16_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c17_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c18_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c19_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c20_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c21_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33c23_Date_Completed__c = date.valueOf('2011-01-02');
-        testTreatment.X33d1_Number_of_Sessions__c = 1;
-        testTreatment.X33d12_Number_of_Sessions__c = 1;
-        testTreatment.X33d13_Number_of_Sessions__c = 1;
-        testTreatment.X33d14_Number_of_Sessions__c = 1;
-        testTreatment.X33d15_Number_of_Sessions__c = 1;
-        testTreatment.X33d16_Number_of_Sessions__c = 1;
-        testTreatment.X33d17_Number_of_Sesions__c = 1;
-        testTreatment.X33d18_Number_of_Sessions__c = 1;
-        testTreatment.X33d19_Number_of_Sessions__c = 1;
-        testTreatment.X33d20_Number_of_Sessions__c = 1;
-        testTreatment.X33d21_Number_of_Sessions__c = 1;
-        testTreatment.X33d23_Number_of_Sessions__c = 1;
-        testTreatment.X33a_Main_Intervention__c = '1. Brief intervention';
-        testTreatment.X29a_Injected_in_past_month__c = '1. Yes';
-        testTreatment.X29b_Ever_injected__c = '1. Yes';
-        testTreatment.X29c_Age_first_injected__c = 10;
-        testTreatment.X30_Ever_shared_any_injecting_equipment__c = '1. Yes';
-        
-       ;
-        */
         try
         {
         	insert testTreatment;
@@ -172,6 +125,10 @@ public class TestHRBFormRule
         testTreatment.X28b_Route_of_Admin_Sub4__c = '1. something';
         testTreatment.X28c_Frequency_of_use_in_last_mth__c = '1. something';
         testTreatment.X28d_Age_of_1st_use__c = 10;
+        testTreatment.X28e_Preferred_types_of_alcohol_consumed__c = '2. something';
+        testTreatment.X28f_How_many_drinks_per_occasion__c = 10;
+        testTreatment.X28g_Number_of_days_alcohol_consumed__c = 2;
+        testTreatment.X28h_Extent_of_drinking_problem__c = '2. something';
          insert testTreatment;
          testTreatment.X28d_Age_of_1st_use__c = 11;
          update testTreatment;
@@ -182,7 +139,7 @@ public class TestHRBFormRule
     {
     	Treatment__c testTreatment = testTreatmentCreation1 ();
 
-      testTreatment.X13_Date_of_Referral__c = date.valueOf('2014-01-05');
+      testTreatment.X13_Date_of_Referral__c = date.valueOf('2014-01-03');
       testTreatment.X16_Date_of_Assessment__c = date.valueOf('2014-01-02');
       try
         {
@@ -488,11 +445,29 @@ public class TestHRBFormRule
       return testTreatment;
 	}
 	
-	static testMethod Treatment__c testTreatmentQ19Accepted()
+	static testMethod Treatment__c testTreatmentQ18a2Q19Accepted()
     {
     	Treatment__c testTreatment = testTreatmentCreation1 ();
 
       testTreatment.X18a_Clients_treatment_status__c = '2. something';
+      testTreatment.X18b_Reason_removed_from_waiting_list__c = '1. something';
+      testTreatment.X19_Accepted_place_at_this_centre__c = null;
+      try
+        {
+        	update testTreatment;
+        	system.assert (false);
+        }
+        catch (Exception e)
+        {
+        
+        }
+      return testTreatment;
+	}
+	
+	static testMethod Treatment__c testTreatmentQ18a6Q19Accepted()
+    {
+    	Treatment__c testTreatment = testTreatmentCreation1 ();
+
       testTreatment.X18b_Reason_removed_from_waiting_list__c = '1. something';
       testTreatment.X19_Accepted_place_at_this_centre__c = null;
       try
@@ -965,6 +940,25 @@ public class TestHRBFormRule
     	
       testTreatment.X24a_Age_first_use_any_drug__c = 10;
       testTreatment.X24b_Specify_first_drug_used__c = null;
+      try
+        {
+        	update testTreatment;
+        	system.assert (false);
+        }
+        catch (Exception e)
+        {
+        
+        }
+      return testTreatment;
+	}
+	
+	static public testMethod Treatment__c testTreatmentQ25MainDrugSpecify()
+    {
+    	Treatment__c testTreatment = testTreatmentQ14MainreasonDrugOPD1 ();
+    	
+      testTreatment.X24a_Age_first_use_any_drug__c = 10;
+      testTreatment.X24b_Specify_first_drug_used__c = testDrugIllegal.id ;
+      testTreatment.X25a_Main_substance__c = null;
       try
         {
         	update testTreatment;
