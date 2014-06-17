@@ -84,7 +84,8 @@ private class TestOneHRBForm {
         testTreatment.X22_Ever_previously_treated_alc_drug__c = '8. something';
         testTreatment.X22_Ever_previously_treated_re_drug__c = '8. something';
         testTreatment.X23_Type_of_contact_with_this_centre__c = '1. something';
-        testTreatment.X24a_Age_first_use_any_drug__c = 88;
+        testTreatment.X24a_Age_first_use_any_drug__c = 10;
+        testTreatment.X24b_Specify_first_drug_used__c = testDrug.id;
         testTreatment.X25a_Main_substance__c = testDrug.id;
         testTreatment.X25b_Route_of_Admin_Main_sub__c = '2. something';
         testTreatment.X25c_Frequency_of_use_in_last_mth__c = '2. something';
@@ -151,7 +152,8 @@ private class TestOneHRBForm {
         testTreatment2.X22_Ever_previously_treated_alc_drug__c = '8. something';
         testTreatment2.X22_Ever_previously_treated_re_drug__c = '8. something';
         testTreatment2.X23_Type_of_contact_with_this_centre__c = '1. something';
-        testTreatment2.X24a_Age_first_use_any_drug__c = 88;
+        testTreatment2.X24a_Age_first_use_any_drug__c = 10;
+        testTreatment2.X24b_Specify_first_drug_used__c = testDrug.id;
         testTreatment2.X25a_Main_substance__c = testDrug.id;
         testTreatment2.X25b_Route_of_Admin_Main_sub__c = '2. something';
         testTreatment2.X25c_Frequency_of_use_in_last_mth__c = '2. something';
@@ -218,7 +220,8 @@ private class TestOneHRBForm {
         testTreatment3.X22_Ever_previously_treated_alc_drug__c = '8. something';
         testTreatment3.X22_Ever_previously_treated_re_drug__c = '8. something';
         testTreatment3.X23_Type_of_contact_with_this_centre__c = '1. something';
-        testTreatment3.X24a_Age_first_use_any_drug__c = 88;
+        testTreatment3.X24a_Age_first_use_any_drug__c = 10;
+        testTreatment3.X24b_Specify_first_drug_used__c = testDrug.id;
         testTreatment3.X25a_Main_substance__c = testDrug.id;
         testTreatment3.X25b_Route_of_Admin_Main_sub__c = '2. something';
         testTreatment3.X25c_Frequency_of_use_in_last_mth__c = '2. something';
@@ -285,7 +288,8 @@ private class TestOneHRBForm {
         testTreatment4.X22_Ever_previously_treated_alc_drug__c = '8. something';
         testTreatment4.X22_Ever_previously_treated_re_drug__c = '8. something';
         testTreatment4.X23_Type_of_contact_with_this_centre__c = '1. something';
-        testTreatment4.X24a_Age_first_use_any_drug__c = 88;
+        testTreatment4.X24a_Age_first_use_any_drug__c = 10;
+        testTreatment4.X24b_Specify_first_drug_used__c = testDrug.id;
         testTreatment4.X25a_Main_substance__c = testDrug.id;
         testTreatment4.X25b_Route_of_Admin_Main_sub__c = '2. something';
         testTreatment4.X25c_Frequency_of_use_in_last_mth__c = '2. something';
@@ -352,7 +356,8 @@ private class TestOneHRBForm {
         testTreatment5.X22_Ever_previously_treated_alc_drug__c = '8. something';
         testTreatment5.X22_Ever_previously_treated_re_drug__c = '8. something';
         testTreatment5.X23_Type_of_contact_with_this_centre__c = '1. something';
-        testTreatment5.X24a_Age_first_use_any_drug__c = 88;
+        testTreatment5.X24a_Age_first_use_any_drug__c = 10;
+        testTreatment5.X24b_Specify_first_drug_used__c = testDrugNot994.id;
         testTreatment5.X25a_Main_substance__c = testDrugNot994.id;
         testTreatment5.X25b_Route_of_Admin_Main_sub__c = '2. something';
         testTreatment5.X25c_Frequency_of_use_in_last_mth__c = '2. something';

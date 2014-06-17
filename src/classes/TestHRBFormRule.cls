@@ -66,6 +66,7 @@ public class TestHRBFormRule
         testDrugCocaine.Tableyear2012__c = true;
         testDrugCocaine.drugtype__c = '2';
         insert testDrugCocaine;
+        
 	}
 	
     static public testMethod Treatment__c testTreatmentCreation1() 
@@ -548,6 +549,34 @@ public class TestHRBFormRule
         }
       return testTreatment;
 	}
+	static testMethod Treatment__c testTreatmentQ14MainreasonDrugAQ22redrugNull()
+    {
+    	Treatment__c testTreatment = testTreatmentCreation1 ();
+
+      testTreatment.X14_Main_Reason_for_referral__c = '1. something';
+      testTreatment.X14_Main_Reason_for_Referral_Drug__c = testDrugAlcohol.id;
+      testTreatment.X15_Source_of_referral__c = '4. something';
+      testTreatment.X15b_If_client_referred__c = '8. something';
+      testTreatment.X15b8_Other_specify__c = 'test';
+      testTreatment.X17a_Assessment_outcome__c = '1. something';
+      testTreatment.X17b_Assessment_criterion_fulfilled__c = '1. something';
+      testTreatment.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2014-01-05');
+      testTreatment.X18a_Clients_treatment_status__c = '2. something';
+      testTreatment.X18b_Reason_removed_from_waiting_list__c = '1. something';
+      testTreatment.X19_Accepted_place_at_this_centre__c = '1. something';
+      testTreatment.X21a_Date_This_treatment_started__c = date.valueOf('2014-01-05');
+      testTreatment.X22_Ever_previously_treated_re_drug__c = null;
+      try
+        {
+        	update testTreatment;
+        	system.assert (false);
+        }
+        catch (Exception e)
+        {
+        
+        }
+      return testTreatment;
+	}
 	
 	static testMethod Treatment__c testTreatmentQ14MainreasonDrugAQ228()
     {
@@ -636,6 +665,35 @@ public class TestHRBFormRule
       return testTreatment;
 	}
 	
+	static testMethod Treatment__c testTreatmentQ14MainreasonDrugDrugQ22reAlcNull()
+    {
+    	Treatment__c testTreatment = testTreatmentCreation1 ();
+
+      testTreatment.X14_Main_Reason_for_referral__c = '2. something';
+      testTreatment.X14_Main_Reason_for_Referral_Drug__c = testDrugIllegal.id;
+      testTreatment.X15_Source_of_referral__c = '4. something';
+      testTreatment.X15b_If_client_referred__c = '8. something';
+      testTreatment.X15b8_Other_specify__c = 'test';
+      testTreatment.X17a_Assessment_outcome__c = '1. something';
+      testTreatment.X17b_Assessment_criterion_fulfilled__c = '1. something';
+      testTreatment.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2014-01-05');
+      testTreatment.X18a_Clients_treatment_status__c = '2. something';
+      testTreatment.X18b_Reason_removed_from_waiting_list__c = '1. something';
+      testTreatment.X19_Accepted_place_at_this_centre__c = '1. something';
+      testTreatment.X21a_Date_This_treatment_started__c = date.valueOf('2014-01-05');
+      testTreatment.X22_Ever_previously_treated_alc_drug__c = null;
+      try
+        {
+        	update testTreatment;
+        	system.assert (false);
+        }
+        catch (Exception e)
+        {
+        
+        }
+      return testTreatment;
+	}
+	
 	static testMethod Treatment__c testTreatmentQ14MainreasonDrugILQ22drug8()
     {
     	Treatment__c testTreatment = testTreatmentCreation1 ();
@@ -711,6 +769,35 @@ public class TestHRBFormRule
       testTreatment.X19_Accepted_place_at_this_centre__c = '1. something';
       testTreatment.X21a_Date_This_treatment_started__c = date.valueOf('2014-01-05');
       testTreatment.X22_Ever_previously_treated_re_drug__c = null;
+      try
+        {
+        	update testTreatment;
+        	system.assert (false);
+        }
+        catch (Exception e)
+        {
+        
+        }
+      return testTreatment;
+	}
+	
+	static testMethod Treatment__c testTreatmentQ14MainreasonDrugLQ22reAlcNull()
+    {
+    	Treatment__c testTreatment = testTreatmentCreation1 ();
+
+      testTreatment.X14_Main_Reason_for_referral__c = '3. something';
+      testTreatment.X14_Main_Reason_for_Referral_Drug__c = testDrugLegal.id;
+      testTreatment.X15_Source_of_referral__c = '4. something';
+      testTreatment.X15b_If_client_referred__c = '8. something';
+      testTreatment.X15b8_Other_specify__c = 'test';
+      testTreatment.X17a_Assessment_outcome__c = '1. something';
+      testTreatment.X17b_Assessment_criterion_fulfilled__c = '1. something';
+      testTreatment.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2014-01-05');
+      testTreatment.X18a_Clients_treatment_status__c = '2. something';
+      testTreatment.X18b_Reason_removed_from_waiting_list__c = '1. something';
+      testTreatment.X19_Accepted_place_at_this_centre__c = '1. something';
+      testTreatment.X21a_Date_This_treatment_started__c = date.valueOf('2014-01-05');
+      testTreatment.X22_Ever_previously_treated_alc_drug__c = null;
       try
         {
         	update testTreatment;
@@ -939,6 +1026,24 @@ public class TestHRBFormRule
     	Treatment__c testTreatment = testTreatmentQ14MainreasonDrugOPD1 ();
     	
       testTreatment.X24a_Age_first_use_any_drug__c = 10;
+      testTreatment.X24b_Specify_first_drug_used__c = null;
+      try
+        {
+        	update testTreatment;
+        	system.assert (false);
+        }
+        catch (Exception e)
+        {
+        
+        }
+      return testTreatment;
+	}
+	
+	static public testMethod Treatment__c testTreatmentQ24drugnotapplicable()
+    {
+    	Treatment__c testTreatment = testTreatmentQ14MainreasonDrugOPD1 ();
+    	
+      testTreatment.X24a_Age_first_use_any_drug__c = 88;
       testTreatment.X24b_Specify_first_drug_used__c = null;
       try
         {

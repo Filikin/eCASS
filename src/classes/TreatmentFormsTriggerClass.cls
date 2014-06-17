@@ -316,6 +316,10 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 			{
 				currentForm.X22_Ever_previously_treated_alc_drug__c.addError ('If Q14 = 1. Alcohol, Q22 Re Alcohol must be completed');
 			}
+			if(currentForm.X22_Ever_previously_treated_re_drug__c == null )
+			{
+				currentForm.X22_Ever_previously_treated_re_drug__c.addError ('If Q14 = 1. Alcohol, Q22 Re Drug must be code 8');
+			}
 			if(currentForm.X22_Ever_previously_treated_alc_drug__c != null && currentForm.X22_Ever_previously_treated_alc_drug__c.startsWith('8.'))
 			{
 				currentForm.X22_Ever_previously_treated_alc_drug__c.addError ('If Q14 = 1. Alcohol, Q22 Re Alcohol can not be code 8');
@@ -337,6 +341,10 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 			{
 				currentForm.X22_Ever_previously_treated_re_drug__c.addError ('If Q14 = 2. Ilicit Drug, Q22 Re Drug must be completed');
 			}
+			if(currentForm.X22_Ever_previously_treated_alc_drug__c == null)
+			{
+				currentForm.X22_Ever_previously_treated_alc_drug__c.addError ('If Q14 = 2. Ilicit Drug, Q22 Re Alcohol must be code 8');
+			}
 			if(currentForm.X22_Ever_previously_treated_re_drug__c != null && currentForm.X22_Ever_previously_treated_re_drug__c.startsWith('8.'))
 			{
 				currentForm.X22_Ever_previously_treated_re_drug__c.addError ('If Q14 = 2. Ilicit Drug, Q22 Re Drug can not be code 8');
@@ -355,6 +363,10 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 			if(currentForm.X22_Ever_previously_treated_re_drug__c == null )
 			{
 			 	currentForm.X22_Ever_previously_treated_re_drug__c.addError ('If Q14 = 3. Licit Drug, Q22 Re Drug must be completed');
+			}
+			if(currentForm.X22_Ever_previously_treated_alc_drug__c == null )
+			{
+				currentForm.X22_Ever_previously_treated_alc_drug__c.addError ('If Q14 = 3. Licit Drug, Q22 Re Alcohol must be code 8');
 			}
 			if(currentForm.X22_Ever_previously_treated_re_drug__c != null && currentForm.X22_Ever_previously_treated_re_drug__c.startsWith('8.'))
 			{
@@ -416,6 +428,11 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 				currentForm.X24b_Specify_first_drug_used__c.addError ('Please complete Q24b');
 			}
 		}
+		if (currentForm.X24a_Age_first_use_any_drug__c == 88 && currentForm.X24b_Specify_first_drug_used__c == null )
+		{
+			currentForm.X24b_Specify_first_drug_used__c.addError ('Please complete Q24b = not applicable');
+		}
+
 	}
 	
 	public void Q25_Substance_use_Including_Alcohol (Treatment__c currentForm)
