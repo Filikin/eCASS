@@ -48,10 +48,13 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
     <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Attendances__c</fullName>
         <deprecated>false</deprecated>

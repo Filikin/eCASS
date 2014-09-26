@@ -48,16 +48,29 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Care_Plan_Objective__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Care Plan Objective</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Care_Plan_Objective__c.Client__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Young_Person__c</valueField>
+            </filterItems>
+            <infoMessage>Showing only care plan objectives for this attendee</infoMessage>
+            <isOptional>true</isOptional>
+        </lookupFilter>
         <referenceTo>Care_Plan_Objective__c</referenceTo>
         <relationshipLabel>Enrolments on courses</relationshipLabel>
         <relationshipName>Enrolments</relationshipName>

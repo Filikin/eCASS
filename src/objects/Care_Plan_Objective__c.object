@@ -48,10 +48,13 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
     <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>true</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Area__c</fullName>
         <deprecated>false</deprecated>
@@ -377,20 +380,6 @@
         <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
-    <namedFilters>
-        <fullName>nf_01IM00000008u9LMAQ_00NM0000000f8U7MAI</fullName>
-        <active>true</active>
-        <field>Enrolment__c.Care_Plan_Objective__c</field>
-        <filterItems>
-            <field>Care_Plan_Objective__c.Client__c</field>
-            <operation>equals</operation>
-            <valueField>$Source.Young_Person__c</valueField>
-        </filterItems>
-        <infoMessage>Showing only care plan objectives for this attendee</infoMessage>
-        <isOptional>true</isOptional>
-        <name>Enrolment_Care Plan Objective</name>
-        <sourceObject>Enrolment__c</sourceObject>
-    </namedFilters>
     <pluralLabel>Care Plan Objectives</pluralLabel>
     <searchLayouts>
         <customTabListAdditionalFields>Client__c</customTabListAdditionalFields>

@@ -41,6 +41,15 @@
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Area of Residence and Reg Code</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Area_of_Residence_Old__c.Tableyear2012__c</field>
+                <operation>equals</operation>
+                <value>true</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
         <referenceTo>Area_of_Residence_Old__c</referenceTo>
         <relationshipLabel>Contacts</relationshipLabel>
         <relationshipName>Contacts</relationshipName>
@@ -75,6 +84,15 @@
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Case Worker</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>General contact</value>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>Contacts (Case Worker)</relationshipLabel>
         <relationshipName>Contacts1</relationshipName>
@@ -369,6 +387,15 @@ Last number: click Custom Link (left bar) Last Client Numbers</inlineHelpText>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>GP</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.Contact_Type__c</field>
+                <operation>equals</operation>
+                <value>Key Worker, Case Worker, Counsellor, GP, Probation Officer, Social worker</value>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>Contacts (GP)</relationshipLabel>
         <relationshipName>ContactsGP</relationshipName>
@@ -505,6 +532,15 @@ Last number: click Custom Link (left bar) Last Client Numbers</inlineHelpText>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Key Worker</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>General contact</value>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>Contacts (Key Worker)</relationshipLabel>
         <relationshipName>Contacts</relationshipName>
@@ -750,6 +786,20 @@ Last number: click Custom Link (left bar) Last Client Numbers</inlineHelpText>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Probation Officer</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>General contact</value>
+            </filterItems>
+            <filterItems>
+                <field>Contact.Contact_Type__c</field>
+                <operation>equals</operation>
+                <value>Key Worker, Case Worker, Counsellor, GP, Probation Officer, Social worker</value>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>Contacts (Probation Officer)</relationshipLabel>
         <relationshipName>Contacts2</relationshipName>
@@ -881,6 +931,20 @@ if(ispickval(X12b_Education_highest_level__c,&quot;&quot; ),&quot;12b invalid&qu
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Social worker</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$Source.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>General contact</value>
+            </filterItems>
+            <filterItems>
+                <field>$Source.Contact_Type__c</field>
+                <operation>equals</operation>
+                <value>Key Worker, Case Worker, Counsellor, GP, Probation Officer, Social worker</value>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>Contacts (Social worker)</relationshipLabel>
         <relationshipName>Contacts3</relationshipName>

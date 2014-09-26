@@ -48,10 +48,13 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
     <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>ANCHORID__c</fullName>
         <deprecated>false</deprecated>
@@ -253,88 +256,6 @@
         <label>Drug Name</label>
         <type>Text</type>
     </nameField>
-    <namedFilters>
-        <fullName>nf_01ID0000000RJ8HMAW_00ND0000003o5pLMAQ</fullName>
-        <active>true</active>
-        <field>Treatment__c.X14_Main_Reason_for_Referral_Drug__c</field>
-        <filterItems>
-            <field>Drug_HRB__c.Tableyear2012__c</field>
-            <operation>equals</operation>
-            <value>true</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-        <name>Treatment_14 Main Reason for Referral -</name>
-    </namedFilters>
-    <namedFilters>
-        <fullName>nf_01ID0000000RJ8HMAW_00ND0000003o5phMAA</fullName>
-        <active>true</active>
-        <field>Treatment__c.X24b_Specify_first_drug_used__c</field>
-        <filterItems>
-            <field>Drug_HRB__c.Tableyear2012__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </filterItems>
-        <filterItems>
-            <field>Drug_HRB__c.drugtype__c</field>
-            <operation>notEqual</operation>
-            <value>1</value>
-        </filterItems>
-        <filterItems>
-            <field>Drug_HRB__c.drugtype__c</field>
-            <operation>notEqual</operation>
-            <value>4</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-        <name>Treatment_24b Specify first drug used</name>
-    </namedFilters>
-    <namedFilters>
-        <fullName>nf_01ID0000000RJ8HMAW_00ND0000003o5piMAA</fullName>
-        <active>true</active>
-        <field>Treatment__c.X25a_Main_substance__c</field>
-        <filterItems>
-            <field>Drug_HRB__c.Tableyear2012__c</field>
-            <operation>equals</operation>
-            <value>true</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-        <name>Treatment_25a Main substance</name>
-    </namedFilters>
-    <namedFilters>
-        <fullName>nf_01ID0000000RJ8HMAW_00ND0000003o5pmMAA</fullName>
-        <active>true</active>
-        <field>Treatment__c.X26a_Substance_2__c</field>
-        <filterItems>
-            <field>Drug_HRB__c.Tableyear2012__c</field>
-            <operation>equals</operation>
-            <value>true</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-        <name>Treatment_26a Substance 2</name>
-    </namedFilters>
-    <namedFilters>
-        <fullName>nf_01ID0000000RJ8HMAW_00ND0000003o5pqMAA</fullName>
-        <active>true</active>
-        <field>Treatment__c.X27a_Substance_3__c</field>
-        <filterItems>
-            <field>Drug_HRB__c.Tableyear2012__c</field>
-            <operation>equals</operation>
-            <value>true</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-        <name>Treatment_27a Substance 3</name>
-    </namedFilters>
-    <namedFilters>
-        <fullName>nf_01ID0000000RJ8HMAW_00ND0000003o5puMAA</fullName>
-        <active>false</active>
-        <field>Treatment__c.X28a_Substance_4__c</field>
-        <filterItems>
-            <field>Drug_HRB__c.Tableyear2012__c</field>
-            <operation>equals</operation>
-            <value>true</value>
-        </filterItems>
-        <isOptional>true</isOptional>
-        <name>Treatment_28a Substance 4</name>
-    </namedFilters>
     <pluralLabel>Drugs HRB</pluralLabel>
     <searchLayouts>
         <lookupDialogsAdditionalFields>DrugCode__c</lookupDialogsAdditionalFields>

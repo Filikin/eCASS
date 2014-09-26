@@ -51,10 +51,13 @@
     <deprecated>false</deprecated>
     <description>Record of Treatment - Section D, E, F, G and H of HRB Form</description>
     <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>ALCOHOL__c</fullName>
         <deprecated>false</deprecated>
@@ -168,11 +171,15 @@ CASE( X19_Accepted_place_at_this_centre__c ,
         <fullName>Age__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <formula>IF( X14_Main_Reason_for_Referral_Drug__r.DrugCode__c = &quot;994&quot;,  
+        <formula>IF( Contact__r.Birthdate  &lt;&gt;  DATE(1900,01,01) ,
+
+ IF( X14_Main_Reason_for_Referral_Drug__r.DrugCode__c = &quot;994&quot;,  
 
  FLOOR((X13_Date_of_Referral__c - Contact__r.Birthdate) /365.25),
 
- FLOOR(( X16_Date_of_Assessment__c - Contact__r.Birthdate )/365.25) )</formula>
+ FLOOR(( X16_Date_of_Assessment__c - Contact__r.Birthdate )/365.25) ),
+
+ 99)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Age</label>
         <precision>18</precision>
@@ -703,6 +710,28 @@ X18a3_Specify_Transferred__r.CentreNo__c )</formula>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Check_Age_Injected__c</fullName>
+        <externalId>false</externalId>
+        <formula>MIN(
+IF( ISPICKVAL( X25b_Route_of_Admin_Main_sub__c , &quot;1. Inject&quot;), X25d_Age_at_1st_use__c ,88),
+
+IF( ISPICKVAL( X26b_Route_of_Admin_Sub2__c , &quot;1. Inject&quot;), X26d_Age_of_1st_use__c ,88),
+
+IF( ISPICKVAL( X27b_Route_of_Admin_Sub3__c , &quot;1. Inject&quot;), X27d_Age_of_1st_use__c ,88),
+
+IF( ISPICKVAL( X28b_Route_of_Admin_Sub4__c , &quot;1. Inject&quot;), X28d_Age_of_1st_use__c ,88) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Only to check the age in which client has injected any drugs Q25-Q28</inlineHelpText>
+        <label>Check Age Injected</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -1474,12 +1503,25 @@ X38b_Name_of_other_site_for_treatment__r.CentreNo__c )</formula>
         <fullName>ExitCondition__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <formula>Case(X36_Client_s_Condition_on_discharge__c, 
+        <formula>IF( OR( X14_Main_Reason_for_Referral_Drug__r.DrugCode__c = &quot;994&quot;,
+
+TEXT(X17a_Assessment_outcome__c) = &quot;2. Unsuitable for treatment&quot;,
+
+TEXT( X17b_Assessment_criterion_fulfilled__c ) = &quot;2. No&quot;,
+
+TEXT( X18a_Clients_treatment_status__c ) = &quot;3. Transferred to another site&quot;,
+
+TEXT( X18a_Clients_treatment_status__c ) =&quot;4. Psychiatric assessment only&quot;,
+
+TEXT( X19_Accepted_place_at_this_centre__c ) = &quot;2. No&quot;), 
+
+&quot;&quot;,
+Case(X36_Client_s_Condition_on_discharge__c, 
 &quot;1. Stable&quot;,&quot;1&quot;, 
 &quot;2. Unstable&quot;,&quot;2&quot;, 
 &quot;3. Died&quot;,&quot;3&quot;, 
 &quot;4. Other&quot;,&quot;4&quot;,
-&quot;&quot;)</formula>
+&quot;&quot;))</formula>
         <label>ExitCondition</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -2531,6 +2573,13 @@ Case(X25b_Route_of_Admin_Main_sub__c,
         <externalId>false</externalId>
         <formula>IF( X14_Main_Reason_for_Referral_Drug__r.DrugCode__c = &quot;994&quot;, QUARTERCP__c ,
 
+IF( OR(
+ TEXT(X17a_Assessment_outcome__c) = &quot;2. Unsuitable for treatment&quot;,
+ TEXT( X17b_Assessment_criterion_fulfilled__c ) = &quot;2. No&quot;,
+ TEXT( X18a_Clients_treatment_status__c ) = &quot;3. Transferred to another site&quot;,
+ TEXT( X18a_Clients_treatment_status__c ) =&quot;4. Psychiatric assessment only&quot;,
+ TEXT( X19_Accepted_place_at_this_centre__c ) = &quot;2. No&quot;) ,
+
 CASE(Text( MONTH(X16_Date_of_Assessment__c)) ,
 &quot;1&quot;, &quot;1&quot;,
 &quot;2&quot;, &quot;1&quot;,
@@ -2547,7 +2596,25 @@ CASE(Text( MONTH(X16_Date_of_Assessment__c)) ,
 &quot;10&quot;, &quot;4&quot;,
 &quot;11&quot;, &quot;4&quot;,
 &quot;12&quot;, &quot;4&quot;,
-&quot;&quot;))</formula>
+&quot;&quot;),
+
+CASE(Text( MONTH( X21a_Date_This_treatment_started__c )) ,
+&quot;1&quot;, &quot;1&quot;,
+&quot;2&quot;, &quot;1&quot;,
+&quot;3&quot;, &quot;1&quot;,
+
+&quot;4&quot;, &quot;2&quot;,
+&quot;5&quot;, &quot;2&quot;,
+&quot;6&quot;, &quot;2&quot;,
+
+&quot;7&quot;, &quot;3&quot;,
+&quot;8&quot;, &quot;3&quot;,
+&quot;9&quot;, &quot;3&quot;,
+
+&quot;10&quot;, &quot;4&quot;,
+&quot;11&quot;, &quot;4&quot;,
+&quot;12&quot;, &quot;4&quot;,
+&quot;&quot;)))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>QUARTER</label>
         <required>false</required>
@@ -2591,9 +2658,18 @@ CASE(Text( MONTH(X16_Date_of_Assessment__c)) ,
         <externalId>false</externalId>
         <formula>IF( X14_Main_Reason_for_Referral_Drug__r.DrugCode__c = &quot;994&quot;,
 
- YEAR( X13_Date_of_Referral__c ) ,
+YEAR( X13_Date_of_Referral__c ) ,
 
- YEAR( X16_Date_of_Assessment__c ) )</formula>
+IF( OR(
+TEXT( X17a_Assessment_outcome__c) = &quot;2. Unsuitable for treatment&quot;,
+TEXT( X17b_Assessment_criterion_fulfilled__c ) = &quot;2. No&quot;,
+TEXT( X18a_Clients_treatment_status__c ) = &quot;3. Transferred to another site&quot;,
+TEXT( X18a_Clients_treatment_status__c ) =&quot;4. Psychiatric assessment only&quot;,
+TEXT( X19_Accepted_place_at_this_centre__c ) = &quot;2. No&quot;) ,
+
+YEAR( X16_Date_of_Assessment__c),
+
+YEAR(X21a_Date_This_treatment_started__c )))</formula>
         <label>RecYear</label>
         <precision>18</precision>
         <required>false</required>
@@ -3468,6 +3544,15 @@ CASE(  X18b_Reason_removed_from_waiting_list__c  ,
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>14 Main Reason for Referral - Drug</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Drug_HRB__c.Tableyear2012__c</field>
+                <operation>equals</operation>
+                <value>true</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
         <referenceTo>Drug_HRB__c</referenceTo>
         <relationshipLabel>Treatments (14. Main Reason for Referral - Drug)</relationshipLabel>
         <relationshipName>Treatments5</relationshipName>
@@ -4092,6 +4177,25 @@ If not applicable code 88</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Excluding Alcohol and Tobacco</inlineHelpText>
         <label>24b Specify first drug used</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Drug_HRB__c.Tableyear2012__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <filterItems>
+                <field>Drug_HRB__c.drugtype__c</field>
+                <operation>notEqual</operation>
+                <value>1</value>
+            </filterItems>
+            <filterItems>
+                <field>Drug_HRB__c.drugtype__c</field>
+                <operation>notEqual</operation>
+                <value>4</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
         <referenceTo>Drug_HRB__c</referenceTo>
         <relationshipLabel>Treatments (24b. Specify first drug used)</relationshipLabel>
         <relationshipName>Treatments1</relationshipName>
@@ -4135,6 +4239,15 @@ IF( X25a_Main_substance__r.drugtype__c = &quot;1&quot;, &quot;Alcohol&quot;,
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>25a Main substance</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Drug_HRB__c.Tableyear2012__c</field>
+                <operation>equals</operation>
+                <value>true</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
         <referenceTo>Drug_HRB__c</referenceTo>
         <relationshipLabel>Treatments</relationshipLabel>
         <relationshipName>Treatments</relationshipName>
@@ -4269,6 +4382,15 @@ IF( X26a_Substance_2__r.drugtype__c  = &quot;1&quot;, &quot;Alcohol&quot;,
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>26a Substance 2</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Drug_HRB__c.Tableyear2012__c</field>
+                <operation>equals</operation>
+                <value>true</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
         <referenceTo>Drug_HRB__c</referenceTo>
         <relationshipLabel>Treatments (26a. Substance 2)</relationshipLabel>
         <relationshipName>Treatments2</relationshipName>
@@ -4404,6 +4526,15 @@ IF( X27a_Substance_3__r.drugtype__c  = &quot;1&quot;, &quot;Alcohol&quot;,
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>27a Substance 3</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Drug_HRB__c.Tableyear2012__c</field>
+                <operation>equals</operation>
+                <value>true</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
         <referenceTo>Drug_HRB__c</referenceTo>
         <relationshipLabel>Treatments (27a. Substance 3)</relationshipLabel>
         <relationshipName>Treatments3</relationshipName>
@@ -4539,6 +4670,15 @@ IF( X28a_Substance_4__r.drugtype__c  = &quot;1&quot;, &quot;Alcohol&quot;,
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>28a Substance 4</label>
+        <lookupFilter>
+            <active>false</active>
+            <filterItems>
+                <field>Drug_HRB__c.Tableyear2012__c</field>
+                <operation>equals</operation>
+                <value>true</value>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
         <referenceTo>Drug_HRB__c</referenceTo>
         <relationshipLabel>Treatments (28a. Substance 4)</relationshipLabel>
         <relationshipName>Treatments4</relationshipName>
@@ -4821,7 +4961,8 @@ If not known, code 99.</inlineHelpText>
         <deprecated>false</deprecated>
         <description>Ever shared any injecting equipment</description>
         <externalId>false</externalId>
-        <inlineHelpText>Ever shared any injecting equipment. If Q29b = 2. No Q30 should be 8. Not applicable</inlineHelpText>
+        <inlineHelpText>Ever shared any injecting equipment. 
+If Q29b = &quot;2. No&quot;, Q30 should be &quot;8. Not applicable&quot;</inlineHelpText>
         <label>30 Ever shared any injecting equipment</label>
         <picklist>
             <controllingField>X29b_Ever_injected__c</controllingField>
@@ -5279,6 +5420,7 @@ each type of treatment intervention</inlineHelpText>
         <fullName>X33b28_Date_Commenced__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
+        <inlineHelpText>Facilitated detox - Date Commenced</inlineHelpText>
         <label>33b28 Date Commenced</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -5455,7 +5597,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Medication-free therapy - Number of Sessions</inlineHelpText>
         <label>33d12 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5469,7 +5611,7 @@ each type of treatment intervention</inlineHelpText>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>33d13 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5485,7 +5627,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Individual counselling - Number of Sessions</inlineHelpText>
         <label>33d14 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5501,7 +5643,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Group Counselling - Number of Sessions</inlineHelpText>
         <label>33d15 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5516,7 +5658,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Social and/or occupational reintegration - Number of Sessions</inlineHelpText>
         <label>33d16 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5532,7 +5674,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Family Therapy - Number of Sessions</inlineHelpText>
         <label>33d17 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5547,7 +5689,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Brief intervention: individual education/awareness programme - Number of Sessions</inlineHelpText>
         <label>33d18 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5562,7 +5704,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Group education/awareness programme - Number of Sessions</inlineHelpText>
         <label>33d19 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5578,7 +5720,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Brief Intervention - Number of Sessions</inlineHelpText>
         <label>33d1 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5594,7 +5736,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Aftercare - Number of Sessions</inlineHelpText>
         <label>33d20 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5610,7 +5752,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Complimentary Therapies - Number of Sessions</inlineHelpText>
         <label>33d21 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5625,7 +5767,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Strengthening family programme - Number of Sessions</inlineHelpText>
         <label>33d23 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -5640,7 +5782,7 @@ each type of treatment intervention</inlineHelpText>
         <externalId>false</externalId>
         <inlineHelpText>Facilitated detox - Number of sessions provided</inlineHelpText>
         <label>33d28 Number of Sessions</label>
-        <precision>2</precision>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackHistory>false</trackHistory>
@@ -6049,6 +6191,7 @@ Hepatitis A and B vaccination</inlineHelpText>
         <columns>Number_of_Treatments__c</columns>
         <columns>Drug_Validation__c</columns>
         <columns>Main_Intervention_Valid__c</columns>
+        <columns>Drug_Valid_Table_2012__c</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>Test_Referral_Assessment_details__c</field>
@@ -6097,24 +6240,37 @@ Hepatitis A and B vaccination</inlineHelpText>
     <validationRules>
         <fullName>IF_Q33a24_is_TRUE</fullName>
         <active>true</active>
-        <errorConditionFormula>AND(TEXT(X33a24_Sent_to_another_site__c) = &quot;TRUE&quot;,  ISBLANK( X33a24_Specify_treatment_site_number__c))</errorConditionFormula>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;,X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;, 
+AND(TEXT(X33a24_Sent_to_another_site__c) = &quot;TRUE&quot;,  ISBLANK( X33a24_Specify_treatment_site_number__c)))</errorConditionFormula>
         <errorDisplayField>X33a24_Specify_treatment_site_number__c</errorDisplayField>
         <errorMessage>If Q33a24 = TRUE, please specify treatment site number</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>IF_Q33a25_is_TRUE</fullName>
         <active>true</active>
-        <errorConditionFormula>AND(TEXT(X33a25_Key_Worder_appointed__c)= &quot;TRUE&quot;, ISBLANK( X33b25_Date_key_worker_was_appointed__c ))</errorConditionFormula>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;,X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;, 
+AND(TEXT(X33a25_Key_Worder_appointed__c)= &quot;TRUE&quot;, ISBLANK( X33b25_Date_key_worker_was_appointed__c )))</errorConditionFormula>
         <errorDisplayField>X33b25_Date_key_worker_was_appointed__c</errorDisplayField>
         <errorMessage>If Q33a25 has been appointed, please complete Q33b25</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>IF_Q33a26_is_TRUE</fullName>
         <active>true</active>
-        <errorConditionFormula>AND(TEXT( X33a26_Case_Manager_appointed__c )= &quot;TRUE&quot;,  ISBLANK(X33b26_Date_case_manager_was_appointed__c )) || 
-AND(TEXT( X33a26_Case_Manager_appointed__c )= &quot;TRUE&quot;, ISBLANK( X33b26_Specify_centre__c ))
-|| 
-AND(TEXT( X33a26_Case_Manager_appointed__c )= &quot;TRUE&quot;, ISBLANK( X33c26_Case_Treatment_Centre__c ))</errorConditionFormula>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;,X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;, 
+AND(TEXT( X33a26_Case_Manager_appointed__c )= &quot;TRUE&quot;, ISBLANK(X33b26_Date_case_manager_was_appointed__c )) ||
+AND(TEXT( X33a26_Case_Manager_appointed__c )= &quot;TRUE&quot;, ISBLANK( X33c26_Case_Treatment_Centre__c )))</errorConditionFormula>
         <errorDisplayField>X33a26_Case_Manager_appointed__c</errorDisplayField>
         <errorMessage>If Q33a26 Case Manager has been appointed, please complete
 33b26 Date and 33c26 Case Treatment Centre</errorMessage>
@@ -6122,8 +6278,13 @@ AND(TEXT( X33a26_Case_Manager_appointed__c )= &quot;TRUE&quot;, ISBLANK( X33c26_
     <validationRules>
         <fullName>IF_Q33a27_is_TRUE</fullName>
         <active>true</active>
-        <errorConditionFormula>AND(TEXT(X33a27_Care_Plan__c) = &quot;TRUE&quot;, 
-ISBLANK( X33b27_Date_care_plan_was_put_in_place__c))</errorConditionFormula>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;,X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;, 
+AND(TEXT(X33a27_Care_Plan__c) = &quot;TRUE&quot;, 
+ISBLANK( X33b27_Date_care_plan_was_put_in_place__c)))</errorConditionFormula>
         <errorDisplayField>X33b27_Date_care_plan_was_put_in_place__c</errorDisplayField>
         <errorMessage>If Q33a27 Care Plan has been indicated, please complete Q33b27 Date care plan was put in place</errorMessage>
     </validationRules>
@@ -6308,6 +6469,19 @@ not(and(not(isblank( X33b23_Date_Commenced__c )),not(isblank( X33c23_Date_Comple
         <errorMessage>All interventions details must be either complete or blank when date of final discharge is set</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>IF_Q37_is_completed_Inter28</fullName>
+        <active>true</active>
+        <description>All interventions must be either complete or blank</description>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
+NOT( ISBLANK( X37_Date_of_Final_Discharge__c ) ) ,
+and(
+not(and(isblank( X33b28_Date_Commenced__c ),isblank( X33c28_Date_Completed__c ),   X33d28_Number_of_Sessions__c  = 0)),
+not(and(not(isblank( X33b28_Date_Commenced__c )),not(isblank( X33c28_Date_Completed__c )),not( X33d28_Number_of_Sessions__c  = 0)))
+) )</errorConditionFormula>
+        <errorDisplayField>X33b28_Date_Commenced__c</errorDisplayField>
+        <errorMessage>All interventions details must be either complete or blank when date of final discharge is set</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>If_alcohol_used_in_Q25</fullName>
         <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE,  $Setup.eCASS_settings__c.Rules_on__c , TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
@@ -6322,6 +6496,27 @@ ISNULL( X28g_Number_of_days_alcohol_consumed__c ),
 ISBLANK(TEXT( X28h_Extent_of_drinking_problem__c ) )  ) )</errorConditionFormula>
         <errorDisplayField>X28e_Preferred_types_of_alcohol_consumed__c</errorDisplayField>
         <errorMessage>If alcohol is listed as a problem substance at Q25, please complete from Q28e to Q28h</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>If_alcohol_used_in_Q25_Frequency</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c , 
+TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, 
+X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;, 
+OR( AND( X25a_Main_substance__r.drugtype__c = &quot;1&quot;, 
+TEXT( X25c_Frequency_of_use_in_last_mth__c)  &lt;&gt; &quot;4. No use in past month&quot;, 
+OR(X28f_How_many_drinks_per_occasion__c = 0, 
+X28g_Number_of_days_alcohol_consumed__c = 0))))</errorConditionFormula>
+        <errorDisplayField>X25c_Frequency_of_use_in_last_mth__c</errorDisplayField>
+        <errorMessage>Q25, Frequency of alcohol use in last month must match the answers on Q28e and Q28h</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>If_alcohol_used_in_Q26</fullName>
@@ -6340,6 +6535,28 @@ OR( ISBLANK(X28e_Preferred_types_of_alcohol_consumed__c  ),
         <errorMessage>If alcohol is listed as a problem substance at Q26, please complete from Q28e to Q28h</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>If_alcohol_used_in_Q26_Frequency</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c , 
+TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, 
+X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;, 
+OR( AND(
+X26a_Substance_2__r.drugtype__c = &quot;1&quot;, 
+TEXT(  X26c_Frequency_of_use_in_last_mth__c )  &lt;&gt; &quot;4. No use in past month&quot;, 
+OR(X28f_How_many_drinks_per_occasion__c = 0, 
+X28g_Number_of_days_alcohol_consumed__c = 0))))</errorConditionFormula>
+        <errorDisplayField>X26c_Frequency_of_use_in_last_mth__c</errorDisplayField>
+        <errorMessage>Q26, Frequency of alcohol use in last month must match the answers on Q28e and Q28h</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>If_alcohol_used_in_Q27</fullName>
         <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
@@ -6356,6 +6573,28 @@ OR( ISBLANK(X28e_Preferred_types_of_alcohol_consumed__c  ),
         <errorMessage>If alcohol is listed as a problem substance at Q27, please complete from Q28e to Q28h</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>If_alcohol_used_in_Q27_Frequency</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c , 
+TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, 
+X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;, 
+OR( AND(
+ X27a_Substance_3__r.drugtype__c  = &quot;1&quot;, 
+TEXT(   X27c_Frequency_of_use_in_last_mth__c )  &lt;&gt; &quot;4. No use in past month&quot;, 
+OR(X28f_How_many_drinks_per_occasion__c = 0, 
+X28g_Number_of_days_alcohol_consumed__c = 0))))</errorConditionFormula>
+        <errorDisplayField>X27c_Frequency_of_use_in_last_mth__c</errorDisplayField>
+        <errorMessage>Q27, Frequency of alcohol use in last month must match the answers on Q28e and Q28h</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>If_alcohol_used_in_Q28</fullName>
         <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
@@ -6370,6 +6609,28 @@ OR( ISBLANK(X28e_Preferred_types_of_alcohol_consumed__c  ),
  ISBLANK(TEXT( X28h_Extent_of_drinking_problem__c ) )  ) )</errorConditionFormula>
         <errorDisplayField>X28e_Preferred_types_of_alcohol_consumed__c</errorDisplayField>
         <errorMessage>If alcohol is listed as a problem substance at Q28, please complete from Q28e to Q28h</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>If_alcohol_used_in_Q28_Frequency</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c , 
+TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, 
+X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;, 
+OR( AND(
+  X28a_Substance_4__r.drugtype__c   = &quot;1&quot;, 
+TEXT(    X28c_Frequency_of_use_in_last_mth__c  )  &lt;&gt; &quot;4. No use in past month&quot;, 
+OR(X28f_How_many_drinks_per_occasion__c = 0, 
+X28g_Number_of_days_alcohol_consumed__c = 0))))</errorConditionFormula>
+        <errorDisplayField>X28c_Frequency_of_use_in_last_mth__c</errorDisplayField>
+        <errorMessage>Q28, Frequency of alcohol use in last month must match the answers on Q28e and Q28h</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Q13_Q16_Dates_in_sequential_order</fullName>
@@ -6664,6 +6925,14 @@ X21a_Date_This_treatment_started__c  &gt;  X33b23_Date_Commenced__c)</errorCondi
         <errorMessage>Please check dates sequential order, Q21a &lt; = Q33b23</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Q21a_Q33b28_Sequential_order</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
+X21a_Date_This_treatment_started__c  &gt;  X33b28_Date_Commenced__c)</errorConditionFormula>
+        <errorDisplayField>X33b28_Date_Commenced__c</errorDisplayField>
+        <errorMessage>Please check dates sequential order, Q21a &lt; = Q33b28</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>Q21a_Q37_Sequential_order</fullName>
         <active>true</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
@@ -6758,6 +7027,38 @@ ISBLANK(TEXT(  X25c_Frequency_of_use_in_last_mth__c  ) ) )</errorConditionFormul
         <errorMessage>If Q25a has been specified, please complete Q25b, Q25c and Q25d</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Q25c_frequency_Alcohol_use</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, 
+$Setup.eCASS_settings__c.Rules_on__c , 
+TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;,
+AND( 
+X25a_Main_substance__r.drugtype__c = &quot;1&quot;,
+TEXT(X25c_Frequency_of_use_in_last_mth__c) = &quot;1. Once a week or less&quot;,
+X28g_Number_of_days_alcohol_consumed__c &gt; 4 ) 
+|| 
+AND( 
+X25a_Main_substance__r.drugtype__c = &quot;1&quot;,
+TEXT(X25c_Frequency_of_use_in_last_mth__c) = &quot;2. 2-6 days per week&quot;,
+OR(X28g_Number_of_days_alcohol_consumed__c &lt; 5,
+X28g_Number_of_days_alcohol_consumed__c &gt; 24))
+ ||  
+AND( 
+X25a_Main_substance__r.drugtype__c = &quot;1&quot;,
+TEXT(X25c_Frequency_of_use_in_last_mth__c) = &quot;3. Daily&quot;,
+X28g_Number_of_days_alcohol_consumed__c &lt;25 ))</errorConditionFormula>
+        <errorDisplayField>X28g_Number_of_days_alcohol_consumed__c</errorDisplayField>
+        <errorMessage>Q25c Frequency of use in last month must match Q28g Number of days alcohol consumed</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>Q25d_Age_at_1st_use</fullName>
         <active>false</active>
         <description>Q25c Field must be populated before record can be saved.</description>
@@ -6789,6 +7090,38 @@ ISBLANK( (X26d_Age_of_1st_use__c ) ) ) )</errorConditionFormula>
         <errorMessage>If Q26a Substance 2 has been specified, please complete Q26b, Q26c, Q26d</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Q26c_frequency_Alcohol_use</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, 
+$Setup.eCASS_settings__c.Rules_on__c , 
+TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;,
+AND( 
+ X26a_Substance_2__r.drugtype__c   = &quot;1&quot;, 
+TEXT(  X26c_Frequency_of_use_in_last_mth__c  ) = &quot;1. Once a week or less&quot;, 
+X28g_Number_of_days_alcohol_consumed__c &gt; 4 ) 
+|| 
+AND( 
+ X26a_Substance_2__r.drugtype__c   = &quot;1&quot;, 
+TEXT( X26c_Frequency_of_use_in_last_mth__c ) = &quot;2. 2-6 days per week&quot;, 
+OR(X28g_Number_of_days_alcohol_consumed__c &lt; 5, 
+X28g_Number_of_days_alcohol_consumed__c &gt; 24)) 
+ || 
+AND( 
+ X26a_Substance_2__r.drugtype__c   = &quot;1&quot;, 
+TEXT( X26c_Frequency_of_use_in_last_mth__c ) = &quot;3. Daily&quot;, 
+X28g_Number_of_days_alcohol_consumed__c &lt;25 ))</errorConditionFormula>
+        <errorDisplayField>X28g_Number_of_days_alcohol_consumed__c</errorDisplayField>
+        <errorMessage>Q26c Frequency of use in last month must match Q28g Number of days alcohol consumed</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>Q26d_Age_first_use_less_than_Client_Age</fullName>
         <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__c  &lt;&gt; &quot;994&quot;,
@@ -6810,6 +7143,38 @@ ISBLANK( ( X27d_Age_of_1st_use__c  ) ) ) )</errorConditionFormula>
         <errorMessage>If Q27a Substance 3 has been specified, please complete Q27b, Q27c, Q27d</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Q27c_frequency_Alcohol_use</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, 
+$Setup.eCASS_settings__c.Rules_on__c , 
+TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;,
+AND( 
+  X27a_Substance_3__r.drugtype__c  = &quot;1&quot;, 
+TEXT(  X27c_Frequency_of_use_in_last_mth__c  ) = &quot;1. Once a week or less&quot;, 
+X28g_Number_of_days_alcohol_consumed__c &gt; 4 ) 
+|| 
+AND( 
+  X27a_Substance_3__r.drugtype__c  = &quot;1&quot;, 
+TEXT(  X27c_Frequency_of_use_in_last_mth__c  ) = &quot;2. 2-6 days per week&quot;, 
+OR(X28g_Number_of_days_alcohol_consumed__c &lt; 5, 
+X28g_Number_of_days_alcohol_consumed__c &gt; 24)) 
+ || 
+AND( 
+  X27a_Substance_3__r.drugtype__c  = &quot;1&quot;, 
+TEXT(  X27c_Frequency_of_use_in_last_mth__c  ) = &quot;3. Daily&quot;, 
+X28g_Number_of_days_alcohol_consumed__c &lt;25 ))</errorConditionFormula>
+        <errorDisplayField>X28g_Number_of_days_alcohol_consumed__c</errorDisplayField>
+        <errorMessage>Q27c Frequency of use in last month must match Q28g Number of days alcohol consumed</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>Q27d_Age_first_use_less_than_Client_Age</fullName>
         <active>false</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c  &lt;&gt; &quot;994&quot;,
@@ -6829,6 +7194,38 @@ ISBLANK( TEXT(  X28c_Frequency_of_use_in_last_mth__c  ) ),
 ISBLANK( (  X28d_Age_of_1st_use__c  ) ) ) )</errorConditionFormula>
         <errorDisplayField>X28a_Substance_4__c</errorDisplayField>
         <errorMessage>If Q28a Substance 4 has been specified, please complete Q28b, Q28c, Q28d</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Q28c_frequency_Alcohol_use</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, 
+$Setup.eCASS_settings__c.Rules_on__c , 
+TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, 
+TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, 
+TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, 
+TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), 
+TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__r.DrugCode__c &lt;&gt; &quot;994&quot;,
+AND( 
+  X28a_Substance_4__r.drugtype__c  = &quot;1&quot;, 
+TEXT(  X28c_Frequency_of_use_in_last_mth__c  ) = &quot;1. Once a week or less&quot;, 
+X28g_Number_of_days_alcohol_consumed__c &gt; 4 ) 
+|| 
+AND( 
+  X28a_Substance_4__r.drugtype__c  = &quot;1&quot;, 
+TEXT(  X28c_Frequency_of_use_in_last_mth__c  ) = &quot;2. 2-6 days per week&quot;, 
+OR(X28g_Number_of_days_alcohol_consumed__c &lt; 5, 
+X28g_Number_of_days_alcohol_consumed__c &gt; 24)) 
+ || 
+AND( 
+  X28a_Substance_4__r.drugtype__c  = &quot;1&quot;, 
+TEXT(  X28c_Frequency_of_use_in_last_mth__c  ) = &quot;3. Daily&quot;, 
+X28g_Number_of_days_alcohol_consumed__c &lt;25 ))</errorConditionFormula>
+        <errorDisplayField>X28g_Number_of_days_alcohol_consumed__c</errorDisplayField>
+        <errorMessage>Q28c Frequency of use in last month must match Q28g Number of days alcohol consumed</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Q28d_Age_first_use_less_than_Client_Age</fullName>
@@ -6864,14 +7261,33 @@ ISBLANK (TEXT( X30_Ever_shared_any_injecting_equipment__c ) ) ) )</errorConditio
         <errorMessage>Please complete Q29a, Q29b, Q29c and Q30 for all treated clients</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Q29b_Ever_Injected_Age_first_injected</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__c &lt;&gt; &quot;994&quot;,
+TEXT(X29b_Ever_injected__c) = &quot;1. Yes&quot;,
+ X29c_Age_first_injected__c = 88 || 
+X29c_Age_first_injected__c = 0)</errorConditionFormula>
+        <errorDisplayField>X29c_Age_first_injected__c</errorDisplayField>
+        <errorMessage>If Q29b Ever injected = 1. Yes, Q29c CANNOT be code 88 or 0</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Q29b_Q30_Consistency</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISPICKVAL(X29b_Ever_injected__c, &quot;1. Yes&quot;),
+ISPICKVAL(X30_Ever_shared_any_injecting_equipment__c, &quot;8. Not applicable&quot;))</errorConditionFormula>
+        <errorDisplayField>X30_Ever_shared_any_injecting_equipment__c</errorDisplayField>
+        <errorMessage>If Q29b = 1. Yes, Q30 CANNOT BE &quot;8. Not applicable&quot;</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>Q29c_Age_first_use_less_than_Client_Age</fullName>
         <active>true</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__c  &lt;&gt; &quot;994&quot;,
 X29c_Age_first_injected__c  &lt;&gt; 88, X29c_Age_first_injected__c  &lt;&gt; 99,
-X29c_Age_first_injected__c     &gt;  Contact__r.Age__c)</errorConditionFormula>
+X29c_Age_first_injected__c     &gt;  Contact__r.Age__c || 
+X29c_Age_first_injected__c  &gt;  Check_Age_Injected__c )</errorConditionFormula>
         <errorDisplayField>X29c_Age_first_injected__c</errorDisplayField>
-        <errorMessage>Please check the Age of first injected, Q29c &lt; = Age,
-if not applicable code 88</errorMessage>
+        <errorMessage>Please check the Age of first injected, it MUST BE Q29c &lt; = Age, or Q29c &lt; = Age of first use of any injected drug in Q25, Q26, Q27, or Q28. 
+If never injected, code 88. If not known, code 99.</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Q33a24_Specify_treatment_site_number</fullName>
@@ -7009,6 +7425,14 @@ X33b21_Date_Commenced__c &gt;  X33c21_Date_Completed__c)</errorConditionFormula>
 X33b23_Date_Commenced__c &gt;  X33c23_Date_Completed__c)</errorConditionFormula>
         <errorDisplayField>X33c23_Date_Completed__c</errorDisplayField>
         <errorMessage>Please check dates sequential order, Q33b23 &lt; = Q33c23</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Q33b28_Q33c28_Sequential_order</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__c  &lt;&gt; &quot;994&quot;,
+X33b28_Date_Commenced__c &gt;  X33c28_Date_Completed__c)</errorConditionFormula>
+        <errorDisplayField>X33c28_Date_Completed__c</errorDisplayField>
+        <errorMessage>Please check dates sequential order, Q33b28 &lt; = Q33c28</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Q33b_Q33c_Sequential_order</fullName>
@@ -7150,6 +7574,17 @@ X33d23_Number_of_Sessions__c = 0 ) )</errorConditionFormula>
         <errorMessage>If intervention is completed, please specify: Date Commenced and Number of Sessions</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Q33d28_Number_of_session</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__c  &lt;&gt; &quot;994&quot;,
+NOT(ISBLANK(X33c28_Date_Completed__c ) ),
+OR( ISBLANK(X33b28_Date_Commenced__c ),
+ISBLANK( X33d28_Number_of_Sessions__c ),
+X33d28_Number_of_Sessions__c = 0 ) )</errorConditionFormula>
+        <errorDisplayField>X33d28_Number_of_Sessions__c</errorDisplayField>
+        <errorMessage>If intervention is completed, please specify: Date Commenced and Number of Sessions</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>Q34_Outcome_other_specified</fullName>
         <active>true</active>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, TEXT(X17a_Assessment_outcome__c) &lt;&gt; &quot;2. Unsuitable for treatment&quot;, TEXT( X17b_Assessment_criterion_fulfilled__c ) &lt;&gt; &quot;2. No&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;3. Transferred to another site&quot;, TEXT( X18a_Clients_treatment_status__c ) &lt;&gt; &quot;4. Psychiatric assessment only&quot;, NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;2. Placed on waiting list for opiate substitute&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), NOT(AND(TEXT(X18a_Clients_treatment_status__c ) = &quot;6. Placed on other drug treatment waiting list&quot;, TEXT(X18b_Reason_removed_from_waiting_list__c ) &lt;&gt; &quot;1. Treatment offered with this centre&quot;)), TEXT( X19_Accepted_place_at_this_centre__c ) &lt;&gt; &quot;2. No&quot;, X14_Main_Reason_for_Referral_Drug__c  &lt;&gt; &quot;994&quot;,
@@ -7204,20 +7639,21 @@ ISBLANK( X36_Clients_condition_Other__c ) )</errorConditionFormula>
     <validationRules>
         <fullName>Q37_final_discharge</fullName>
         <active>true</active>
-        <description>Check is the Date of final discharge cannot be prior to an intervention finish date at Q33 (interdate 1 to interdate 24)</description>
+        <description>Check is the Date of final discharge cannot be prior to an intervention finish date at Q33 (interdate 1 to interdate 28)</description>
         <errorConditionFormula>AND(Pause__c =FALSE, $Setup.eCASS_settings__c.Rules_on__c, 
-OR((X33c1_Date_Completed__c  &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c12_Date_Completed__c &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c13_Date_Completed__c  &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c14_Date_Completed__c &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c15_Date_Completed__c &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c16_Date_Completed__c  &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c17_Date_Completed__c &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c18_Date_Completed__c &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c19_Date_Completed__c &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c20_Date_Completed__c &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c21_Date_Completed__c &gt;  X37_Date_of_Final_Discharge__c ),
-(X33c23_Date_Completed__c &gt;  X37_Date_of_Final_Discharge__c )))</errorConditionFormula>
+OR((X33c1_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c12_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c13_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c14_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c15_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c16_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c17_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c18_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c19_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c20_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c21_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c23_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c ),
+(X33c28_Date_Completed__c &gt; X37_Date_of_Final_Discharge__c)))</errorConditionFormula>
         <errorDisplayField>X37_Date_of_Final_Discharge__c</errorDisplayField>
         <errorMessage>Q37 Treatment exit date cannot be prior to an intervention finish date</errorMessage>
     </validationRules>

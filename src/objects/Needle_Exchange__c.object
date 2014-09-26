@@ -48,9 +48,12 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
     <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Alternative_Routes_Requested_N_A__c</fullName>
         <defaultValue>false</defaultValue>
@@ -281,6 +284,17 @@
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Client</label>
+        <lookupFilter>
+            <active>true</active>
+            <errorMessage>You must select a client</errorMessage>
+            <filterItems>
+                <field>Contact.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Client</value>
+            </filterItems>
+            <infoMessage>Showing only clients</infoMessage>
+            <isOptional>false</isOptional>
+        </lookupFilter>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>NSP Interventions</relationshipLabel>
         <relationshipName>Needle_Syringe_Exchange</relationshipName>

@@ -1,12 +1,14 @@
 eclipse.preferences.version=1
-endpointApiVersion=29.0
+endpointApiVersion=31.0
 endpointEnvironment=Production/Developer Edition
 endpointServer=www.salesforce.com
 httpsProtocol=true
-ideVersion=29.0
+ideVersion=31.0
 keependpoint=false
-metadataFormatVersion=29.0
+metadataFormatVersion=31.0
 namespacePrefix=ecass01
 packageName=unpackaged
+preferToolingDeployment=true
+projectIdentifier=
 readTimeout=400
 username=ecass@enclude.ie
