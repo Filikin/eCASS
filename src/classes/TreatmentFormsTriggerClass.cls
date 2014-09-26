@@ -462,7 +462,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 			{
 				currentForm.X25d_Age_at_1st_use__c.addError ('If Q25a has been indicated, please complete Q25d Age at 1st use');
 			}
-			if (currentForm.X25a_Main_substance__c != null && currentForm.X25d_Age_at_1st_use__c != null)
+			if (currentForm.X25a_Main_substance__c != null && currentForm.X25d_Age_at_1st_use__c != null && currentForm.X25d_Age_at_1st_use__c != 99)
 			{
 				if (currentForm.X25d_Age_at_1st_use__c == 0)
 				{
@@ -507,7 +507,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 			{
 				currentForm.X26d_Age_of_1st_use__c.addError ('If Q26a has been indicated, please complete Q26d Age at 1st use');
 			}
-			if (currentForm.X26d_Age_of_1st_use__c != null)
+			if (currentForm.X26d_Age_of_1st_use__c != null && currentForm.X26d_Age_of_1st_use__c != 99)
 			{
 				if(currentForm.X26d_Age_of_1st_use__c == 0)
 				{
@@ -555,7 +555,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 				{
 					currentForm.X27d_Age_of_1st_use__c.addError ('If Q27a has been indicated, please complete Q27d');
 				}
-				if(currentForm.X27d_Age_of_1st_use__c != null)
+				if(currentForm.X27d_Age_of_1st_use__c != null && currentForm.X27d_Age_of_1st_use__c != 99)
 					{
 						if(currentForm.X27d_Age_of_1st_use__c == 0)
 						{
@@ -603,7 +603,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 				{
 					currentForm.X28d_Age_of_1st_use__c.addError ('If Q28a has been indicated, please complete Q28d');
 				}
-				if(currentForm.X28d_Age_of_1st_use__c != null)
+				if(currentForm.X28d_Age_of_1st_use__c != null && currentForm.X28d_Age_of_1st_use__c != 99)
 					{
 						if(currentForm.X28d_Age_of_1st_use__c == 0)
 						{
