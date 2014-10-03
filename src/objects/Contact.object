@@ -820,19 +820,27 @@ Last number: click Custom Link (left bar) Last Client Numbers</inlineHelpText>
         <fullName>Record_Valid__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <formula>if (isnull( Birthdate ),&quot;No birth date&quot;, 
-if(Age__c &lt; 13 || Age__c &gt; 85, &quot;Age invalid&quot;,  
+        <formula>if( AND(NOT(ISBLANK(Birthdate)),Age__c &lt; 13 || Age__c &gt; 85), &quot;Age invalid&quot;,  
 if(ispickval(X4_Gender__c,&quot;&quot;),&quot;No gender&quot;,
-if(ispickval(X7a_Living_with_whom__c ,&quot;&quot;) ,&quot;7a invalid&quot;,
-if(ispickval(X7b_Livin_Where__c ,&quot;&quot;) , &quot;7b invalid&quot;,
-if(isblank(Area_of_Residence_and_Reg_Code__c),&quot;Area of res invalid&quot;,
-if(ispickval(X10a_Nationality__c,&quot;&quot; ),&quot;10a invalid&quot;, 
-if(ispickval(X10b_Ethnic_Background__c,&quot;&quot; ),&quot;10b invalid&quot;,
+if(ispickval(X7a_Living_with_whom__c ,&quot;&quot;) ,&quot;Q7a invalid&quot;,
+if(ispickval(X7b_Livin_Where__c ,&quot;&quot;) , &quot;Q7b invalid&quot;,
+if(AND(BEGINS(TEXT(X7a_Living_with_whom__c), &quot;2.&quot;), BEGINS(TEXT(X7b_Livin_Where__c), &quot;4&quot;)),&quot;Q7b invalid&quot;,
+if(AND(BEGINS(TEXT(X7b_Livin_Where__c),&quot;3.&quot;)|| BEGINS(TEXT(X7b_Livin_Where__c),&quot;2.&quot;),TEXT(X7a_Living_with_whom__c) &lt;&gt; &quot;7. Other&quot;), &quot;7a invalid&quot;,
+if(ISBLANK(Area_of_Residence_and_Reg_Code__c), &quot;Invalid Area of Residence&quot;,
+if(ispickval(X10a_Nationality__c,&quot;&quot; ),&quot;Q10a invalid&quot;, 
+if(ispickval(X10b_Ethnic_Background__c,&quot;&quot; ),&quot;Q10b invalid&quot;,
+if(AND(TEXT( X10a_Nationality__c ) = &quot;2. Other&quot;, ISBLANK( X10a_Nationality_Other__c )),&quot;Q10a Nationality Other Invalid&quot;,
+if(AND(NOT(BEGINS(TEXT(X10a_Nationality__c),&quot;3.&quot;)),BEGINS(TEXT(X10b_Ethnic_Background__c),&quot;2.&quot;)),&quot;Q10a Invalid &quot;,
 if(ispickval(X11_Employement_Status__c,&quot;&quot; ),&quot;11 invalid&quot;, 
+if(AND(TEXT(X11_Employement_Status__c) = &quot;8. Other (specify)&quot;, ISBLANK( X11_Employement_Status_other__c )),&quot;please complete Q11 Employment Status other&quot;,
 if(AND(TEXT(X11_Employement_Status__c) &lt;&gt; &quot;8. Other (specify)&quot;, NOT(ISBLANK(X11_Employement_Status_other__c))),&quot;11 Employment status other, only required when Q11 = 8. Other (specify)&quot;,
-if(X12a_Age_left_primary_school__c &lt;= 0,&quot;12a invalid&quot;, 
-if(ispickval(X12b_Education_highest_level__c,&quot;&quot; ),&quot;12b invalid&quot;,
-&quot;HRB OK&quot;))))))))))))</formula>
+if(AND( TEXT(X11_Employement_Status__c )= &quot;4. Student&quot;, TEXT( X12a_Age_left_primary_school__c) = &quot;1&quot;), &quot;Q12a Invalid&quot;,
+if(X12a_Age_left_primary_school__c &lt; 1,&quot;12a invalid&quot;,
+if(AND( TEXT(X11_Employement_Status__c )= &quot;4. Student&quot;, TEXT( X12b_Education_highest_level__c ) &lt;&gt; &quot;8. Still in education&quot;), &quot;Q12b Invalid&quot;,
+if(AND(TEXT(X12b_Education_highest_level__c) = &quot;8. Still in education&quot;,TEXT(X11_Employement_Status__c) &lt;&gt; &quot;4. Student&quot;), &quot;Q11 Invalid&quot;,
+if(AND(Age__c &lt; 16,ispickval(X11_Employement_Status__c ,&quot;2. Unemployed&quot;)),&quot;Q11 Invalid&quot;,
+if(ispickval(X12b_Education_highest_level__c,&quot;&quot; ),&quot;Q12b invalid&quot;,
+&quot;HRB OK&quot;))))))))))))))))))))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Record Valid</label>
         <required>false</required>
@@ -1219,6 +1227,9 @@ if(ispickval(X12b_Education_highest_level__c,&quot;&quot; ),&quot;12b invalid&qu
         <fullName>X7a_Living_with_whom__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
+        <inlineHelpText>* Parents/family refers to client’s mother/father, sisters, brothers or extended family: grandparents,uncles, and aunts
+* The parents/family code also applies to the client’s adoptive parents or family members.
+* Partner refers to spouse or co-habitee</inlineHelpText>
         <label>7a. Living with whom?</label>
         <picklist>
             <picklistValues>
@@ -1266,6 +1277,9 @@ if(ispickval(X12b_Education_highest_level__c,&quot;&quot; ),&quot;12b invalid&qu
         <fullName>X7b_Livin_Where__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
+        <inlineHelpText>* Institution includes prison, residential care or halfway house
+* Homeless can include sleeping rough(roofless), living in a guesthouse/hostel/hotel etc
+* Other unstable accommodation includes temporary living arrangements</inlineHelpText>
         <label>7b. Living Where?</label>
         <picklist>
             <picklistValues>
@@ -1813,7 +1827,7 @@ X10a_Nationality_Other__r.NationCode__c))</formula>
     </recordTypes>
     <validationRules>
         <fullName>Client_Homeless</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND( OR(TEXT(X7b_Livin_Where__c) = &quot;3. Homeless&quot;,TEXT(X7b_Livin_Where__c) = &quot;2. Institution(prison/residential care/halfway house)&quot;),
 TEXT(X7a_Living_with_whom__c) &lt;&gt; &quot;7. Other&quot;)</errorConditionFormula>
         <errorDisplayField>X7a_Living_with_whom__c</errorDisplayField>
@@ -1821,17 +1835,17 @@ TEXT(X7a_Living_with_whom__c) &lt;&gt; &quot;7. Other&quot;)</errorConditionForm
     </validationRules>
     <validationRules>
         <fullName>Employment_status_other_specified</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND( TEXT( X11_Employement_Status__c ) = &quot;8. Other (specify)&quot; , ISBLANK( X11_Employement_Status_other__c ))</errorConditionFormula>
         <errorDisplayField>X11_Employement_Status_other__c</errorDisplayField>
         <errorMessage>If Employment status = 8. Other (specify), please complete Q11 Employment Status other</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Nationality_Other_Specified</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND(TEXT( X10a_Nationality__c ) = &quot;2. Other&quot;,  ISBLANK( X10a_Nationality_Other__c ))</errorConditionFormula>
         <errorDisplayField>X10a_Nationality_Other__c</errorDisplayField>
-        <errorMessage>If 2, please complete 10a Nationality Other</errorMessage>
+        <errorMessage>If Q10a = 2, please complete 10a Nationality Other</errorMessage>
     </validationRules>
     <webLinks>
         <fullName>Care_Plan_Overview</fullName>

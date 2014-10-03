@@ -15,6 +15,10 @@
                 <behavior>Edit</behavior>
                 <field>Pause__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>HRB_Report__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

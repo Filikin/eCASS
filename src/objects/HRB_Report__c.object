@@ -148,6 +148,16 @@
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <webLinks>
+        <fullName>Attach_Treatments</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Attach Treatments</masterLabel>
+        <openType>replace</openType>
+        <page>AddTreatmentToReport</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
         <fullName>Generate_Report</fullName>
         <availability>online</availability>
         <description>Generate the HRB report based on these parameters</description>

@@ -1,0 +1,15 @@
+<apex:page standardController="HRB_Report__c" extensions="AddTreatmentToReport" action="{!Initialise}">
+	<apex:pageBlock title="{!TreatmentsListSize} treatments possible, will process {!TreatmentsToProcess} this time">
+		<apex:pageBlock title="Treatments added to HRB Report">
+		    <apex:pageBlockTable value="{!passed}" var="oneMsg">
+		        <apex:column ><apex:outputLink value="/{!oneMsg.treatmentID}">{!oneMsg.errorMsg}</apex:outputLink></apex:column> 
+	        </apex:pageBlockTable> 
+	    </apex:pageBlock>
+		<apex:pageBlock title="Treatments NOT added to HRB Report">
+		    <apex:pageBlockTable value="{!failed}" var="oneMsg">
+		        <apex:column ><apex:outputLink value="/{!oneMsg.treatmentID}">{!oneMsg.errorMsg}</apex:outputLink></apex:column> 
+	        </apex:pageBlockTable> 
+	    </apex:pageBlock>
+	    <apex:outputLink value="/{!reportParams.ID}">To return to the HRB report page, click here</apex:outputLink>
+	</apex:pageBlock>
+</apex:page>

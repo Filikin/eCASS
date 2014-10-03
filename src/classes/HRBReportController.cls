@@ -50,7 +50,7 @@ public with sharing class HRBReportController
         String endReportPeriod = String.valueOf(year) + endMonthDay;
         
     String queryString = 'select id,' +
-              'id__c,UniqID__c,Contact__r.Area__c,Contact__r.CentreNO__c,Centre_number__c,CentreType__c,Contact__r.NUMBER__c,Contact__r.Gender_Code__c,Contact__r.Age__c,Contact__r.Birthdate,Contact__r.LIVING__c,Contact__r.LIVWHERE__c,Contact__r.RegCode__c,Contact__r.AreaRes__c,Contact__r.CCA__c,' +
+              'id__c,UniqID__c,Contact__r.Area__c,Contact__r.CentreNO__c,Centre_number__c,Contact__r.NUMBER__c,Contact__r.Gender_Code__c,Contact__r.Age__c,Contact__r.Birthdate,Contact__r.LIVING__c,Contact__r.LIVWHERE__c,Contact__r.RegCode__c,Contact__r.AreaRes__c,Contact__r.CCA__c,' +
               'Contact__r.TFA__c,Contact__r.LHO__c,Contact__r.Nationality__c,Contact__r.nation__c,Contact__r.Ethnic__c,Contact__r.EMPLOYMENT__c,Contact__r.X11_Employement_Status_other__c,Contact__r.X12a_Age_left_primary_school__c,' +
               'Contact__r.EDUCATION__c,X13_Date_of_Referral__c,Age__c,Reason__c,X14_Main_Reason_for_Referral_Drug__r.External_ID_Number__c,SPECIFY__c,X14_Main_Reason_for_Referral_Drug__r.DrugCodeX__c,Source__c,TransReason__c,TransReasonSpecify__c,ASSESS__c,Outcome__c,AssCriteria__c,X17b_Assessment_criterion_fulfilled__c,AssCriteriaDate_del__c,' +
               'STATUS__c,X17a_Assessment_outcome__c,X18a_Clients_treatment_status__c,CentreSpecify__c,WaitStatus__c,WaitCentre__c,WaitOther__c,Accepted__c,X19_Accepted_place_at_this_centre__c,X20_Number_times_started_this_year__c,X21a_Date_This_treatment_started__c,' +
@@ -64,10 +64,10 @@ public with sharing class HRBReportController
               'X33d17_Number_of_Sesions__c,Inter18__c,X33b18_Date_Commenced__c,X33c18_Date_Completed__c,X33d18_Number_of_Sessions__c,Inter19__c,X33b19_Date_Commenced__c,X33c19_Date_Completed__c,X33d19_Number_of_Sessions__c,' +
               'Inter20__c,X33b20_Date_Commenced__c,X33c20_Date_Completed__c,X33d20_Number_of_Sessions__c,Inter21__c,X33b21_Date_Commenced__c,X33c21_Date_Completed__c,X33d21_Number_of_Sessions__c,Inter23__c,X33b23_Date_Commenced__c,X33c23_Date_Completed__c,X33d23_Number_of_Sessions__c,Inter24__c,X33b25_Date_key_worker_was_appointed__c,X33b26_Date_case_manager_was_appointed__c,X33b27_Date_care_plan_was_put_in_place__c,'+ 
               'Inter28__c,X33b28_Date_Commenced__c,X33c28_Date_Completed__c,X33d28_Number_of_Sessions__c,'+
-              'InterOutcome__c,X34_Outcome_Other__c,NonCompliance__c,ExitCondition__c,X36_Client_s_Condition_on_discharge__c,' +
+              'InterOutcome__c,X34_Outcome_Other__c,NonCompliance__c,ExitCondition__c,' +
               'X36_Clients_condition_Other__c,X37_Date_of_Final_Discharge__c,ExitAfter__c,ExitCentre__c,X38b_Other_site_for_treatment__c,X39_Number_of_others_involved__c,Vaccine1__c,Vaccine2__c,Vaccine3__c,VaccineB4__c,' +
               'VaccineB5__c,Titre__c,BBV1__c,BBV2__c,BBV3__c,Screen__c,ScreenBy__c,CleanDate__c,Added__c,Updated_Date__c,Name,X14_Main_Reason_for_Referral_Drug__r.DrugCode__c ' + 
-              'from Treatment__c where ';
+              'from Treatment__c where HRB_Report__c = \'' + reportParams.Id + '\' and ';
          System.Debug (queryString);
           
          if (reportParams.Type_of_report__c == 'Clients who entered during the report period') 
