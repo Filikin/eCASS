@@ -8,11 +8,25 @@ private class TestOneHRBForm {
     {
         Account acct1 = new Account(name='driver account');
         insert acct1;
-            
+        
+        Area_of_Residence_Old__c res = new Area_of_Residence_Old__c (Name='Shankill', Area_Code__c='339', CCA__c='1204', City_County__c='D', Tableyear2012__c=true);
+        insert res;
+
         Contact driver = new Contact(AccountId=acct1.Id,lastname='Driver',firstname='apex1');
         driver.MailingStreet = '3 test screen \ntest area\ntest city';
         driver.MailingCity = 'Dublin';
+        driver.X4_Gender__c = 'Male';
+        driver.BirthDate = date.valueOf ('1990-01-01');
+        driver.X7a_Living_with_whom__c = '1. Alone';
+        driver.X7b_Livin_Where__c = '1. sss';
+        driver.Area_of_Residence_and_Reg_Code__c = res.id;
+        driver.X10a_Nationality__c = '1. dd';
+        driver.X10b_Ethnic_Background__c = '1. Irish';
+        driver.X11_Employement_Status__c = '1. ddd';
+        driver.X12a_Age_left_primary_school__c = 17;
+        driver.X12b_Education_highest_level__c = '3. sss';
         insert driver;
+        
         Drug_HRB__c testDrug = new Drug_HRB__c (Name='testDrug');
         testDrug.DrugCode__c = '994';
         testDrug.Tableyear2012__c = true;
@@ -24,7 +38,6 @@ private class TestOneHRBForm {
         insert testDrugNot994;
 
         Treatment__c testTreatment = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-01-01'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-12-04'));
- 		
  		testTreatment.X21a_Date_This_treatment_started__c = date.valueOf('2011-01-01');
         testTreatment.X34_outcome_for_main_treatment__c = '1. Treatment completed';
         testTreatment.X36_Client_s_Condition_on_discharge__c = '1. stable';
@@ -91,7 +104,7 @@ private class TestOneHRBForm {
         testTreatment.X25c_Frequency_of_use_in_last_mth__c = '2. something';
         testTreatment.X25d_Age_at_1st_use__c = 10;
         insert testTreatment;
-       
+            
         Treatment__c testTreatment2 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-04-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2011-07-04'));
  		testTreatment2.X21a_Date_This_treatment_started__c = date.valueOf('2011-04-06');
         testTreatment2.X34_outcome_for_main_treatment__c = '1. Treatment completed';
@@ -159,7 +172,7 @@ private class TestOneHRBForm {
         testTreatment2.X25c_Frequency_of_use_in_last_mth__c = '2. something';
         testTreatment2.X25d_Age_at_1st_use__c = 10;
         insert testTreatment2;
- 		
+        
         Treatment__c testTreatment3 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-5-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-12-04'));
  		testTreatment3.X21a_Date_This_treatment_started__c = date.valueOf('2011-05-06');
         testTreatment3.X34_outcome_for_main_treatment__c = '1. Treatment completed';
@@ -227,7 +240,7 @@ private class TestOneHRBForm {
         testTreatment3.X25c_Frequency_of_use_in_last_mth__c = '2. something';
         testTreatment3.X25d_Age_at_1st_use__c = 10;
         insert testTreatment3;
-		
+        
         Treatment__c testTreatment4 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-10-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-01-09'));
  		testTreatment4.X21a_Date_This_treatment_started__c = date.valueOf('2011-10-06');
         testTreatment4.X34_outcome_for_main_treatment__c = '1. Treatment completed';
@@ -371,8 +384,12 @@ private class TestOneHRBForm {
         HRB_Report__c params5 = new HRB_Report__c (Period__c = 'Quarter 3', Year__c = 2011, Type_of_report__c = 'Only clients who entered before the reporting period and exited during the report period');
         insert params5;
                 
-        HRBReportController hrb = new HRBReportController(params5);
 
+ 	    ApexPages.StandardController treatmentController = new ApexPages.StandardController(params5);        
+        AddTreatmentToReport hrbReport = new AddTreatmentToReport(treatmentController);
+ 		hrbReport.Initialise ();
+ 
+        HRBReportController hrb = new HRBReportController(params5);
         Treatment__c[]  treatments = hrb.getTreatmentsWithClients();
   		System.assert(treatments.size() > 0);
     }

@@ -780,5 +780,15 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 		{
 			currentForm.X33d28_Number_of_Sessions__c = 0;
 		}
+		if (currentForm.X37_Date_of_Final_Discharge__c == null)
+		{
+			currentForm.X38a_Aftercare_provided_by_this_centre__c =  '';
+			currentForm.X38b_Other_site_for_treatment__c =  '';
+			currentForm.X39_Number_of_others_involved__c = null;
+			currentForm.X40_Vaccination__c =  '';
+			currentForm.X41_Viral_Screening_uptake__c =  '';
+			currentForm.X42a_Urine_screeding_during_treatment__c =  '';
+			currentForm.X42b_If_screening_ordered_by__c =  '';
+		}
 	}
 }

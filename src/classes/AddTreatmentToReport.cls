@@ -77,6 +77,7 @@ public with sharing class AddTreatmentToReport
          	queryString += ' limit ' + TreatmentsToProcess;
          	TreatmentsWithClientsList = Database.query(queryString);
          }
+         system.debug ('Number of possible treatments: ' + TreatmentsWithClientsList.size());
          for (Treatment__c oneTreatment: TreatmentsWithClientsList)
          {
          	system.debug ('Treatment limits rows: ' + Limits.getLimitDmlRows() + ' queries: ' + Limits.getLimitQueries());
@@ -103,6 +104,7 @@ public with sharing class AddTreatmentToReport
 				{
 	 				update oneTreatment;
 		            passed.add (new TreatmentMessages(oneTreatment, oneTreatment.name + ' Attached'));
+		            system.debug ('Treatment added ' + oneTreatment.name);
 				}
 			    catch (Exception e)
 			    {

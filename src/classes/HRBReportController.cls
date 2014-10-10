@@ -360,10 +360,24 @@ public with sharing class HRBReportController
         Account acct1 = new Account(name='driver account');
         insert acct1;
             
+        Area_of_Residence_Old__c res = new Area_of_Residence_Old__c (Name='Shankill', Area_Code__c='339', CCA__c='1204', City_County__c='D', Tableyear2012__c=true);
+        insert res;
+        
         Contact driver = new Contact(AccountId=acct1.Id,lastname='Driver',firstname='apex1');
         driver.MailingStreet = '3 test screen \ntest area\ntest city';
         driver.MailingCity = 'Dublin';
+        driver.X4_Gender__c = 'Male';
+        driver.BirthDate = date.valueOf ('1990-01-01');
+        driver.X7a_Living_with_whom__c = '1. Alone';
+        driver.X7b_Livin_Where__c = '1. sss';
+        driver.Area_of_Residence_and_Reg_Code__c = res.id;
+        driver.X10a_Nationality__c = '1. dd';
+        driver.X10b_Ethnic_Background__c = '1. Irish';
+        driver.X11_Employement_Status__c = '1. ddd';
+        driver.X12a_Age_left_primary_school__c = 17;
+        driver.X12b_Education_highest_level__c = '3. sss';
         insert driver;
+        
         Drug_HRB__c testDrug = new Drug_HRB__c (Name='testDrug');
         testDrug.DrugCode__c = '994';
         testDrug.Tableyear2012__c = true;
@@ -437,6 +451,9 @@ public with sharing class HRBReportController
         testTreatment.X25c_Frequency_of_use_in_last_mth__c = '2. something';
         testTreatment.X25d_Age_at_1st_use__c = 10;
         insert testTreatment;
+
+        testTreatment = [select Number_of_Treatments__c, Contact_Record_Valid__c, Main_Intervention_Valid__c, Drug_Validation__c from Treatment__c where ID=:testTreatment.id];
+        system.debug ('Treatment 1: Contact Record Valid ' + testTreatment.Contact_Record_Valid__c + ' Main Intervention Valid ' + testTreatment.Main_Intervention_Valid__c + ' Drug Validation ' + testTreatment.Drug_Validation__c + ' Number of treatments ' + testTreatment.Number_of_Treatments__c);
        
         Treatment__c testTreatment2 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-04-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2011-07-04'));
  		testTreatment2.X21a_Date_This_treatment_started__c = date.valueOf('2011-04-06');
@@ -505,6 +522,9 @@ public with sharing class HRBReportController
         testTreatment2.X25c_Frequency_of_use_in_last_mth__c = '2. something';
         testTreatment2.X25d_Age_at_1st_use__c = 10;
         insert testTreatment2;
+
+        testTreatment2 = [select Number_of_Treatments__c, Contact_Record_Valid__c, Main_Intervention_Valid__c, Drug_Validation__c from Treatment__c where ID=:testTreatment2.id];
+        system.debug ('Treatment 2: Contact Record Valid ' + testTreatment2.Contact_Record_Valid__c + ' Main Intervention Valid ' + testTreatment2.Main_Intervention_Valid__c + ' Drug Validation ' + testTreatment2.Drug_Validation__c + ' Number of treatments ' + testTreatment.Number_of_Treatments__c);
  		
         Treatment__c testTreatment3 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-5-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-12-04'));
  		testTreatment3.X21a_Date_This_treatment_started__c = date.valueOf('2011-05-06');
@@ -574,6 +594,9 @@ public with sharing class HRBReportController
         testTreatment3.X25d_Age_at_1st_use__c = 10;
         insert testTreatment3;
 		
+        testTreatment3 = [select Number_of_Treatments__c, Contact_Record_Valid__c, Main_Intervention_Valid__c, Drug_Validation__c from Treatment__c where ID=:testTreatment3.id];
+        system.debug ('Treatment 3: Contact Record Valid ' + testTreatment3.Contact_Record_Valid__c + ' Main Intervention Valid ' + testTreatment3.Main_Intervention_Valid__c + ' Drug Validation ' + testTreatment3.Drug_Validation__c + ' Number of treatments ' + testTreatment.Number_of_Treatments__c);
+
         Treatment__c testTreatment4 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2011-10-05'), X37_Date_of_Final_Discharge__c =date.valueOf('2012-01-09'));
  		testTreatment4.X21a_Date_This_treatment_started__c = date.valueOf('2011-10-06');
         testTreatment4.X34_outcome_for_main_treatment__c = '1. Treatment completed';
@@ -642,10 +665,19 @@ public with sharing class HRBReportController
         testTreatment4.X25d_Age_at_1st_use__c = 10;
         insert testTreatment4;
         
+        testTreatment4 = [select Number_of_Treatments__c, Contact_Record_Valid__c, Main_Intervention_Valid__c, Drug_Validation__c from Treatment__c where ID=:testTreatment4.id];
+        system.debug ('Treatment 4: Contact Record Valid ' + testTreatment4.Contact_Record_Valid__c + ' Main Intervention Valid ' + testTreatment4.Main_Intervention_Valid__c + ' Drug Validation ' + testTreatment4.Drug_Validation__c + ' Number of treatments ' + testTreatment.Number_of_Treatments__c);
+        
         HRB_Report__c params = new HRB_Report__c (Period__c = 'Quarter 1', Year__c = 2011, Type_of_report__c = 'Clients who entered during the report period');
         insert params;
                 
+
+	    ApexPages.StandardController treatmentController1 = new ApexPages.StandardController(params);        
+        AddTreatmentToReport hrbReport = new AddTreatmentToReport(treatmentController1);
+        hrbReport.Initialise ();
+
         HRBReportController hrb = new HRBReportController(params);
+		system.assertEquals(1, hrb.TreatmentsWithClientsList.size());
 
         Treatment__c[] treatments = hrb.getTreatmentsWithClients();
         System.assert(treatments.size() >= 1);
@@ -653,6 +685,10 @@ public with sharing class HRBReportController
         HRB_Report__c params2 = new HRB_Report__c (Period__c = 'Complete Year', Year__c = 2011, Type_of_report__c = 'Clients who entered during the report period');
         insert params2;
                 
+        ApexPages.StandardController treatmentController2 = new ApexPages.StandardController(params2);        
+        AddTreatmentToReport hrbReport2 = new AddTreatmentToReport(treatmentController2);
+        hrbReport2.Initialise ();
+
         hrb = new HRBReportController(params2);
 
         treatments = hrb.getTreatmentsWithClients();
@@ -661,6 +697,10 @@ public with sharing class HRBReportController
         HRB_Report__c params3 = new HRB_Report__c (Period__c = 'Quarter 2', Year__c = 2011, Type_of_report__c = 'Clients who entered during the report period');
         insert params3;
                 
+	    ApexPages.StandardController treatmentController3 = new ApexPages.StandardController(params3);        
+        AddTreatmentToReport hrbReport3 = new AddTreatmentToReport(treatmentController3);
+        hrbReport3.Initialise ();
+
         hrb = new HRBReportController(params3);
 
         treatments = hrb.getTreatmentsWithClients();
@@ -669,6 +709,10 @@ public with sharing class HRBReportController
         HRB_Report__c params4 = new HRB_Report__c (Period__c = 'Quarter 4', Year__c = 2011, Type_of_report__c = 'Clients who entered during the report period');
         insert params4;
                 
+	    ApexPages.StandardController treatmentController4 = new ApexPages.StandardController(params4);        
+        AddTreatmentToReport hrbReport4 = new AddTreatmentToReport(treatmentController4);
+        hrbReport4.Initialise ();
+
         hrb = new HRBReportController(params4);
 
         treatments = hrb.getTreatmentsWithClients();

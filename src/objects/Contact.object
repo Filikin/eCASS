@@ -703,16 +703,17 @@ Last number: click Custom Link (left bar) Last Client Numbers</inlineHelpText>
         <fullName>Number_of_completed_Treatment__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <label>Number of completed Treatment</label>
+        <inlineHelpText>Number of completed treatment re Alcohol</inlineHelpText>
+        <label>NCTA</label>
         <summaryFilterItems>
             <field>Treatment__c.Treatment_Type_Number__c</field>
             <operation>equals</operation>
             <value>1</value>
         </summaryFilterItems>
         <summaryFilterItems>
-            <field>Treatment__c.X37_Date_of_Final_Discharge__c</field>
-            <operation>greaterOrEqual</operation>
-            <value>1/1/2013</value>
+            <field>Treatment__c.X14_Main_Reason_for_referral__c</field>
+            <operation>equals</operation>
+            <value>1. Alcohol</value>
         </summaryFilterItems>
         <summaryForeignKey>Treatment__c.Contact__c</summaryForeignKey>
         <summaryOperation>count</summaryOperation>

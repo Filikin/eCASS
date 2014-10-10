@@ -2,7 +2,6 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>View_care_plan</customButtons>
     <customButtons>Care_Plan_Overview</customButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
     <excludeButtons>DisableCustomerPortal</excludeButtons>
     <excludeButtons>DisablePartnerPortal</excludeButtons>
     <excludeButtons>DisablePrmSuperUser</excludeButtons>
@@ -10,7 +9,6 @@
     <excludeButtons>EnablePrmSuperUser</excludeButtons>
     <excludeButtons>EnableSelfService</excludeButtons>
     <excludeButtons>RequestUpdate</excludeButtons>
-    <excludeButtons>RequestUseSfdc</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <excludeButtons>ViewPartnerPortalUser</excludeButtons>
     <excludeButtons>ViewSelfService</excludeButtons>
@@ -41,12 +39,16 @@
                 <field>Record_Valid__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>HSE_area__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Number_of_completed_Treatment__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>HSE_area__c</field>
+                <behavior>Readonly</behavior>
+                <field>NCTD__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -376,11 +378,14 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>X16_Date_of_Assessment__c</fields>
+        <fields>X21a_Date_This_treatment_started__c</fields>
         <fields>X14_Main_Reason_for_Referral_Drug__c</fields>
         <fields>X17a_Assessment_outcome__c</fields>
         <fields>X34_Outcome_for_MAIN_treatment__c</fields>
         <fields>X37_Date_of_Final_Discharge__c</fields>
         <relatedList>Treatment__c.Contact__c</relatedList>
+        <sortField>X21a_Date_This_treatment_started__c</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>

@@ -11,10 +11,24 @@ private class TestAddTreatmentToReport
         Account acct1 = new Account(name='driver account');
         insert acct1;
             
+        Area_of_Residence_Old__c res = new Area_of_Residence_Old__c (Name='Shankill', Area_Code__c='339', CCA__c='1204', City_County__c='D', Tableyear2012__c=true);
+        insert res;
+        
         Contact driver = new Contact(AccountId=acct1.Id,lastname='Driver',firstname='apex1');
         driver.MailingStreet = '3 test screen \ntest area\ntest city';
         driver.MailingCity = 'Dublin';
+        driver.X4_Gender__c = 'Male';
+        driver.BirthDate = date.valueOf ('1990-01-01');
+        driver.X7a_Living_with_whom__c = '1. Alone';
+        driver.X7b_Livin_Where__c = '1. sss';
+        driver.Area_of_Residence_and_Reg_Code__c = res.id;
+        driver.X10a_Nationality__c = '1. dd';
+        driver.X10b_Ethnic_Background__c = '1. Irish';
+        driver.X11_Employement_Status__c = '1. ddd';
+        driver.X12a_Age_left_primary_school__c = 17;
+        driver.X12b_Education_highest_level__c = '3. sss';
         insert driver;
+
         Drug_HRB__c testDrug = new Drug_HRB__c (Name='testDrug');
         testDrug.DrugCode__c = '994';
         testDrug.Tableyear2012__c = true;
@@ -375,8 +389,9 @@ private class TestAddTreatmentToReport
                 
         ApexPages.StandardController treatmentController = new ApexPages.StandardController(params5);        
         AddTreatmentToReport hrb = new AddTreatmentToReport(treatmentController);
-
-   		system.assertEquals(2, hrb.TreatmentsWithClientsList.size());
+ 		hrb.Initialise ();
+ 
+   		system.assertEquals(1, hrb.TreatmentsWithClientsList.size());
   		system.assertEquals (params5.id, hrb.TreatmentsWithClientsList[0].HRB_Report__c);
   		
     }

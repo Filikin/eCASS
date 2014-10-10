@@ -33,10 +33,6 @@
                 <behavior>Readonly</behavior>
                 <field>CentreType__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Age__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -55,6 +51,14 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Main_Intervention_Valid__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Number_of_Treatments__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Drug_Validation__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -180,7 +184,11 @@
         <label>D. Treatment details</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
+                <field>Treatment_Type_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>X20_Number_times_started_this_year__c</field>
             </layoutItems>
             <layoutItems>
