@@ -6,7 +6,7 @@
 @isTest
 private class TestAddTreatmentToReport 
 {
-    static testMethod void TestOneHRBForm() 
+    static void createTestTreatments() 
     {
         Account acct1 = new Account(name='driver account');
         insert acct1;
@@ -383,7 +383,82 @@ private class TestAddTreatmentToReport
         Treatment__c t5 = [select ExitDate__c, X14_Main_Reason_for_Referral_Drug__r.ecass01__DrugCode__c, X17a_Assessment_outcome__c, X17b_Assessment_criterion_fulfilled__c, X18a_Clients_treatment_status__c, X19_Accepted_place_at_this_centre__c from Treatment__c where id=:testTreatment5.id limit 1];
         system.debug ('Exit date is: ' + t5.ExitDate__c);
         system.debug ('X14_Main_Reason_for_Referral_Drug__r.ecass01__DrugCode__c is: ' + t5.X14_Main_Reason_for_Referral_Drug__r.ecass01__DrugCode__c);
-
+        
+        // a treatment that started last year
+        Treatment__c testTreatment6 = new Treatment__c (Contact__c=driver.id, X16_Date_of_Assessment__c=date.valueOf('2010-01-01'), X37_Date_of_Final_Discharge__c =date.valueOf('2010-08-08'));
+ 		testTreatment6.X21a_Date_This_treatment_started__c = date.valueOf('2010-01-01');
+        testTreatment6.X34_outcome_for_main_treatment__c = '1. Treatment completed';
+        testTreatment6.X33b1_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b12_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b13_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b14_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b15_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b16_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b17_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b18_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b19_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b20_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b21_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b23_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33b28_Date_Commenced__c = date.valueOf('2010-01-01');
+        testTreatment6.X33c1_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c12_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c13_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c14_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c15_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c16_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c17_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c18_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c19_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c20_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c21_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c23_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33c28_Date_Completed__c = date.valueOf('2010-08-08');
+        testTreatment6.X33d1_Number_of_Sessions__c = 1;
+        testTreatment6.X33d12_Number_of_Sessions__c = 1;
+        testTreatment6.X33d13_Number_of_Sessions__c = 1;
+        testTreatment6.X33d14_Number_of_Sessions__c = 1;
+        testTreatment6.X33d15_Number_of_Sessions__c = 1;
+        testTreatment6.X33d16_Number_of_Sessions__c = 1;
+        testTreatment6.X33d17_Number_of_Sesions__c = 1;
+        testTreatment6.X33d18_Number_of_Sessions__c = 1;
+        testTreatment6.X33d19_Number_of_Sessions__c = 1;
+        testTreatment6.X33d20_Number_of_Sessions__c = 1;
+        testTreatment6.X33d21_Number_of_Sessions__c = 1;
+        testTreatment6.X33d23_Number_of_Sessions__c = 1;
+        testTreatment6.X33d28_Number_of_Sessions__c = 1;
+        testTreatment6.X33a_Main_Intervention__c = '1. Brief intervention';
+        testTreatment6.X29a_Injected_in_past_month__c = '1. Yes';
+        testTreatment6.X29b_Ever_injected__c = '1. Yes';
+        testTreatment6.X29c_Age_first_injected__c = 10;
+        testTreatment6.X30_Ever_shared_any_injecting_equipment__c = '1. Yes';
+        testTreatment6.X36_Client_s_Condition_on_discharge__c = '1. Stable';
+        testTreatment6.X13_Date_of_Referral__c = date.valueOf('2010-01-01');
+        testTreatment6.X14_Main_Reason_for_referral__c = '4. something';
+        testTreatment6.X14_Main_Reason_for_Referral_Drug__c = testDrugNot994.id;
+        testTreatment6.X15_Source_of_referral__c = '1.something';
+        testTreatment6.X17a_Assessment_outcome__c = '1. something';
+        testTreatment6.X17b_Assessment_criterion_fulfilled__c = '1. something';
+        testTreatment6.X17c_Date_assessment_criteria_fulfilled__c = date.valueOf('2010-01-01');
+        testTreatment6.X18a_Clients_treatment_status__c = '1. something';
+        testTreatment6.X19_Accepted_place_at_this_centre__c = '1. something';
+        testTreatment6.X22_Ever_previously_treated_alc_drug__c = '8. something';
+        testTreatment6.X22_Ever_previously_treated_re_drug__c = '8. something';
+        testTreatment6.X23_Type_of_contact_with_this_centre__c = '1. something';
+        testTreatment6.X24a_Age_first_use_any_drug__c = 10;
+        testTreatment6.X24b_Specify_first_drug_used__c = testDrugNot994.id;
+        testTreatment6.X25a_Main_substance__c = testDrugNot994.id;
+        testTreatment6.X25b_Route_of_Admin_Main_sub__c = '2. something';
+        testTreatment6.X25c_Frequency_of_use_in_last_mth__c = '2. something';
+        testTreatment6.X25d_Age_at_1st_use__c = 10;
+        insert testTreatment6;
+        
+    }
+    
+    static testMethod void TestOneHRBReport() 
+    {
+    	createTestTreatments ();
+    	
         HRB_Report__c params5 = new HRB_Report__c (Period__c = 'Quarter 3', Year__c = 2011, Type_of_report__c = 'Only clients who entered before the reporting period and exited during the report period');
         insert params5;
                 
@@ -393,6 +468,23 @@ private class TestAddTreatmentToReport
  
    		system.assertEquals(1, hrb.TreatmentsWithClientsList.size());
   		system.assertEquals (params5.id, hrb.TreatmentsWithClientsList[0].HRB_Report__c);
+    }
+    
+    static testMethod void Check_Q20_NumberOfTreatmentsStartedThisYear() 
+    {
+    	createTestTreatments ();
+    	
+        HRB_Report__c params5 = new HRB_Report__c (Period__c = 'Quarter 3', Year__c = 2011, Type_of_report__c = 'Only clients who entered before the reporting period and exited during the report period');
+        insert params5;
+                
+        ApexPages.StandardController treatmentController = new ApexPages.StandardController(params5);        
+        AddTreatmentToReport hrb = new AddTreatmentToReport(treatmentController);
+ 		hrb.Initialise ();
+ 
+ 		// Q20 should be > 0
+ 		Treatment__c oneTreatment = [select ID, X20_Number_times_started_this_year__c from Treatment__c where ID=:hrb.TreatmentsWithClientsList[0].id limit 1];
+   		system.assertEquals(1, oneTreatment.X20_Number_times_started_this_year__c);
   		
     }
+    
 }

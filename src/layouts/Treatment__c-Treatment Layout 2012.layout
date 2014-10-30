@@ -185,10 +185,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Treatment_Type_Number__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>X20_Number_times_started_this_year__c</field>
             </layoutItems>
             <layoutItems>

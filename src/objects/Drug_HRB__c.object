@@ -258,9 +258,20 @@
     </nameField>
     <pluralLabel>Drugs HRB</pluralLabel>
     <searchLayouts>
+        <customTabListAdditionalFields>DrugCode__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>drugtype__c</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>DrugCode__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Tableyear2012__c</lookupDialogsAdditionalFields>
         <searchFilterFields>NAME</searchFilterFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>DO_NOT_EDIT_Records</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISCHANGED(Name)  || 
+ISCHANGED(DrugCode__c) ||  
+ISCHANGED(drugtype__c) ||  ISCHANGED(External_ID_Number__c) ||  ISCHANGED(DrugCodeX__c ) || 
+ISCHANGED( Tableyear2012__c )</errorConditionFormula>
+        <errorMessage>Please DO NOT EDIT OR REMOVE this record</errorMessage>
+    </validationRules>
 </CustomObject>

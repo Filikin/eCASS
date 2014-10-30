@@ -78,6 +78,9 @@ public with sharing class AddTreatmentToReport
          	TreatmentsWithClientsList = Database.query(queryString);
          }
          system.debug ('Number of possible treatments: ' + TreatmentsWithClientsList.size());
+         
+         Update_Q20_Number_of_treatments_started_this_year (TreatmentsWithClientsList, year);
+         
          for (Treatment__c oneTreatment: TreatmentsWithClientsList)
          {
          	system.debug ('Treatment limits rows: ' + Limits.getLimitDmlRows() + ' queries: ' + Limits.getLimitQueries());
@@ -115,4 +118,10 @@ public with sharing class AddTreatmentToReport
 			}
          }
 	}
+	
+	public void Update_Q20_Number_of_treatments_started_this_year (list <Treatment__c> TreatmentsToUpdate, Integer reportYear)
+	{
+		// Q20 is set in the trigger - maybe it needs to be refreshed here
+	}
+	
 }

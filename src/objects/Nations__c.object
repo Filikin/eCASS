@@ -95,6 +95,15 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Nations</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <customTabListAdditionalFields>NationCode__c</customTabListAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>DO_NOT_EDIT_Records</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISCHANGED( NationCode__c ) || 
+ISCHANGED( Name )</errorConditionFormula>
+        <errorMessage>Please DO NOT EDIT OR REMOVE this record</errorMessage>
+    </validationRules>
 </CustomObject>

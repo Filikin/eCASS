@@ -348,4 +348,15 @@
         <searchResultsAdditionalFields>TFA__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>DO_NOT_EDIT_Records</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISCHANGED( Area_Res__c ) || 
+ISCHANGED( Area_Code__c ) || 
+ISCHANGED( City_County__c ) || 
+ISCHANGED( External_ID_Number__c ) || 
+ISCHANGED( Name ) || 
+ISCHANGED( Tableyear2012__c )</errorConditionFormula>
+        <errorMessage>Please DO NOT EDIT OR REMOVE this records</errorMessage>
+    </validationRules>
 </CustomObject>

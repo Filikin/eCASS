@@ -191,4 +191,12 @@
         <searchResultsAdditionalFields>CentreNo__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>DO_NOT_EDIT_Records</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISCHANGED( Name ) || 
+ISCHANGED(CentreNo__c)  || 
+ISCHANGED( CentreType__c )</errorConditionFormula>
+        <errorMessage>Please DO NOT EDIT OR REMOVE this record</errorMessage>
+    </validationRules>
 </CustomObject>

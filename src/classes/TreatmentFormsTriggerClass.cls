@@ -41,7 +41,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
  			clientSet.add (oneForm.Contact__c);
  		}
  		Integer this_year = system.today().year();
- 		map <ID, Contact> clients = new map <ID, Contact>([SELECT ID, (SELECT Id FROM Treatments_del__r where CALENDAR_YEAR(X16_Date_of_Assessment__c) = :this_year) FROM Contact where ID in :clientSet]);
+ 		map <ID, Contact> clients = new map <ID, Contact>([SELECT ID, (SELECT Id FROM Treatments_del__r where CALENDAR_YEAR(X21a_Date_This_treatment_started__c) = :this_year) FROM Contact where ID in :clientSet]);
  		
  		for (ecass01__Treatment__c oneForm: frmList)
  		{
@@ -417,7 +417,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 		{
 		 	currentForm.X24a_Age_first_use_any_drug__c.addError ('Please complete Q24a, if not applicable add code 88');
 		}
-		if (currentForm.X24a_Age_first_use_any_drug__c != null && currentForm.X24a_Age_first_use_any_drug__c != 88)
+		if (currentForm.X24a_Age_first_use_any_drug__c != null && currentForm.X24a_Age_first_use_any_drug__c != 88 && currentForm.X24a_Age_first_use_any_drug__c != 99)
 		{
 			if (currentForm.X24a_Age_first_use_any_drug__c > currentForm.Age__c )
 			{
@@ -479,7 +479,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 						currentForm.X25d_Age_at_1st_use__c.addError ('If Q25a drug is equal to Q24b first drug used, Q25d must be equal to Q24a');
 					}
 				}
-				if (currentForm.X25_Drug_Type__c == 'Drug'&& (currentForm.X25d_Age_at_1st_use__c < currentForm.X24a_Age_first_use_any_drug__c))
+				if (currentForm.X25_Drug_Type__c == 'Drug'&& currentForm.X24a_Age_first_use_any_drug__c != 99 && (currentForm.X25d_Age_at_1st_use__c < currentForm.X24a_Age_first_use_any_drug__c))
 				{
 					currentForm.X25d_Age_at_1st_use__c.addError ('If Q25a is either Licit or Illicit drug, Q25d can not be < Q24a');
 				}
@@ -526,7 +526,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 				}
 				if (currentForm.X26a_Substance_2__c != null && currentForm.X26_Drug_Type__c == 'Drug')
 				{
-					if (currentForm.X26d_Age_of_1st_use__c < currentForm.X24a_Age_first_use_any_drug__c)
+					if ( currentForm.X24a_Age_first_use_any_drug__c != 99 && (currentForm.X26d_Age_of_1st_use__c < currentForm.X24a_Age_first_use_any_drug__c))
 					{
 						currentForm.X26d_Age_of_1st_use__c.addError ('If Q26a is either Licit or Illicit drug, Q26d can not be < Q24a');
 					}
@@ -574,7 +574,7 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 						}
 						if (currentForm.X27a_Substance_3__c != null && currentForm.X27_Drug_Type__c == 'Drug')
 						{
-							if(currentForm.X27d_Age_of_1st_use__c < currentForm.X24a_Age_first_use_any_drug__c )
+							if(currentForm.X24a_Age_first_use_any_drug__c != 99 && (currentForm.X27d_Age_of_1st_use__c < currentForm.X24a_Age_first_use_any_drug__c ))
 							{
 								currentForm.X27d_Age_of_1st_use__c.addError ('If Q27a is either Licit or Illicit drug, Q27d can not be < Q24a');
 							}
@@ -620,9 +620,9 @@ public with sharing class TreatmentFormsTriggerClass implements TriggerDispatche
 								currentForm.X28d_Age_of_1st_use__c.addError ('If Q28a drug is equal to Q24b first drug used, Q28d must be equal to Q24a');
 							}
 						}
-						if (currentForm.X28a_Substance_4__c != null && currentForm.X27_Drug_Type__c == 'Drug')
+						if (currentForm.X28a_Substance_4__c != null && currentForm.X28_Drug_Type__c == 'Drug')
 						{
-							if(currentForm.X28d_Age_of_1st_use__c < currentForm.X24a_Age_first_use_any_drug__c )
+							if(currentForm.X24a_Age_first_use_any_drug__c != 99 && (currentForm.X28d_Age_of_1st_use__c < currentForm.X24a_Age_first_use_any_drug__c ))
 							{
 								currentForm.X28d_Age_of_1st_use__c.addError ('If Q28a is either Licit or Illicit drug, Q28d can not be < Q24a');
 							}
