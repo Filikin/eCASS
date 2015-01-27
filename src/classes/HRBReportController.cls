@@ -50,7 +50,7 @@ public with sharing class HRBReportController
         String endReportPeriod = String.valueOf(year) + endMonthDay;
         
     String queryString = 'select id,' +
-              'id__c,UniqID__c,Contact__r.Area__c,Contact__r.CentreNO__c,Centre_number__c,Contact__r.NUMBER__c,Contact__r.Gender_Code__c,Contact__r.Age__c,Contact__r.Birthdate,Contact__r.LIVING__c,Contact__r.LIVWHERE__c,Contact__r.RegCode__c,Contact__r.AreaRes__c,Contact__r.CCA__c,' +
+              'id__c,UniqID__c,Contact__r.Area__c,Contact__r.CentreNO__c,Centre_number__c,CentreType__c,Contact__r.NUMBER__c,Contact__r.Gender_Code__c,Contact__r.Age__c,Contact__r.Birthdate,Contact__r.LIVING__c,Contact__r.LIVWHERE__c,Contact__r.RegCode__c,Contact__r.AreaRes__c,Contact__r.CCA__c,' +
               'Contact__r.TFA__c,Contact__r.LHO__c,Contact__r.Nationality__c,Contact__r.nation__c,Contact__r.Ethnic__c,Contact__r.EMPLOYMENT__c,Contact__r.X11_Employement_Status_other__c,Contact__r.X12a_Age_left_primary_school__c,' +
               'Contact__r.EDUCATION__c,X13_Date_of_Referral__c,Age__c,Reason__c,X14_Main_Reason_for_Referral_Drug__r.External_ID_Number__c,SPECIFY__c,X14_Main_Reason_for_Referral_Drug__r.DrugCodeX__c,Source__c,TransReason__c,TransReasonSpecify__c,ASSESS__c,Outcome__c,AssCriteria__c,X17b_Assessment_criterion_fulfilled__c,AssCriteriaDate_del__c,' +
               'STATUS__c,X17a_Assessment_outcome__c,X18a_Clients_treatment_status__c,CentreSpecify__c,WaitStatus__c,WaitCentre__c,WaitOther__c,Accepted__c,X19_Accepted_place_at_this_centre__c,X20_Number_times_started_this_year__c,X21a_Date_This_treatment_started__c,' +

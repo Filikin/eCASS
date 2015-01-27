@@ -13,8 +13,6 @@
     <tab>Needle_Syringe_Stock__c</tab>
     <tab>Treatment__c</tab>
     <tab>HRB_Report__c</tab>
-    <tab>Area_of_Residence_Old__c</tab>
-    <tab>Nations__c</tab>
-    <tab>Drug_HRB__c</tab>
-    <tab>Treatment_Centre__c</tab>
+    <tab>Referral__c</tab>
+    <tab>UDIT__c</tab>
 </CustomApplication>

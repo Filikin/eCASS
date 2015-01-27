@@ -831,7 +831,6 @@ if(ISBLANK(Area_of_Residence_and_Reg_Code__c), &quot;Invalid Area of Residence&q
 if(ispickval(X10a_Nationality__c,&quot;&quot; ),&quot;Q10a invalid&quot;, 
 if(ispickval(X10b_Ethnic_Background__c,&quot;&quot; ),&quot;Q10b invalid&quot;,
 if(AND(TEXT( X10a_Nationality__c ) = &quot;2. Other&quot;, ISBLANK( X10a_Nationality_Other__c )),&quot;Q10a Nationality Other Invalid&quot;,
-if(AND(NOT(BEGINS(TEXT(X10a_Nationality__c),&quot;3.&quot;)),BEGINS(TEXT(X10b_Ethnic_Background__c),&quot;2.&quot;)),&quot;Q10a Invalid &quot;,
 if(ispickval(X11_Employement_Status__c,&quot;&quot; ),&quot;11 invalid&quot;, 
 if(AND(TEXT(X11_Employement_Status__c) = &quot;8. Other (specify)&quot;, ISBLANK( X11_Employement_Status_other__c )),&quot;please complete Q11 Employment Status other&quot;,
 if(AND(TEXT(X11_Employement_Status__c) &lt;&gt; &quot;8. Other (specify)&quot;, NOT(ISBLANK(X11_Employement_Status_other__c))),&quot;11 Employment status other, only required when Q11 = 8. Other (specify)&quot;,
@@ -841,7 +840,7 @@ if(AND( TEXT(X11_Employement_Status__c )= &quot;4. Student&quot;, TEXT( X12b_Edu
 if(AND(TEXT(X12b_Education_highest_level__c) = &quot;8. Still in education&quot;,TEXT(X11_Employement_Status__c) &lt;&gt; &quot;4. Student&quot;), &quot;Q11 Invalid&quot;,
 if(AND(Age__c &lt; 16,ispickval(X11_Employement_Status__c ,&quot;2. Unemployed&quot;)),&quot;Q11 Invalid&quot;,
 if(ispickval(X12b_Education_highest_level__c,&quot;&quot; ),&quot;Q12b invalid&quot;,
-&quot;HRB OK&quot;))))))))))))))))))))</formula>
+&quot;HRB OK&quot;)))))))))))))))))))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Record Valid</label>
         <required>false</required>
